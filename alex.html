@@ -1,0 +1,1168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<script>
+(function(){
+  try{
+    var t=localStorage.getItem('alex_theme');
+    if(t!=='light'&&t!=='dark') t='dark';
+    document.documentElement.setAttribute('data-theme',t);
+  }catch(err){
+    document.documentElement.setAttribute('data-theme','dark');
+  }
+})();
+</script>
+<title>ALEX ENGINEERING — Solar Power Systems & Energy Equipment in Uzbekistan</title>
+<meta name="description" content="ALEX ENGINEERING supplies solar power systems and energy equipment across Uzbekistan. Engineering, supply, installation and 24/7 monitoring since 2002." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root,:root[data-theme="dark"]{
+    --void:#08090C;
+    --space:#0E1015;
+    --panel:#14171E;
+    --panel-2:#1A1E27;
+    --line:rgba(255,255,255,.10);
+    --line-2:rgba(255,255,255,.06);
+    --fog:#9DA3AD;
+    --fog-2:#727884;
+    --snow:#F4F5F6;
+    --red:#E1251B;
+    --amber:#F28C00;
+    --bar-1:rgba(8,9,12,.6);
+    --bar-2:rgba(8,9,12,.82);
+    --glass:rgba(20,23,30,.78);
+  }
+  :root[data-theme="light"]{
+    --void:#F4F5F6;
+    --space:#ECEEF0;
+    --panel:#FFFFFF;
+    --panel-2:#F0F1F3;
+    --line:rgba(10,11,14,.12);
+    --line-2:rgba(10,11,14,.07);
+    --fog:#565B63;
+    --fog-2:#656B72;
+    --snow:#0E1116;
+    --red:#E1251B;
+    --amber:#AD5400;
+    --bar-1:rgba(244,245,246,.72);
+    --bar-2:rgba(244,245,246,.86);
+    --glass:rgba(255,255,255,.85);
+  }
+  :root{
+    /* fixed — always-light tokens for text/lines sitting on the permanently dark hero-photo gradients, independent of theme */
+    --ink-on-photo:#F4F5F6;
+    --fog-on-photo:#9DA3AD;
+    --line-on-photo:rgba(255,255,255,.06);
+    --maxw:1320px;
+    --ease:cubic-bezier(.22,.61,.36,1);
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--void);
+    color:var(--snow);
+    font-family:'Inter',sans-serif;
+    font-weight:300;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+    transition:background-color .4s var(--ease),color .4s var(--ease);
+  }
+  ::selection{background:var(--red);color:#fff}
+  a{color:inherit;text-decoration:none}
+  img{display:block;max-width:100%}
+
+  h1,h2,h3,.display{font-family:'Oswald',sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:.01em;line-height:.98}
+  .mono{font-family:'JetBrains Mono',monospace;font-weight:400}
+
+  .wrap{width:100%;max-width:var(--maxw);margin:0 auto;padding:0 32px}
+
+  /* ---------- eyebrow / telemetry label ---------- */
+  .eyebrow{
+    font-family:'JetBrains Mono',monospace;
+    font-size:11px;letter-spacing:.28em;text-transform:uppercase;
+    color:var(--amber);display:inline-flex;align-items:center;gap:12px;
+  }
+  .eyebrow::before{content:"";width:26px;height:1px;background:var(--amber);display:inline-block}
+
+  /* ============ TOP BAR ============ */
+  .topbar{
+    position:relative;z-index:60;
+    border-bottom:1px solid var(--line-2);
+    background:var(--bar-1);
+    backdrop-filter:blur(8px);
+    transition:background-color .4s var(--ease);
+  }
+  .topbar .wrap{display:flex;align-items:center;justify-content:flex-end;gap:34px;height:44px}
+  .topbar .ti{display:flex;align-items:center;gap:9px;font-family:'JetBrains Mono',monospace;font-size:11.5px;letter-spacing:.05em;color:var(--fog)}
+  .topbar .ti b{color:var(--snow);font-weight:500}
+  .topbar .dot{width:6px;height:6px;border-radius:50%;background:var(--red);box-shadow:0 0 10px var(--red)}
+  .topbar .lang{color:var(--snow);cursor:pointer;position:relative;user-select:none}
+  .lang-btn{background:none;border:none;color:var(--snow);font-family:'JetBrains Mono',monospace;font-size:11.5px;letter-spacing:.05em;cursor:pointer;padding:0;display:flex;align-items:center;gap:6px}
+  .lang-btn .car{transition:transform .25s var(--ease)}
+  .lang.open .lang-btn .car{transform:rotate(180deg)}
+  .lang-menu{position:absolute;top:100%;right:0;margin-top:14px;background:var(--panel);border:1px solid var(--line);border-radius:3px;min-width:168px;overflow:hidden;opacity:0;visibility:hidden;transform:translateY(-6px);transition:opacity .2s var(--ease),transform .2s var(--ease),visibility .2s;z-index:70;box-shadow:0 12px 30px rgba(0,0,0,.4)}
+  .lang.open .lang-menu{opacity:1;visibility:visible;transform:none}
+  .lang-opt{padding:12px 16px;font-family:'JetBrains Mono',monospace;font-size:11.5px;letter-spacing:.04em;color:var(--fog);cursor:pointer;transition:background .2s,color .2s;display:flex;align-items:center;justify-content:space-between;gap:10px}
+  .lang-opt:hover{background:rgba(255,255,255,.05);color:var(--snow)}
+  .lang-opt.active{color:var(--red)}
+  .lang-opt .code{color:var(--fog-2);font-size:10px}
+  .lang-opt.active .code{color:var(--red)}
+
+  /* theme toggle */
+  .theme-toggle{width:26px;height:26px;flex:none;display:flex;align-items:center;justify-content:center;background:none;border:1px solid var(--line);border-radius:50%;color:var(--snow);cursor:pointer;padding:0;transition:border-color .25s,color .25s}
+  .theme-toggle:hover{border-color:var(--amber);color:var(--amber)}
+  .theme-toggle svg{width:14px;height:14px;display:none}
+  .theme-toggle .ic-moon{display:block}
+  :root[data-theme="light"] .theme-toggle .ic-moon{display:none}
+  :root[data-theme="light"] .theme-toggle .ic-sun{display:block}
+
+  @media(max-width:900px){.topbar .loc{display:none}}
+  @media(max-width:560px){.topbar .wrap{justify-content:space-between;gap:14px}.topbar .phone span{display:none}}
+
+  /* ============ NAV ============ */
+  .nav{
+    position:sticky;top:0;z-index:50;
+    transition:background .4s var(--ease),border-color .4s var(--ease),backdrop-filter .4s;
+    border-bottom:1px solid transparent;
+  }
+  .nav.scrolled{background:var(--bar-2);backdrop-filter:blur(14px);border-bottom-color:var(--line-2)}
+  .nav .wrap{display:flex;align-items:center;justify-content:space-between;height:82px}
+
+  /* logo — transparent nav sits over the hero photo until scrolled, so it needs fixed on-photo ink; once .scrolled it has its own opaque backdrop and should follow the theme */
+  .logo{display:flex;align-items:center;gap:14px}
+  .logo svg{width:44px;height:44px;flex:none}
+  .logo .wm{line-height:1}
+  .logo .wm .a1{font-family:'Oswald',sans-serif;font-weight:700;font-size:22px;letter-spacing:.14em;color:var(--snow)}
+  .logo .wm .a2{font-family:'Oswald',sans-serif;font-weight:400;font-size:10px;letter-spacing:.42em;color:var(--fog);margin-top:2px}
+  /* nav starts transparent over the hero photo, so its logo needs fixed on-photo ink until .scrolled gives it a real backdrop */
+  .nav:not(.scrolled) .logo .wm .a1{color:var(--ink-on-photo)}
+  .nav:not(.scrolled) .logo .wm .a2{color:var(--fog-on-photo)}
+  .nav.scrolled .logo svg .cut{fill:var(--void)}
+
+  .menu{display:flex;align-items:center;gap:6px}
+  .menu a{
+    font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--fog-on-photo);padding:10px 15px;border-radius:2px;position:relative;transition:color .25s;
+  }
+  .menu a:hover,.menu a.active{color:var(--ink-on-photo)}
+  .nav.scrolled .menu a{color:var(--fog)}
+  .nav.scrolled .menu a:hover,.nav.scrolled .menu a.active{color:var(--snow)}
+  .menu a::after{content:"";position:absolute;left:15px;right:15px;bottom:4px;height:1px;background:var(--red);transform:scaleX(0);transform-origin:left;transition:transform .3s var(--ease)}
+  .menu a:hover::after,.menu a.active::after{transform:scaleX(1)}
+  .mi{position:relative}
+  .mi .submenu{position:absolute;top:100%;left:0;margin-top:14px;background:var(--panel);border:1px solid var(--line);border-radius:3px;min-width:220px;padding:8px;opacity:0;visibility:hidden;transform:translateY(-6px);transition:opacity .2s var(--ease),transform .2s var(--ease),visibility .2s;z-index:70;box-shadow:0 12px 30px rgba(0,0,0,.4)}
+  .mi:hover .submenu{opacity:1;visibility:visible;transform:none}
+  .submenu a{display:block;padding:11px 14px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.04em;text-transform:none;color:var(--fog);border-radius:2px;transition:background .2s,color .2s}
+  .submenu a::after{display:none}
+  .submenu a:hover{background:rgba(255,255,255,.05);color:var(--snow)}
+
+  .btn{
+    display:inline-flex;align-items:center;gap:10px;cursor:pointer;border:none;
+    font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.16em;text-transform:uppercase;
+    padding:13px 24px;background:var(--snow);color:var(--void);border-radius:2px;
+    transition:transform .25s var(--ease),background .25s,color .25s;
+  }
+  .btn:hover{transform:translateY(-2px);background:var(--amber);color:var(--void)}
+  .btn.ghost{background:transparent;color:var(--snow);border:1px solid var(--line)}
+  .btn.ghost:hover{background:var(--snow);color:var(--void);border-color:var(--snow)}
+  .btn.red{background:var(--red);color:#fff}
+  .btn.red:hover{background:#ff3b31;color:#fff}
+  .btn svg{width:14px;height:14px}
+
+  .burger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:8px}
+  .burger span{width:24px;height:2px;background:var(--ink-on-photo);transition:.3s}
+  .nav.scrolled .burger span{background:var(--snow)}
+  @media(max-width:1080px){
+    .menu,.nav .btn{display:none}
+    .burger{display:flex}
+  }
+
+  /* mobile drawer */
+  .drawer{position:fixed;inset:0;z-index:80;background:var(--void);display:flex;flex-direction:column;padding:32px;transform:translateX(100%);transition:transform .45s var(--ease);gap:6px}
+  .drawer.open{transform:translateX(0)}
+  .drawer .top{display:flex;justify-content:space-between;align-items:center;margin-bottom:28px}
+  .drawer a{font-family:'Oswald',sans-serif;text-transform:uppercase;font-size:30px;font-weight:500;color:var(--fog);padding:12px 0;border-bottom:1px solid var(--line-2)}
+  .drawer a:hover{color:var(--snow)}
+  .xclose{background:none;border:none;color:var(--snow);font-size:34px;cursor:pointer;line-height:1}
+
+  /* ============ HERO ============ */
+  .hero{position:relative;min-height:100vh;display:flex;align-items:flex-end;overflow:hidden;margin-top:-82px;padding-top:82px}
+  .hero .bg{position:absolute;inset:0;z-index:-2}
+  .hero .bg img{width:100%;height:100%;object-fit:cover;transform:scale(1.06)}
+  .hero .grad{position:absolute;inset:0;z-index:-1;
+    background:
+      linear-gradient(180deg,rgba(8,9,12,.72) 0%,rgba(8,9,12,.25) 34%,rgba(8,9,12,.15) 55%,rgba(8,9,12,.95) 100%),
+      linear-gradient(90deg,rgba(8,9,12,.9) 0%,rgba(8,9,12,.35) 45%,rgba(8,9,12,0) 75%);
+  }
+  /* HUD overlay */
+  .hud{position:absolute;inset:0;z-index:-1;pointer-events:none;
+    background-image:linear-gradient(var(--line-on-photo) 1px,transparent 1px),linear-gradient(90deg,var(--line-on-photo) 1px,transparent 1px);
+    background-size:64px 64px;mask-image:radial-gradient(circle at 30% 60%,#000 0%,transparent 70%);opacity:.5}
+  .hero-inner{padding:0 0 150px;position:relative;z-index:2;max-width:900px}
+  .hero h1{font-size:clamp(46px,7.4vw,108px);font-weight:600;margin:22px 0 26px;color:var(--ink-on-photo)}
+  .hero h1 .stroke{color:transparent;-webkit-text-stroke:1.4px var(--ink-on-photo)}
+  .hero p{max-width:520px;color:#C9CDD3;font-size:17px;font-weight:300;margin-bottom:38px}
+  .hero-cta{display:flex;gap:24px;flex-wrap:wrap;align-items:center}
+  /* CTA buttons sit on the always-dark hero photo: force fixed light-pill contrast regardless of theme */
+  .hero-cta .btn{background:var(--ink-on-photo);color:#0A0B0E}
+  .hero-cta .btn:hover{background:var(--amber);color:#0A0B0E}
+  .hero-cta .btn.ghost{background:transparent;color:var(--ink-on-photo);border-color:rgba(255,255,255,.35)}
+  .hero-cta .btn.ghost:hover{background:var(--ink-on-photo);color:#0A0B0E;border-color:var(--ink-on-photo)}
+
+  /* telemetry strip */
+  .telemetry{position:absolute;bottom:0;left:0;right:0;z-index:3;border-top:1px solid var(--line-on-photo);background:rgba(8,9,12,.55);backdrop-filter:blur(10px)}
+  .telemetry .wrap{display:grid;grid-template-columns:repeat(4,1fr);gap:0}
+  .tcell{padding:18px 4px 18px 0;border-left:1px solid var(--line-on-photo);padding-left:22px}
+  .tcell:first-child{border-left:none;padding-left:0}
+  .tcell .k{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--fog-on-photo)}
+  .tcell .v{font-family:'Oswald',sans-serif;font-size:26px;font-weight:500;margin-top:5px;color:var(--ink-on-photo)}
+  .tcell .v em{color:var(--red);font-style:normal}
+  @media(max-width:720px){.telemetry .wrap{grid-template-columns:repeat(2,1fr);gap:0}.tcell{padding:14px 10px}.tcell:nth-child(odd){border-left:none;padding-left:0}}
+
+  /* ============ SECTION SHELL ============ */
+  section{position:relative}
+  .sec{padding:130px 0}
+  .sec-head{max-width:720px;margin-bottom:64px}
+  .sec-head h2{font-size:clamp(34px,5vw,64px);font-weight:600;margin:18px 0 0}
+  .sec-head p{color:var(--fog);margin-top:16px;max-width:560px}
+
+  /* ============ PILLARS ============ */
+  .pillars{background:var(--space);border-top:1px solid var(--line-2);border-bottom:1px solid var(--line-2)}
+  .pillars .grid{display:grid;grid-template-columns:repeat(3,1fr)}
+  .pillar{padding:56px 42px;border-left:1px solid var(--line-2);position:relative;transition:background .4s}
+  .pillar:first-child{border-left:none}
+  .pillar:hover{background:rgba(255,255,255,.02)}
+  .pillar .n{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--fog-2);letter-spacing:.2em}
+  .pillar .ic{width:44px;height:44px;margin:22px 0 26px;color:var(--red)}
+  .pillar h3{font-size:24px;font-weight:500;margin-bottom:14px}
+  .pillar p{color:var(--fog);font-size:15px}
+  .pillar::after{content:"";position:absolute;left:0;bottom:0;width:0;height:2px;background:var(--red);transition:width .5s var(--ease)}
+  .pillar:hover::after{width:100%}
+  @media(max-width:860px){.pillars .grid{grid-template-columns:1fr}.pillar{border-left:none;border-top:1px solid var(--line-2)}.pillar:first-child{border-top:none}}
+
+  /* ============ ABOUT ============ */
+  .about-grid{display:grid;grid-template-columns:1.05fr 1fr;gap:80px;align-items:center}
+  .about-media{position:relative;border:1px solid var(--line);border-radius:3px;overflow:hidden;aspect-ratio:4/3}
+  .about-media img{width:100%;height:100%;object-fit:cover;transition:transform 1.1s var(--ease)}
+  .about-media:hover img{transform:scale(1.05)}
+  .about-media .tag{position:absolute;left:0;bottom:0;background:var(--void);border-top:1px solid var(--line);border-right:1px solid var(--line);padding:14px 22px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.18em;color:var(--fog)}
+  .about-media .tag em{color:var(--red);font-style:normal}
+  .about-text h2{font-size:clamp(30px,4vw,52px);margin:16px 0 22px}
+  .about-text p{color:var(--fog);margin-bottom:20px}
+  .about-stats{display:flex;gap:44px;margin:34px 0 30px;flex-wrap:wrap}
+  .about-stats .s .num{font-family:'Oswald',sans-serif;font-size:52px;font-weight:600;color:var(--snow);line-height:1}
+  .about-stats .s .num em{color:var(--red);font-style:normal}
+  .about-stats .s .lb{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--fog-2);margin-top:8px}
+  @media(max-width:900px){.about-grid{grid-template-columns:1fr;gap:44px}}
+
+  /* government cooperation */
+  .gov{margin-top:120px;border-top:1px solid var(--line-2);padding-top:70px}
+  .gov-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:70px}
+  .gov h3{font-size:26px;font-weight:500;margin-bottom:14px}
+  .gov .lead{color:var(--fog);font-size:15px}
+  .gov ul{list-style:none;margin-top:26px;display:grid;gap:2px}
+  .gov li{font-family:'JetBrains Mono',monospace;font-size:13px;letter-spacing:.02em;color:var(--snow);padding:15px 0;border-top:1px solid var(--line-2);display:flex;align-items:center;gap:16px}
+  .gov li:last-child{border-bottom:1px solid var(--line-2)}
+  .gov li i{color:var(--amber);font-style:normal;font-size:11px}
+  .gov .note{color:var(--fog-2);font-size:13px;margin-top:22px}
+  @media(max-width:800px){.gov-grid{grid-template-columns:1fr;gap:36px}}
+
+  /* partners marquee */
+  .partners{border-top:1px solid var(--line-2);border-bottom:1px solid var(--line-2);background:var(--space);padding:34px 0;overflow:hidden}
+  .marquee{display:flex;gap:70px;width:max-content;animation:scrollx 34s linear infinite}
+  .partners:hover .marquee{animation-play-state:paused}
+  .marquee span{font-family:'Oswald',sans-serif;font-weight:500;font-size:20px;letter-spacing:.12em;text-transform:uppercase;color:var(--fog-2);white-space:nowrap;transition:color .3s}
+  .marquee span:hover{color:var(--snow)}
+  @keyframes scrollx{to{transform:translateX(-50%)}}
+
+  /* ============ OFFER (services) ============ */
+  .offer{background:var(--void);position:relative}
+  .offer .bg{position:absolute;inset:0;z-index:0;opacity:.14}
+  .offer .bg img{width:100%;height:100%;object-fit:cover}
+  .offer .wrap{position:relative;z-index:2}
+  .offer-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:22px}
+  .ocard{position:relative;border:1px solid var(--line);border-radius:3px;overflow:hidden;min-height:340px;display:flex;flex-direction:column;justify-content:flex-end;padding:34px;transition:transform .5s var(--ease),border-color .4s}
+  .ocard img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;transition:transform 1s var(--ease)}
+  .ocard::before{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(8,9,12,.15) 0%,rgba(8,9,12,.55) 55%,rgba(8,9,12,.94) 100%)}
+  .ocard:hover{transform:translateY(-6px);border-color:var(--red)}
+  .ocard:hover img{transform:scale(1.08)}
+  .ocard .oc-in{position:relative;z-index:2}
+  .ocard .num{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.2em;color:var(--amber)}
+  .ocard h3{font-size:30px;font-weight:600;margin:12px 0 10px;color:var(--ink-on-photo)}
+  .ocard p{color:#C4C8CE;font-size:14px;max-width:400px;margin-bottom:18px}
+  .ocard .more{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-on-photo);display:inline-flex;gap:9px;align-items:center}
+  .ocard .more svg{width:15px;height:15px;transition:transform .3s}
+  .ocard:hover .more svg{transform:translateX(6px)}
+  .ocard .more:hover{color:var(--amber)}
+  .ocard.tall{grid-row:span 2}
+  @media(max-width:760px){.offer-grid{grid-template-columns:1fr}.ocard.tall{grid-row:auto}}
+
+  /* ============ PROCESS ============ */
+  .process{background:var(--space);border-top:1px solid var(--line-2)}
+  .steps{display:grid;grid-template-columns:repeat(5,1fr);gap:0;counter-reset:step}
+  .step{padding:36px 26px 40px;border-left:1px solid var(--line-2);position:relative}
+  .step:first-child{border-left:none}
+  .step .num{font-family:'Oswald',sans-serif;font-size:44px;font-weight:600;color:transparent;-webkit-text-stroke:1.2px var(--fog-2);line-height:1}
+  .step:hover .num{-webkit-text-stroke-color:var(--red);color:transparent}
+  .step h4{font-family:'Oswald',sans-serif;text-transform:uppercase;font-size:16px;font-weight:500;letter-spacing:.02em;margin:20px 0 16px;min-height:44px}
+  .step ul{list-style:none;display:grid;gap:9px}
+  .step li{font-size:13px;color:var(--fog);padding-left:16px;position:relative;line-height:1.5}
+  .step li::before{content:"";position:absolute;left:0;top:8px;width:6px;height:1px;background:var(--amber)}
+  .step::before{content:"";position:absolute;top:52px;left:26px;right:0;height:1px;background:var(--line-2)}
+  @media(max-width:980px){.steps{grid-template-columns:repeat(2,1fr)}.step{border-left:none;border-top:1px solid var(--line-2)}.step:nth-child(-n+2){border-top:none}.step:nth-child(odd){border-right:1px solid var(--line-2)}.step::before{display:none}}
+  @media(max-width:560px){.steps{grid-template-columns:1fr}.step:nth-child(odd){border-right:none}.step:nth-child(-n+1){border-top:none}.step:not(:first-child){border-top:1px solid var(--line-2)}}
+
+  /* ============ PROMO / REQUEST ============ */
+  .promo{position:relative;overflow:hidden;border-top:1px solid var(--line-2)}
+  .promo .bg{position:absolute;inset:0;z-index:0}
+  .promo .bg img{width:100%;height:100%;object-fit:cover}
+  .promo .bg::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(8,9,12,.95) 0%,rgba(8,9,12,.55) 55%,rgba(8,9,12,.9) 100%)}
+  .promo .wrap{position:relative;z-index:2;display:grid;grid-template-columns:1.1fr .9fr;gap:64px;align-items:center;padding:130px 32px}
+  .promo-copy .disc{font-family:'Oswald',sans-serif;font-size:clamp(48px,7vw,96px);font-weight:700;line-height:.9;color:var(--ink-on-photo)}
+  .promo-copy .disc em{color:var(--red);font-style:normal}
+  .promo-copy h3{font-size:26px;font-weight:400;margin:14px 0 18px;color:var(--fog-on-photo)}
+  .promo-copy p{color:var(--fog-on-photo);max-width:460px;margin-bottom:30px}
+  /* this CTA also sits on the always-dark promo photo */
+  .promo-copy .btn{background:var(--ink-on-photo);color:#0A0B0E}
+  .promo-copy .btn:hover{background:var(--amber);color:#0A0B0E}
+  .form{background:var(--glass);backdrop-filter:blur(14px);border:1px solid var(--line);border-radius:4px;padding:38px 34px}
+  .form h4{font-size:22px;font-weight:500;margin-bottom:8px}
+  .form .sub{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;color:var(--fog-2);text-transform:uppercase;margin-bottom:24px}
+  .field{margin-bottom:16px}
+  .field label{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--fog-2);display:block;margin-bottom:8px}
+  .field input{width:100%;background:var(--void);border:1px solid var(--line);border-radius:2px;padding:14px 16px;color:var(--snow);font-family:'Inter',sans-serif;font-size:15px;transition:border-color .25s}
+  .field input:focus{outline:none;border-color:var(--red)}
+  .form .agree{display:flex;gap:10px;align-items:flex-start;font-size:12px;color:var(--fog);margin:6px 0 22px}
+  .form .agree a{color:var(--amber);text-decoration:underline}
+  .form .btn{width:100%;justify-content:center}
+  @media(max-width:880px){.promo .wrap{grid-template-columns:1fr;gap:44px;padding:90px 32px}}
+
+  /* ============ GALLERY ============ */
+  .gallery-grid{display:grid;grid-template-columns:repeat(6,1fr);grid-auto-rows:200px;gap:14px}
+  .g{overflow:hidden;border:1px solid var(--line);border-radius:2px;position:relative}
+  .g img{width:100%;height:100%;object-fit:cover;transition:transform 1s var(--ease);filter:grayscale(.15)}
+  .g:hover img{transform:scale(1.08);filter:grayscale(0)}
+  .g1{grid-column:span 3}
+  .g2{grid-column:span 3}
+  .g3{grid-column:span 3}
+  .g4{grid-column:span 3}
+  @media(max-width:760px){.gallery-grid{grid-template-columns:repeat(2,1fr);grid-auto-rows:160px}.g1,.g2,.g3,.g4{grid-column:span 1}}
+
+  /* ============ REVIEWS ============ */
+  .reviews{background:var(--space);border-top:1px solid var(--line-2)}
+  .rev-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+  .rcard{border:1px solid var(--line-2);border-radius:3px;padding:34px;background:rgba(255,255,255,.015);transition:border-color .4s,transform .4s}
+  .rcard:hover{border-color:var(--line);transform:translateY(-4px)}
+  .rcard .quote{font-family:'Oswald',sans-serif;font-size:40px;color:var(--red);line-height:.6;height:22px}
+  .rcard p{color:var(--fog);font-size:14px;margin:20px 0 26px}
+  .rcard .who{display:flex;align-items:center;gap:14px;border-top:1px solid var(--line-2);padding-top:20px}
+  .rcard .av{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--panel-2),var(--panel));display:flex;align-items:center;justify-content:center;font-family:'Oswald',sans-serif;font-weight:600;color:var(--snow);border:1px solid var(--line)}
+  .rcard .nm{font-family:'Oswald',sans-serif;text-transform:uppercase;font-size:15px;font-weight:500;letter-spacing:.05em}
+  .rcard .dt{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--fog-2)}
+  @media(max-width:860px){.rev-grid{grid-template-columns:1fr}}
+
+  /* MAP */
+  .map-frame{position:relative;height:440px;border-top:1px solid var(--line-2);border-bottom:1px solid var(--line-2);filter:grayscale(1) invert(.92) hue-rotate(180deg) contrast(.9) brightness(.9);transition:filter .4s var(--ease)}
+  :root[data-theme="light"] .map-frame{filter:none}
+  .map-frame iframe{width:100%;height:100%;border:0}
+  .map-pin{position:absolute;left:32px;bottom:26px;z-index:3;background:var(--void);border:1px solid var(--line);border-radius:3px;padding:16px 20px;filter:none;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.06em;color:var(--fog)}
+  .map-pin b{color:var(--snow);display:block;font-size:12px;margin-bottom:4px}
+
+  /* ============ CONTACTS / FOOTER ============ */
+  .contacts{background:var(--void);border-top:1px solid var(--line-2)}
+  .contacts .wrap{padding:120px 32px 70px}
+  .cta-band{display:grid;grid-template-columns:1fr auto;gap:40px;align-items:end;padding-bottom:70px;border-bottom:1px solid var(--line-2)}
+  .cta-band h2{font-size:clamp(40px,6vw,84px)}
+  .cta-band p{color:var(--fog);margin-top:16px;max-width:420px}
+  .cinfo{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line-2);border:1px solid var(--line-2);margin-top:70px;border-radius:3px;overflow:hidden}
+  .cblock{background:var(--void);padding:34px 30px}
+  .cblock .k{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--fog-2);display:flex;align-items:center;gap:10px}
+  .cblock .k .dot{width:6px;height:6px;background:var(--red);border-radius:50%}
+  .cblock .v{font-family:'Oswald',sans-serif;font-size:22px;font-weight:500;margin-top:14px}
+  .cblock .v.sm{font-size:16px;line-height:1.4}
+  @media(max-width:820px){.cta-band{grid-template-columns:1fr}.cinfo{grid-template-columns:1fr}}
+
+  footer{border-top:1px solid var(--line-2)}
+  footer .wrap{display:flex;justify-content:space-between;align-items:center;padding:34px 32px;flex-wrap:wrap;gap:18px}
+  footer .cp{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--fog-2);letter-spacing:.05em;line-height:1.7}
+  footer .cp b{color:var(--fog)}
+  .backtop{width:44px;height:44px;border:1px solid var(--line);border-radius:2px;display:flex;align-items:center;justify-content:center;cursor:pointer;background:none;color:var(--snow);transition:background .3s,transform .3s}
+  .backtop:hover{background:var(--red);border-color:var(--red);transform:translateY(-3px)}
+
+  /* ---------- reveal ---------- */
+  .reveal{opacity:0;transform:translateY(30px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+  .reveal.in{opacity:1;transform:none}
+  @media(prefers-reduced-motion:reduce){
+    *{animation:none!important;transition:none!important}
+    .reveal{opacity:1;transform:none}
+    html{scroll-behavior:auto}
+  }
+  :focus-visible{outline:2px solid var(--amber);outline-offset:3px}
+</style>
+</head>
+<body>
+
+<!-- ============ TOP BAR ============ -->
+<div class="topbar">
+  <div class="wrap">
+    <div class="ti phone"><span class="dot"></span><span>24/7</span><b>+998 (97) 480-10-00</b></div>
+    <div class="ti loc"><span data-i18n="topbar.loc">OZODLIK, AHANGARAN DIST., TASHKENT REGION</span></div>
+    <div class="ti lang" id="langSwitch">
+      <button class="lang-btn" id="langBtn" aria-haspopup="listbox" aria-expanded="false"><span id="langCur">EN</span> <span class="car">▾</span></button>
+      <div class="lang-menu" id="langMenu" role="listbox">
+        <div class="lang-opt" data-lang="en" role="option"><span>English</span><span class="code">EN</span></div>
+        <div class="lang-opt" data-lang="ru" role="option"><span>Русский</span><span class="code">RU</span></div>
+        <div class="lang-opt" data-lang="uz" role="option"><span>O'zbek</span><span class="code">UZ</span></div>
+        <div class="lang-opt" data-lang="zh" role="option"><span>中文</span><span class="code">ZH</span></div>
+      </div>
+    </div>
+    <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle light / dark theme">
+      <svg class="ic-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2.4M12 19.1v2.4M4.2 4.2l1.7 1.7M18.1 18.1l1.7 1.7M2.5 12h2.4M19.1 12h2.4M4.2 19.8l1.7-1.7M18.1 5.9l1.7-1.7"/></svg>
+      <svg class="ic-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M20.2 14.7A8.4 8.4 0 1 1 9.3 3.8a6.9 6.9 0 0 0 10.9 10.9z"/></svg>
+    </button>
+  </div>
+</div>
+
+<!-- ============ NAV ============ -->
+<nav class="nav" id="nav">
+  <div class="wrap">
+    <a href="#top" class="logo" aria-label="ALEX ENGINEERING home">
+      <svg viewBox="0 0 100 100" aria-hidden="true">
+        <defs>
+          <linearGradient id="ag" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#FF3B31"/><stop offset="1" stop-color="#B21810"/>
+          </linearGradient>
+        </defs>
+        <path d="M50 6 L92 92 L66 92 L50 54 L34 92 L8 92 Z" fill="url(#ag)"/>
+        <path class="cut" d="M50 30 L64 62 L36 62 Z" fill="#08090C"/>
+        <path class="cut" d="M50 6 L58 22 L42 22 Z" fill="#08090C" opacity=".9"/>
+      </svg>
+      <span class="wm"><span class="a1">ALEX</span><br><span class="a2">ENGINEERING</span></span>
+    </a>
+
+    <div class="menu">
+      <div class="mi">
+        <a href="#top" class="active" data-i18n="nav.home">Home</a>
+        <div class="submenu">
+          <a href="alex.html#about" data-i18n="sm.homeAbout">About us</a>
+          <a href="alex.html#gallery" data-i18n="sm.homeGallery">Gallery</a>
+        </div>
+      </div>
+      <div class="mi">
+        <a href="about.html" data-i18n="nav.about">About</a>
+        <div class="submenu">
+          <a href="about.html#projects" data-i18n="sm.aboutProjects">Selected projects</a>
+          <a href="about.html#licenses" data-i18n="sm.aboutLicenses">Documents &amp; licenses</a>
+          <a href="about.html#fleet" data-i18n="sm.aboutFleet">Own equipment fleet</a>
+        </div>
+      </div>
+      <div class="mi">
+        <a href="services.html" data-i18n="nav.services">Services</a>
+        <div class="submenu">
+          <a href="services.html#offer" data-i18n="sm.svcOffer">What we offer</a>
+          <a href="services.html#flow" data-i18n="sm.svcFlow">How we work</a>
+        </div>
+      </div>
+      <div class="mi">
+        <a href="projects.html" data-i18n="nav.projects">Projects</a>
+        <div class="submenu">
+          <a href="projects.html#portfolio" data-i18n="sm.projPortfolio">Portfolio</a>
+          <a href="projects.html#contacts" data-i18n="sm.projContacts">Contacts</a>
+        </div>
+      </div>
+      <div class="mi">
+        <a href="drone.html" data-i18n="nav.drone">Drone Assembly</a>
+        <div class="submenu">
+          <a href="drone.html#use" data-i18n="sm.droneUse">Applications</a>
+          <a href="drone.html#why" data-i18n="sm.droneWhy">Why choose us</a>
+        </div>
+      </div>
+      <div class="mi">
+        <a href="contact.html" data-i18n="nav.contacts">Contacts</a>
+        <div class="submenu">
+          <a href="contact.html#details" data-i18n="sm.contactDetails">Company details</a>
+          <a href="contact.html#request" data-i18n="sm.contactRequest">Request form</a>
+        </div>
+      </div>
+    </div>
+
+    <a href="#request" class="btn red" data-i18n="nav.cta">Leave a request</a>
+    <button class="burger" id="burger" aria-label="Open menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<!-- mobile drawer -->
+<div class="drawer" id="drawer">
+  <div class="top">
+    <span class="logo"><span class="wm"><span class="a1">ALEX</span></span></span>
+    <button class="xclose" id="xclose" aria-label="Close menu">&times;</button>
+  </div>
+  <a href="#top" data-i18n="nav.home">Home</a>
+  <a href="about.html" data-i18n="nav.about">About</a>
+  <a href="services.html" data-i18n="nav.services">Services</a>
+  <a href="projects.html" data-i18n="nav.projects">Projects</a>
+  <a href="drone.html" data-i18n="nav.drone">Drone Assembly</a>
+  <a href="contact.html" data-i18n="nav.contacts">Contacts</a>
+  <a href="#request" style="color:var(--red)" data-i18n="drawer.cta">Leave a request →</a>
+</div>
+
+<!-- ============ HERO ============ -->
+<header class="hero" id="top">
+  <div class="bg"><img src="https://images.unsplash.com/photo-1509391366360-2e959784a276?auto=format&fit=crop&w=2400&q=80" alt="Solar panel field at dusk"></div>
+  <div class="grad"></div>
+  <div class="hud"></div>
+
+  <div class="wrap">
+    <div class="hero-inner">
+      <span class="eyebrow" data-i18n="hero.eyebrow">RENEWABLE ENERGY ENGINEERING · UZBEKISTAN</span>
+      <h1 data-i18n="hero.h1">Solar power<br>systems &amp;<br><span class="stroke">energy equipment</span></h1>
+      <p data-i18n="hero.p">We supply energy equipment and solar panels across the entire country. Engineering, supply, installation and 24/7 monitoring — with the reliable quality of every product guaranteed.</p>
+      <div class="hero-cta">
+        <a href="#request" class="btn" data-i18n="hero.cta1">Leave a request</a>
+        <a href="#services" class="btn ghost" data-i18n="hero.cta2">Explore capabilities</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="telemetry">
+    <div class="wrap">
+      <div class="tcell"><div class="k" data-i18n="tele.k1">Operating since</div><div class="v">2002</div></div>
+      <div class="tcell"><div class="k" data-i18n="tele.k2">Field experience</div><div class="v" data-i18n="tele.v2"><em>23+</em> YRS</div></div>
+      <div class="tcell"><div class="k" data-i18n="tele.k3">Coverage</div><div class="v" data-i18n="tele.v3">NATIONWIDE</div></div>
+      <div class="tcell"><div class="k" data-i18n="tele.k4">Monitoring</div><div class="v">24 / 7</div></div>
+    </div>
+  </div>
+</header>
+
+<!-- ============ PILLARS ============ -->
+<section class="pillars">
+  <div class="grid">
+    <div class="pillar reveal">
+      <div class="n">01</div>
+      <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 2l2.4 4.9 5.4.8-3.9 3.8.9 5.4L12 19.3 7.2 16.9l.9-5.4L4.2 7.7l5.4-.8z"/><path d="M9 12l2 2 4-4" stroke="#F28C00"/></svg>
+      <h3 data-i18n="pillar1.h">High quality</h3>
+      <p data-i18n="pillar1.p">We guarantee reliable quality across our entire catalogue of energy equipment, with prompt delivery throughout the region.</p>
+    </div>
+    <div class="pillar reveal">
+      <div class="n">02</div>
+      <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="3" y="6" width="18" height="13" rx="2"/><path d="M3 10h18"/><circle cx="17" cy="14.5" r="1.5" fill="#F28C00" stroke="none"/></svg>
+      <h3 data-i18n="pillar2.h">Affordable prices</h3>
+      <p data-i18n="pillar2.p">Competitive pricing on all products — cheaper than our competitors, with discounts for regular customers and frequent promotions.</p>
+    </div>
+    <div class="pillar reveal">
+      <div class="n">03</div>
+      <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M4 20V9l8-5 8 5v11"/><path d="M9 20v-6h6v6"/><path d="M12 4v3" stroke="#F28C00"/></svg>
+      <h3 data-i18n="pillar3.h">Wide range</h3>
+      <p data-i18n="pillar3.p">A broad inventory of energy equipment held in stock and across our warehouses — the right hardware, ready to ship.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ABOUT ============ -->
+<section class="sec" id="about">
+  <div class="wrap">
+    <div class="about-grid">
+      <div class="about-media reveal">
+        <img src="https://images.unsplash.com/photo-1559302504-64aae6ca6b6d?auto=format&fit=crop&w=1400&q=80" alt="Engineer inspecting a solar installation">
+        <div class="tag" data-i18n="about.tag"><em>ON SITE</em> · TASHKENT REGION</div>
+      </div>
+      <div class="about-text reveal">
+        <span class="eyebrow" data-i18n="about.eyebrow">ABOUT THE COMPANY</span>
+        <h2 data-i18n="about.h2">Two decades building Uzbekistan's energy backbone</h2>
+        <p data-i18n="about.p1">ALEX ENGINEERING has operated in the telecommunications market since 2002, staffed by highly qualified specialists in telecommunications and the application of alternative energy sources.</p>
+        <p data-i18n="about.p2">Over 23 years across the telecom and energy sectors, we have accumulated deep experience working with organisations throughout the Republic of Uzbekistan.</p>
+        <div class="about-stats">
+          <div class="s"><div class="num">2002</div><div class="lb" data-i18n="about.stat1">Established</div></div>
+          <div class="s"><div class="num"><em>23</em>+</div><div class="lb" data-i18n="about.stat2">Years in the field</div></div>
+          <div class="s"><div class="num">7</div><div class="lb" data-i18n="about.stat3">Sector partners</div></div>
+        </div>
+        <a href="about.html" class="btn ghost" data-i18n="about.more">Read more</a>
+      </div>
+    </div>
+
+    <!-- government cooperation -->
+    <div class="gov reveal">
+      <div class="gov-grid">
+        <div>
+          <span class="eyebrow" data-i18n="gov.eyebrow">GOVERNMENT COOPERATION</span>
+          <h3 style="margin-top:18px" data-i18n="gov.h3">We work closely with the Ministry of Energy</h3>
+          <p class="lead" data-i18n="gov.lead">Direct coordination with state agencies lets us complete every stage of approval and grid connection quickly and correctly.</p>
+        </div>
+        <div>
+          <ul>
+            <li><i>›</i> <span data-i18n="gov.li1">O'zbekiston milliy elektr tarmoqlari</span></li>
+            <li><i>›</i> <span data-i18n="gov.li2">Uzenergoinspektsiya</span></li>
+            <li><i>›</i> <span data-i18n="gov.li3">Uzbekgidroenergo · Goskomzemgeodezkadastr</span></li>
+            <li><i>›</i> <span data-i18n="gov.li4">Shaharsozlik hujjatlari ekspertiza qilish</span></li>
+          </ul>
+          <p class="note" data-i18n="gov.note">This allows us to move through all stages of approval and connection to the power grid without delays.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- partners marquee -->
+<div class="partners">
+  <div class="marquee">
+    <span>MASDAR</span><span>AGMK</span><span>IES</span><span>O'ZSUVTA'MINOT</span><span>UZBEKENERGOTAMIR</span><span>UCELL</span><span>YASHIL ENERGIYA</span>
+    <span>MASDAR</span><span>AGMK</span><span>IES</span><span>O'ZSUVTA'MINOT</span><span>UZBEKENERGOTAMIR</span><span>UCELL</span><span>YASHIL ENERGIYA</span>
+  </div>
+</div>
+
+<!-- ============ SERVICES / WE OFFER ============ -->
+<section class="offer sec" id="services">
+  <div class="bg"><img src="https://images.unsplash.com/photo-1466611653911-95081537e5b7?auto=format&fit=crop&w=2200&q=80" alt=""></div>
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow" data-i18n="offer.eyebrow">WHAT WE OFFER</span>
+      <h2 data-i18n="offer.h2">Engineered equipment,<br>delivered by qualified specialists</h2>
+      <p data-i18n="offer.p">From generation to distribution and telecom infrastructure — a full hardware line supplied, installed and supported by our team.</p>
+    </div>
+
+    <div class="offer-grid">
+      <div class="ocard tall reveal">
+        <img src="https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?auto=format&fit=crop&w=1200&q=80" alt="Solar batteries">
+        <div class="oc-in">
+          <span class="num">SVC · 01</span>
+          <h3 data-i18n="card1.h3">Solar batteries</h3>
+          <p data-i18n="card1.p">Photovoltaic panels, inverters, trackers and mounting structures for utility- and facility-scale generation.</p>
+          <a href="#request" class="more"><span data-i18n="more">More details</span> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        </div>
+      </div>
+      <div class="ocard reveal">
+        <img src="https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?auto=format&fit=crop&w=1200&q=80" alt="Power transformers">
+        <div class="oc-in">
+          <span class="num">SVC · 02</span>
+          <h3 data-i18n="card2.h3">Transformers</h3>
+          <p data-i18n="card2.p">Distribution and power transformers for substations, with grounding, protection and SCADA integration.</p>
+          <a href="#request" class="more"><span data-i18n="more">More details</span> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        </div>
+      </div>
+      <div class="ocard reveal">
+        <img src="https://images.unsplash.com/photo-1516387938699-a93567ec168e?auto=format&fit=crop&w=1200&q=80" alt="Antenna supports">
+        <div class="oc-in">
+          <span class="num">SVC · 03</span>
+          <h3 data-i18n="card4.h3">Antenna supports</h3>
+          <p data-i18n="card4.p">Telecom towers and antenna support structures — the backbone of our two decades in the sector.</p>
+          <a href="#request" class="more"><span data-i18n="more">More details</span> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PROCESS ============ -->
+<section class="process sec" id="drone">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow" data-i18n="process.eyebrow">HOW WE DELIVER · TURNKEY</span>
+      <h2 data-i18n="process.h2">From site study to 24/7 monitoring</h2>
+      <p data-i18n="process.p">A single accountable team carries every project through five controlled stages — including drone-assisted survey and assembly.</p>
+    </div>
+
+    <div class="steps">
+      <div class="step reveal">
+        <div class="num">01</div>
+        <h4 data-i18n="step1.h4">Site selection &amp; pre-project studies</h4>
+        <ul><li data-i18n="step1.li1">Solar potential analysis</li><li data-i18n="step1.li2">Geological, infrastructure &amp; network assessment</li><li data-i18n="step1.li3">Land plot approval</li></ul>
+      </div>
+      <div class="step reveal">
+        <div class="num">02</div>
+        <h4 data-i18n="step2.h4">Engineering calculations &amp; design</h4>
+        <ul><li data-i18n="step2.li1">Optimal technical solutions</li><li data-i18n="step2.li2">Generation modelling (PVsyst, PVSol, SolariusPV)</li><li data-i18n="step2.li3">Design &amp; estimate documentation, agency review</li></ul>
+      </div>
+      <div class="step reveal">
+        <div class="num">03</div>
+        <h4 data-i18n="step3.h4">Equipment supply &amp; installation</h4>
+        <ul><li data-i18n="step3.li1">Panels, inverters, trackers, structures</li><li data-i18n="step3.li2">Electrical install, grounding, SCADA</li><li data-i18n="step3.li3">Quality control at every stage</li></ul>
+      </div>
+      <div class="step reveal">
+        <div class="num">04</div>
+        <h4 data-i18n="step4.h4">Commissioning &amp; start-up</h4>
+        <ul><li data-i18n="step4.li1">Load testing</li><li data-i18n="step4.li2">Compliance verification</li><li data-i18n="step4.li3">Station handover to the customer</li></ul>
+      </div>
+      <div class="step reveal">
+        <div class="num">05</div>
+        <h4 data-i18n="step5.h4">Monitoring &amp; maintenance</h4>
+        <ul><li data-i18n="step5.li1">24/7 online monitoring system</li><li data-i18n="step5.li2">Technical audit &amp; scheduled maintenance</li><li data-i18n="step5.li3">Warranty support &amp; updates</li></ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PROMO + REQUEST ============ -->
+<section class="promo" id="request">
+  <div class="bg"><img src="https://images.unsplash.com/photo-1548337138-e87d889cc369?auto=format&fit=crop&w=2200&q=80" alt=""></div>
+  <div class="wrap">
+    <div class="promo-copy reveal">
+      <span class="eyebrow" data-i18n="promo.eyebrow">THIS MONTH ONLY</span>
+      <div class="disc" style="margin-top:18px" data-i18n="promo.disc">PROMOTION <em>−20%</em></div>
+      <h3 data-i18n="promo.h3">Order online, save on every product.</h3>
+      <p data-i18n="promo.p">This month only, place your order online and receive a 20% discount across all products. Every item meets full quality standards.</p>
+      <a href="#request" class="btn" data-i18n="more">More details</a>
+    </div>
+
+    <form class="form reveal" id="reqForm">
+      <h4 data-i18n="form.h4">Leave a request</h4>
+      <div class="sub" data-i18n="form.sub">We reply within one business day</div>
+      <div class="field"><label for="nm" data-i18n="form.nameLabel">Name</label><input id="nm" type="text" placeholder="Your name" data-i18n-placeholder="form.namePh"></div>
+      <div class="field"><label for="ph" data-i18n="form.phoneLabel">Phone number *</label><input id="ph" type="tel" placeholder="+998 __ ___ __ __" required data-i18n-placeholder="form.phonePh"></div>
+      <label class="agree"><input type="checkbox" required> <span data-i18n="form.agree">I have read and accept the <a href="#">user agreement</a></span></label>
+      <button type="submit" class="btn red" data-i18n="form.submit">Leave a request</button>
+    </form>
+  </div>
+</section>
+
+<!-- ============ GALLERY ============ -->
+<section class="sec" id="gallery">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow" data-i18n="gallery.eyebrow">OUR PROJECTS · WORKDAYS</span>
+      <h2 data-i18n="gallery.h2">The company gallery</h2>
+      <p data-i18n="gallery.p">Field work across generation, distribution and telecom infrastructure.</p>
+    </div>
+    <div class="gallery-grid">
+      <div class="g g1 reveal"><img src="Our%20projects/g1.webp" alt="Company gallery photo 1"></div>
+      <div class="g g2 reveal"><img src="Our%20projects/g2.webp" alt="Company gallery photo 2"></div>
+      <div class="g g3 reveal"><img src="Our%20projects/g3.webp" alt="Company gallery photo 3"></div>
+      <div class="g g4 reveal"><img src="Our%20projects/g4.webp" alt="Company gallery photo 4"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ REVIEWS ============ -->
+<section class="reviews sec">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow" data-i18n="reviews.eyebrow">CUSTOMER REVIEWS</span>
+      <h2 data-i18n="reviews.h2">We value every customer feedback</h2>
+    </div>
+    <div class="rev-grid">
+      <div class="rcard reveal">
+        <div class="quote">”</div>
+        <p data-i18n="review1.p">Excellent work and professional approach. We asked ALEX ENGINEERING to install a solar power system at our production facility — the team ran the audit, selected the equipment and completed installation on schedule. A large part of our operations now runs on solar, cutting electricity costs significantly.</p>
+        <div class="who"><div class="av">A</div><div><div class="nm">Alexandra</div><div class="dt">19.05.2022</div></div></div>
+      </div>
+      <div class="rcard reveal">
+        <div class="quote">”</div>
+        <p data-i18n="review2.p">A reliable company with modern solutions. We'd been considering panels for our home, and friends recommended ALEX ENGINEERING. Their specialists explained everything, calculated system capacity and handled the paperwork. It runs smoothly and we already see the savings.</p>
+        <div class="who"><div class="av">D</div><div><div class="nm">Dmitriy</div><div class="dt">25.05.2022</div></div></div>
+      </div>
+      <div class="rcard reveal">
+        <div class="quote">”</div>
+        <p data-i18n="review3.p">True professionals in energy solutions. We worked with ALEX ENGINEERING on a solar project for our agro-farm — an efficient system with high-quality panels and next-generation inverters, delivered neatly and in full compliance with technical standards. Great value for money.</p>
+        <div class="who"><div class="av">A</div><div><div class="nm">Anna</div><div class="dt">04.06.2022</div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MAP -->
+<section>
+  <div class="map-frame">
+    <iframe title="ALEX ENGINEERING location" loading="lazy" src="https://www.openstreetmap.org/export/embed.html?bbox=69.10%2C41.24%2C69.40%2C41.36&layer=mapnik&marker=41.31%2C69.25"></iframe>
+    <div class="map-pin" data-i18n="home.mapPin"><b>ALEX ENGINEERING</b>Tashkent Region · Ahangaran District · Ozodlik</div>
+  </div>
+</section>
+
+<!-- ============ CONTACTS ============ -->
+<section class="contacts" id="contacts">
+  <div class="wrap">
+    <div class="cta-band reveal">
+      <div>
+        <span class="eyebrow" data-i18n="contacts.eyebrow">GET IN TOUCH</span>
+        <h2 style="margin-top:20px" data-i18n="contacts.h2">Let's power<br>your project</h2>
+        <p data-i18n="contacts.p">Tell us about your site and requirements — our engineers will scope it and reply within one business day.</p>
+      </div>
+      <a href="#request" class="btn red" data-i18n="contacts.cta">Leave a request</a>
+    </div>
+
+    <div class="cinfo reveal">
+      <div class="cblock">
+        <div class="k"><span class="dot"></span><span data-i18n="cinfo1.k">24 / 7 line</span></div>
+        <div class="v">+998 (97) 480-10-00</div>
+      </div>
+      <div class="cblock">
+        <div class="k"><span class="dot"></span><span data-i18n="cinfo2.k">Our location</span></div>
+        <div class="v sm" data-i18n="cinfo2.v">Tashkent Region, Ahangaran District,<br>Ozodlik Neighborhood</div>
+      </div>
+      <div class="cblock">
+        <div class="k"><span class="dot"></span><span data-i18n="cinfo3.k">Company</span></div>
+        <div class="v sm" data-i18n="cinfo3.v">OOO «ALEX ENGINEERING»<br>TIN 203541729</div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="wrap">
+      <div class="cp" data-i18n="footer.cp">Copyright © 2025 <b>OOO «ALEX ENGINEERING»</b><br>TIN 203541729 · All rights reserved</div>
+      <button class="backtop" id="backtop" aria-label="Back to top">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 19V5M6 11l6-6 6 6"/></svg>
+      </button>
+    </div>
+  </footer>
+</section>
+
+<script>
+  // nav scroll state
+  const nav=document.getElementById('nav');
+  const onScroll=()=>nav.classList.toggle('scrolled',window.scrollY>40);
+  onScroll();window.addEventListener('scroll',onScroll,{passive:true});
+
+  // mobile drawer
+  const drawer=document.getElementById('drawer');
+  document.getElementById('burger').onclick=()=>drawer.classList.add('open');
+  document.getElementById('xclose').onclick=()=>drawer.classList.remove('open');
+  drawer.querySelectorAll('a').forEach(a=>a.onclick=()=>drawer.classList.remove('open'));
+
+  // back to top
+  document.getElementById('backtop').onclick=()=>window.scrollTo({top:0,behavior:'smooth'});
+
+  // reveal on scroll
+  const io=new IntersectionObserver((es)=>{
+    es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});
+  },{threshold:.12,rootMargin:'0px 0px -8% 0px'});
+  document.querySelectorAll('.reveal').forEach((el,i)=>{
+    el.style.transitionDelay=(i%3)*70+'ms';
+    io.observe(el);
+  });
+
+  // hero parallax (respects reduced motion)
+  const rm=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(!rm){
+    const heroImg=document.querySelector('.hero .bg img');
+    window.addEventListener('scroll',()=>{
+      const y=window.scrollY;
+      if(y<window.innerHeight&&heroImg) heroImg.style.transform=`scale(1.06) translateY(${y*0.18}px)`;
+    },{passive:true});
+  }
+
+  // form demo
+  document.getElementById('reqForm').addEventListener('submit',e=>{
+    e.preventDefault();
+    const btn=e.target.querySelector('button');
+    const lang=document.documentElement.lang||'en';
+    const t=i18n[lang]||i18n.en;
+    const restore=btn.innerHTML;
+    btn.textContent=t['form.sent']||'Request sent ✓';btn.style.background='#1f7a2e';
+    setTimeout(()=>{btn.innerHTML=restore;btn.style.background='';e.target.reset();},2600);
+  });
+
+  // ============ i18n / language switcher ============
+  const i18n={
+    en:{
+      'topbar.loc':'OZODLIK, AHANGARAN DIST., TASHKENT REGION',
+      'nav.home':'Home','nav.about':'About','nav.services':'Services','nav.projects':'Projects','nav.drone':'Drone Assembly','nav.contacts':'Contacts','nav.cta':'Leave a request',
+      'drawer.cta':'Leave a request →',
+      'sm.homeAbout':'About us','sm.homeGallery':'Gallery','sm.aboutProjects':'Selected projects','sm.aboutLicenses':'Documents &amp; licenses','sm.aboutFleet':'Own equipment fleet','sm.svcOffer':'What we offer','sm.svcFlow':'How we work','sm.projPortfolio':'Portfolio','sm.projContacts':'Contacts','sm.droneUse':'Applications','sm.droneWhy':'Why choose us','sm.contactDetails':'Company details','sm.contactRequest':'Request form',
+      'hero.eyebrow':'RENEWABLE ENERGY ENGINEERING · UZBEKISTAN',
+      'hero.h1':'Solar power<br>systems &amp;<br><span class="stroke">energy equipment</span>',
+      'hero.p':'We supply energy equipment and solar panels across the entire country. Engineering, supply, installation and 24/7 monitoring — with the reliable quality of every product guaranteed.',
+      'hero.cta1':'Leave a request','hero.cta2':'Explore capabilities',
+      'tele.k1':'Operating since','tele.k2':'Field experience','tele.v2':'<em>23+</em> YRS','tele.k3':'Coverage','tele.v3':'NATIONWIDE','tele.k4':'Monitoring',
+      'pillar1.h':'High quality','pillar1.p':'We guarantee reliable quality across our entire catalogue of energy equipment, with prompt delivery throughout the region.',
+      'pillar2.h':'Affordable prices','pillar2.p':'Competitive pricing on all products — cheaper than our competitors, with discounts for regular customers and frequent promotions.',
+      'pillar3.h':'Wide range','pillar3.p':'A broad inventory of energy equipment held in stock and across our warehouses — the right hardware, ready to ship.',
+      'about.tag':'<em>ON SITE</em> · TASHKENT REGION',
+      'about.eyebrow':'ABOUT THE COMPANY',
+      'about.h2':"Two decades building Uzbekistan's energy backbone",
+      'about.p1':'ALEX ENGINEERING has operated in the telecommunications market since 2002, staffed by highly qualified specialists in telecommunications and the application of alternative energy sources.',
+      'about.p2':'Over 23 years across the telecom and energy sectors, we have accumulated deep experience working with organisations throughout the Republic of Uzbekistan.',
+      'about.stat1':'Established','about.stat2':'Years in the field','about.stat3':'Sector partners','about.more':'Read more',
+      'gov.eyebrow':'GOVERNMENT COOPERATION',
+      'gov.h3':'We work closely with the Ministry of Energy',
+      'gov.lead':'Direct coordination with state agencies lets us complete every stage of approval and grid connection quickly and correctly.',
+      'gov.note':'This allows us to move through all stages of approval and connection to the power grid without delays.',
+      'gov.li1':'National Electric Grid of Uzbekistan','gov.li2':'Uzenergoinspektsiya (Energy Inspectorate)','gov.li3':'Uzbekgidroenergo · State Committee for Cadastre','gov.li4':'Urban planning documentation review',
+      'offer.eyebrow':'WHAT WE OFFER',
+      'offer.h2':'Engineered equipment,<br>delivered by qualified specialists',
+      'offer.p':'From generation to distribution and telecom infrastructure — a full hardware line supplied, installed and supported by our team.',
+      'card1.h3':'Solar batteries','card1.p':'Photovoltaic panels, inverters, trackers and mounting structures for utility- and facility-scale generation.',
+      'card2.h3':'Transformers','card2.p':'Distribution and power transformers for substations, with grounding, protection and SCADA integration.',
+      'card4.h3':'Antenna supports','card4.p':'Telecom towers and antenna support structures — the backbone of our two decades in the sector.',
+      'more':'More details',
+      'process.eyebrow':'HOW WE DELIVER · TURNKEY',
+      'process.h2':'From site study to 24/7 monitoring',
+      'process.p':'A single accountable team carries every project through five controlled stages — including drone-assisted survey and assembly.',
+      'step1.h4':'Site selection &amp; pre-project studies','step1.li1':'Solar potential analysis','step1.li2':'Geological, infrastructure &amp; network assessment','step1.li3':'Land plot approval',
+      'step2.h4':'Engineering calculations &amp; design','step2.li1':'Optimal technical solutions','step2.li2':'Generation modelling (PVsyst, PVSol, SolariusPV)','step2.li3':'Design &amp; estimate documentation, agency review',
+      'step3.h4':'Equipment supply &amp; installation','step3.li1':'Panels, inverters, trackers, structures','step3.li2':'Electrical install, grounding, SCADA','step3.li3':'Quality control at every stage',
+      'step4.h4':'Commissioning &amp; start-up','step4.li1':'Load testing','step4.li2':'Compliance verification','step4.li3':'Station handover to the customer',
+      'step5.h4':'Monitoring &amp; maintenance','step5.li1':'24/7 online monitoring system','step5.li2':'Technical audit &amp; scheduled maintenance','step5.li3':'Warranty support &amp; updates',
+      'promo.eyebrow':'THIS MONTH ONLY',
+      'promo.disc':'PROMOTION <em>−20%</em>',
+      'promo.h3':'Order online, save on every product.',
+      'promo.p':'This month only, place your order online and receive a 20% discount across all products. Every item meets full quality standards.',
+      'form.h4':'Leave a request','form.sub':'We reply within one business day',
+      'form.nameLabel':'Name','form.namePh':'Your name',
+      'form.phoneLabel':'Phone number *','form.phonePh':'+998 __ ___ __ __',
+      'form.agree':'I have read and accept the <a href="#">user agreement</a>',
+      'form.submit':'Leave a request','form.sent':'Request sent ✓',
+      'gallery.eyebrow':'OUR PROJECTS · WORKDAYS','gallery.h2':'The company gallery','gallery.p':'Field work across generation, distribution and telecom infrastructure.',
+      'reviews.eyebrow':'CUSTOMER REVIEWS','reviews.h2':'We value every customer feedback',
+      'review1.p':'Excellent work and professional approach. We asked ALEX ENGINEERING to install a solar power system at our production facility — the team ran the audit, selected the equipment and completed installation on schedule. A large part of our operations now runs on solar, cutting electricity costs significantly.',
+      'review2.p':"A reliable company with modern solutions. We'd been considering panels for our home, and friends recommended ALEX ENGINEERING. Their specialists explained everything, calculated system capacity and handled the paperwork. It runs smoothly and we already see the savings.",
+      'review3.p':'True professionals in energy solutions. We worked with ALEX ENGINEERING on a solar project for our agro-farm — an efficient system with high-quality panels and next-generation inverters, delivered neatly and in full compliance with technical standards. Great value for money.',
+      'home.mapPin':'<b>ALEX ENGINEERING</b>Tashkent Region · Ahangaran District · Ozodlik',
+      'contacts.eyebrow':'GET IN TOUCH',
+      'contacts.h2':"Let's power<br>your project",
+      'contacts.p':'Tell us about your site and requirements — our engineers will scope it and reply within one business day.',
+      'contacts.cta':'Leave a request',
+      'cinfo1.k':'24 / 7 line','cinfo2.k':'Our location','cinfo2.v':'Tashkent Region, Ahangaran District,<br>Ozodlik Neighborhood',
+      'cinfo3.k':'Company','cinfo3.v':'OOO «ALEX ENGINEERING»<br>TIN 203541729',
+      'footer.cp':'Copyright © 2025 <b>OOO «ALEX ENGINEERING»</b><br>TIN 203541729 · All rights reserved'
+    },
+    ru:{
+      'topbar.loc':'ОЗОДЛИК, АХАНГАРАНСКИЙ РАЙОН, ТАШКЕНТСКАЯ ОБЛАСТЬ',
+      'nav.home':'Главная','nav.about':'О компании','nav.services':'Услуги','nav.projects':'Проекты','nav.drone':'Сборка дронов','nav.contacts':'Контакты','nav.cta':'Оставить заявку',
+      'drawer.cta':'Оставить заявку →',
+      'sm.homeAbout':'О компании','sm.homeGallery':'Галерея','sm.aboutProjects':'Избранные проекты','sm.aboutLicenses':'Документы и лицензии','sm.aboutFleet':'Собственный парк техники','sm.svcOffer':'Что мы предлагаем','sm.svcFlow':'Как мы работаем','sm.projPortfolio':'Портфолио','sm.projContacts':'Контакты','sm.droneUse':'Применение','sm.droneWhy':'Почему мы','sm.contactDetails':'Реквизиты','sm.contactRequest':'Форма заявки',
+      'hero.eyebrow':'ВОЗОБНОВЛЯЕМАЯ ЭНЕРГЕТИКА · УЗБЕКИСТАН',
+      'hero.h1':'Солнечные<br>энергосистемы и<br><span class="stroke">оборудование</span>',
+      'hero.p':'Поставляем энергооборудование и солнечные панели по всей стране. Проектирование, поставка, монтаж и круглосуточный мониторинг — с гарантией надёжного качества каждого изделия.',
+      'hero.cta1':'Оставить заявку','hero.cta2':'Изучить возможности',
+      'tele.k1':'Работаем с','tele.k2':'Опыт работы','tele.v2':'<em>23+</em> ЛЕТ','tele.k3':'Покрытие','tele.v3':'ПО ВСЕЙ СТРАНЕ','tele.k4':'Мониторинг',
+      'pillar1.h':'Высокое качество','pillar1.p':'Гарантируем надёжное качество по всему каталогу энергооборудования и оперативную доставку по региону.',
+      'pillar2.h':'Доступные цены','pillar2.p':'Конкурентные цены на всю продукцию — выгоднее, чем у конкурентов, скидки постоянным клиентам и регулярные акции.',
+      'pillar3.h':'Широкий ассортимент','pillar3.p':'Большой запас энергооборудования на складах — нужное оборудование всегда готово к отгрузке.',
+      'about.tag':'<em>НА ОБЪЕКТЕ</em> · ТАШКЕНТСКАЯ ОБЛАСТЬ',
+      'about.eyebrow':'О КОМПАНИИ',
+      'about.h2':'Два десятилетия строим энергетическую основу Узбекистана',
+      'about.p1':'ALEX ENGINEERING работает на рынке телекоммуникаций с 2002 года, в штате — высококвалифицированные специалисты по телекоммуникациям и применению альтернативных источников энергии.',
+      'about.p2':'За более чем 23 года работы в сфере телекома и энергетики мы накопили большой опыт сотрудничества с организациями по всей Республике Узбекистан.',
+      'about.stat1':'Год основания','about.stat2':'Лет в отрасли','about.stat3':'Отраслевых партнёров','about.more':'Подробнее',
+      'gov.eyebrow':'СОТРУДНИЧЕСТВО С ГОСУДАРСТВОМ',
+      'gov.h3':'Тесно сотрудничаем с Министерством энергетики',
+      'gov.lead':'Прямое взаимодействие с государственными органами позволяет нам быстро и корректно проходить все этапы согласования и подключения к сети.',
+      'gov.note':'Это позволяет нам без задержек проходить все этапы согласования и подключения к электросети.',
+      'gov.li1':'АО «Национальные электрические сети Узбекистана»','gov.li2':'Узэнергоинспекция','gov.li3':'Узбекгидроэнерго · Госкомземгеодезкадастр','gov.li4':'Экспертиза градостроительной документации',
+      'offer.eyebrow':'ЧТО МЫ ПРЕДЛАГАЕМ',
+      'offer.h2':'Инженерное оборудование,<br>поставляемое квалифицированными специалистами',
+      'offer.p':'От генерации до распределения и телеком-инфраструктуры — полная линейка оборудования с поставкой, монтажом и сопровождением нашей командой.',
+      'card1.h3':'Солнечные батареи','card1.p':'Фотоэлектрические панели, инверторы, трекеры и опорные конструкции для генерации промышленного и объектового масштаба.',
+      'card2.h3':'Трансформаторы','card2.p':'Распределительные и силовые трансформаторы для подстанций с заземлением, защитой и интеграцией SCADA.',
+      'card4.h3':'Антенные опоры','card4.p':'Телеком-вышки и антенные опорные конструкции — основа нашей работы на протяжении двух десятилетий.',
+      'more':'Подробнее',
+      'process.eyebrow':'КАК МЫ РАБОТАЕМ · ПОД КЛЮЧ',
+      'process.h2':'От изучения площадки до круглосуточного мониторинга',
+      'process.p':'Единая ответственная команда сопровождает проект через пять контролируемых этапов, включая обследование и монтаж с применением дронов.',
+      'step1.h4':'Выбор площадки и предпроектные изыскания','step1.li1':'Анализ солнечного потенциала','step1.li2':'Геологическая, инфраструктурная и сетевая оценка','step1.li3':'Согласование земельного участка',
+      'step2.h4':'Инженерные расчёты и проектирование','step2.li1':'Оптимальные технические решения','step2.li2':'Моделирование генерации (PVsyst, PVSol, SolariusPV)','step2.li3':'Проектно-сметная документация, согласование с ведомствами',
+      'step3.h4':'Поставка и монтаж оборудования','step3.li1':'Панели, инверторы, трекеры, конструкции','step3.li2':'Электромонтаж, заземление, SCADA','step3.li3':'Контроль качества на каждом этапе',
+      'step4.h4':'Пусконаладка и запуск','step4.li1':'Нагрузочные испытания','step4.li2':'Проверка соответствия нормам','step4.li3':'Передача станции заказчику',
+      'step5.h4':'Мониторинг и обслуживание','step5.li1':'Круглосуточная система онлайн-мониторинга','step5.li2':'Технический аудит и плановое обслуживание','step5.li3':'Гарантийная поддержка и обновления',
+      'promo.eyebrow':'ТОЛЬКО В ЭТОМ МЕСЯЦЕ',
+      'promo.disc':'АКЦИЯ <em>−20%</em>',
+      'promo.h3':'Заказывайте онлайн — экономьте на каждом товаре.',
+      'promo.p':'Только в этом месяце оформите заказ онлайн и получите скидку 20% на все товары. Каждое изделие соответствует полным стандартам качества.',
+      'form.h4':'Оставить заявку','form.sub':'Ответим в течение одного рабочего дня',
+      'form.nameLabel':'Имя','form.namePh':'Ваше имя',
+      'form.phoneLabel':'Номер телефона *','form.phonePh':'+998 __ ___ __ __',
+      'form.agree':'Я ознакомлен(а) и принимаю <a href="#">пользовательское соглашение</a>',
+      'form.submit':'Оставить заявку','form.sent':'Заявка отправлена ✓',
+      'gallery.eyebrow':'НАШИ ПРОЕКТЫ · БУДНИ','gallery.h2':'Галерея компании','gallery.p':'Работа на объектах генерации, распределения и телеком-инфраструктуры.',
+      'reviews.eyebrow':'ОТЗЫВЫ КЛИЕНТОВ','reviews.h2':'Ценим отзыв каждого клиента',
+      'review1.p':'Отличная работа и профессиональный подход. Мы обратились в ALEX ENGINEERING для установки солнечной энергосистемы на нашем производстве — команда провела аудит, подобрала оборудование и выполнила монтаж в срок. Значительная часть нашей работы теперь на солнечной энергии, что заметно снизило расходы на электричество.',
+      'review2.p':'Надёжная компания с современными решениями. Мы рассматривали установку панелей для дома, друзья порекомендовали ALEX ENGINEERING. Специалисты всё объяснили, рассчитали мощность системы и оформили документы. Всё работает исправно, и мы уже видим экономию.',
+      'review3.p':'Настоящие профессионалы в области энергетических решений. Мы работали с ALEX ENGINEERING над солнечным проектом для нашего агрохозяйства — эффективная система с качественными панелями и инверторами нового поколения, аккуратный монтаж с полным соблюдением технических норм. Отличное соотношение цены и качества.',
+      'home.mapPin':'<b>ALEX ENGINEERING</b>Ташкентская область · Ахангаранский район · Озодлик',
+      'contacts.eyebrow':'СВЯЖИТЕСЬ С НАМИ',
+      'contacts.h2':'Обеспечим<br>энергией ваш проект',
+      'contacts.p':'Расскажите о вашем объекте и требованиях — наши инженеры оценят проект и ответят в течение одного рабочего дня.',
+      'contacts.cta':'Оставить заявку',
+      'cinfo1.k':'Линия 24/7','cinfo2.k':'Наш адрес','cinfo2.v':'Ташкентская область, Ахангаранский район,<br>массив Озодлик',
+      'cinfo3.k':'Компания','cinfo3.v':'ООО «ALEX ENGINEERING»<br>ИНН 203541729',
+      'footer.cp':'© 2025 <b>ООО «ALEX ENGINEERING»</b><br>ИНН 203541729 · Все права защищены'
+    },
+    uz:{
+      'topbar.loc':"OZODLIK MFY, OHANGARON TUMANI, TOSHKENT VILOYATI",
+      'nav.home':'Bosh sahifa','nav.about':'Kompaniya haqida','nav.services':'Xizmatlar','nav.projects':'Loyihalar','nav.drone':"Dron yig'ish",'nav.contacts':'Aloqa','nav.cta':'Ariza qoldirish',
+      'drawer.cta':'Ariza qoldirish →',
+      'sm.homeAbout':'Kompaniya haqida','sm.homeGallery':'Galereya','sm.aboutProjects':'Tanlangan loyihalar','sm.aboutLicenses':'Hujjatlar va litsenziyalar','sm.aboutFleet':"O'z texnika parki",'sm.svcOffer':'Nima taklif qilamiz','sm.svcFlow':'Qanday ishlaymiz','sm.projPortfolio':'Portfolio','sm.projContacts':'Aloqa','sm.droneUse':"Qo'llanilishi",'sm.droneWhy':'Nega bizni tanlashadi','sm.contactDetails':'Rekvizitlar','sm.contactRequest':'Ariza shakli',
+      'hero.eyebrow':"QAYTA TIKLANUVCHI ENERGIYA MUHANDISLIGI · O'ZBEKISTON",
+      'hero.h1':'Quyosh energiya<br>tizimlari va<br><span class="stroke">energiya jihozlari</span>',
+      'hero.p':"Butun mamlakat bo'ylab energiya jihozlari va quyosh panellarini yetkazib beramiz. Loyihalash, yetkazib berish, montaj va 24/7 monitoring — har bir mahsulotning ishonchli sifati kafolatlanadi.",
+      'hero.cta1':'Ariza qoldirish','hero.cta2':"Imkoniyatlarni ko'rish",
+      'tele.k1':'Faoliyat boshlangan','tele.k2':'Ish tajribasi','tele.v2':'<em>23+</em> YIL','tele.k3':'Qamrov','tele.v3':'BUTUN MAMLAKAT','tele.k4':'Monitoring',
+      'pillar1.h':'Yuqori sifat','pillar1.p':"Butun energiya jihozlari katalogimiz bo'yicha ishonchli sifatni kafolatlaymiz, mintaqa bo'ylab tezkor yetkazib berish bilan.",
+      'pillar2.h':'Qulay narxlar','pillar2.p':"Barcha mahsulotlar uchun raqobatbardosh narxlar — raqiblarimizdan arzon, doimiy mijozlar uchun chegirmalar va tez-tez aksiyalar.",
+      'pillar3.h':'Keng assortiment','pillar3.p':"Omborlarimizda energiya jihozlarining keng assortimenti mavjud — kerakli uskuna har doim jo'natishga tayyor.",
+      'about.tag':'<em>OBYEKTDA</em> · TOSHKENT VILOYATI',
+      'about.eyebrow':'KOMPANIYA HAQIDA',
+      'about.h2':"O'zbekiston energiya tizimini yigirma yildan beri quramiz",
+      'about.p1':"ALEX ENGINEERING 2002-yildan buyon telekommunikatsiya bozorida faoliyat yuritadi, xodimlari — telekommunikatsiya va muqobil energiya manbalarini qo'llash bo'yicha yuqori malakali mutaxassislardir.",
+      'about.p2':"Telekom va energetika sohasida 23 yildan ortiq tajriba davomida biz O'zbekiston Respublikasi bo'ylab tashkilotlar bilan ishlashda katta tajriba to'pladik.",
+      'about.stat1':'Tashkil topgan','about.stat2':'Sohadagi tajriba, yil','about.stat3':'Soha hamkorlari','about.more':'Batafsil',
+      'gov.eyebrow':'DAVLAT BILAN HAMKORLIK',
+      'gov.h3':'Energetika vazirligi bilan yaqindan hamkorlik qilamiz',
+      'gov.lead':"Davlat organlari bilan bevosita hamkorlik barcha kelishuv va tarmoqqa ulanish bosqichlarini tez va to'g'ri bajarish imkonini beradi.",
+      'gov.note':"Bu bizga elektr tarmog'iga kelishuv va ulanishning barcha bosqichlarini kechikishlarsiz o'tishga imkon beradi.",
+      'gov.li1':"O'zbekiston milliy elektr tarmoqlari",'gov.li2':'Uzenergoinspektsiya','gov.li3':'Uzbekgidroenergo · Goskomzemgeodezkadastr','gov.li4':'Shaharsozlik hujjatlari ekspertiza qilish',
+      'offer.eyebrow':'BIZ TAKLIF QILAMIZ',
+      'offer.h2':"Malakali mutaxassislar tomonidan<br>yetkazib beriladigan muhandislik jihozlari",
+      'offer.p':"Generatsiyadan taqsimot va telekom infratuzilmasigacha — jamoamiz tomonidan yetkazib beriladigan, o'rnatiladigan va qo'llab-quvvatlanadigan to'liq uskunalar liniyasi.",
+      'card1.h3':'Quyosh batareyalari','card1.p':"Sanoat va obyekt miqyosidagi generatsiya uchun fotoelektrik panellar, invertorlar, trekerlar va o'rnatish konstruksiyalari.",
+      'card2.h3':'Transformatorlar','card2.p':"Zaminlash, himoya va SCADA integratsiyasi bilan quyi stansiyalar uchun taqsimot va quvvat transformatorlari.",
+      'card4.h3':'Antenna tayanchlari','card4.p':"Telekom minoralar va antenna tayanch konstruksiyalari — yigirma yillik tajribamizning asosi.",
+      'more':'Batafsil',
+      'process.eyebrow':"QANDAY ISHLAYMIZ · KALIT TESHIGIGACHA",
+      'process.h2':"Maydonchani o'rganishdan 24/7 monitoringgacha",
+      'process.p':"Yagona javobgar jamoa loyihani beshta nazorat ostidagi bosqich orqali olib boradi — jumladan drondan foydalangan holda tekshiruv va montaj.",
+      'step1.h4':"Maydonni tanlash va loyihaoldi tadqiqotlar",'step1.li1':'Quyosh salohiyatini tahlil qilish','step1.li2':'Geologik, infratuzilma va tarmoq baholash','step1.li3':'Yer uchastkasini kelishish',
+      'step2.h4':"Muhandislik hisob-kitoblari va loyihalash",'step2.li1':'Optimal texnik yechimlar','step2.li2':'Generatsiyani modellashtirish (PVsyst, PVSol, SolariusPV)','step2.li3':"Loyiha-smeta hujjatlari, idoralar bilan kelishish",
+      'step3.h4':'Uskunalarni yetkazib berish va montaj','step3.li1':'Panellar, invertorlar, trekerlar, konstruksiyalar','step3.li2':'Elektromontaj, zaminlash, SCADA','step3.li3':'Har bir bosqichda sifat nazorati',
+      'step4.h4':'Sozlash va ishga tushirish','step4.li1':'Yuklama sinovlari','step4.li2':"Me'yorlarga muvofiqlikni tekshirish",'step4.li3':'Stansiyani buyurtmachiga topshirish',
+      'step5.h4':'Monitoring va texnik xizmat','step5.li1':'24/7 onlayn monitoring tizimi','step5.li2':'Texnik audit va rejali texnik xizmat','step5.li3':"Kafolat qo'llab-quvvatlash va yangilanishlar",
+      'promo.eyebrow':'FAQAT SHU OY',
+      'promo.disc':'AKSIYA <em>−20%</em>',
+      'promo.h3':'Onlayn buyurtma bering — har bir mahsulotda tejang.',
+      'promo.p':"Faqat shu oy onlayn buyurtma bering va barcha mahsulotlarga 20% chegirma oling. Har bir mahsulot to'liq sifat standartlariga javob beradi.",
+      'form.h4':'Ariza qoldirish','form.sub':'Bir ish kuni ichida javob beramiz',
+      'form.nameLabel':'Ism','form.namePh':'Ismingiz',
+      'form.phoneLabel':'Telefon raqami *','form.phonePh':'+998 __ ___ __ __',
+      'form.agree':"<a href=\"#\">Foydalanuvchi kelishuvi</a>ni o'qidim va qabul qilaman",
+      'form.submit':'Ariza qoldirish','form.sent':'Ariza yuborildi ✓',
+      'gallery.eyebrow':'LOYIHALARIMIZ · ISH KUNLARI','gallery.h2':'Kompaniya galereyasi','gallery.p':"Generatsiya, taqsimot va telekom infratuzilmasi bo'yicha dala ishlari.",
+      'reviews.eyebrow':'MIJOZLAR FIKRI','reviews.h2':'Har bir mijoz fikrini qadrlaymiz',
+      'review1.p':"Ajoyib ish va professional yondashuv. Biz ALEX ENGINEERING kompaniyasiga ishlab chiqarish korxonamizga quyosh energiya tizimini o'rnatish uchun murojaat qildik — jamoa audit o'tkazdi, uskunalarni tanladi va montajni belgilangan muddatda yakunladi. Ishimizning katta qismi endi quyosh energiyasida ishlaydi, bu esa elektr xarajatlarini sezilarli darajada kamaytirdi.",
+      'review2.p':"Zamonaviy yechimlarga ega ishonchli kompaniya. Uy uchun panellarni ko'rib chiqayotgan edik, do'stlarimiz ALEX ENGINEERING ni tavsiya qilishdi. Mutaxassislar hammasini tushuntirishdi, tizim quvvatini hisoblab berishdi va hujjatlarni rasmiylashtirishdi. Hammasi silliq ishlayapti va biz allaqachon tejamkorlikni ko'ryapmiz.",
+      'review3.p':"Energetika yechimlari bo'yicha haqiqiy professionallar. Biz ALEX ENGINEERING bilan agrofermamiz uchun quyosh loyihasi ustida ishladik — sifatli panellar va yangi avlod invertorlari bilan samarali tizim, texnik me'yorlarga to'liq muvofiq ravishda toza montaj qilindi. Narx va sifat nisbati juda yaxshi.",
+      'home.mapPin':"<b>ALEX ENGINEERING</b>Toshkent viloyati · Ohangaron tumani · Ozodlik",
+      'contacts.eyebrow':"BOG'LANING",
+      'contacts.h2':"Loyihangizni<br>energiya bilan ta'minlaymiz",
+      'contacts.p':"Obyektingiz va talablaringiz haqida gapirib bering — muhandislarimiz baholab, bir ish kuni ichida javob berishadi.",
+      'contacts.cta':'Ariza qoldirish',
+      'cinfo1.k':'24/7 aloqa liniyasi','cinfo2.k':'Manzilimiz','cinfo2.v':"Toshkent viloyati, Ohangaron tumani,<br>Ozodlik MFY",
+      'cinfo3.k':'Kompaniya','cinfo3.v':"«ALEX ENGINEERING» MChJ<br>STIR 203541729",
+      'footer.cp':"© 2025 <b>«ALEX ENGINEERING» MChJ</b><br>STIR 203541729 · Barcha huquqlar himoyalangan"
+    },
+    zh:{
+      'topbar.loc':'乌兹别克斯坦塔什干州阿汉加兰区奥佐德利克',
+      'nav.home':'首页','nav.about':'关于我们','nav.services':'服务','nav.projects':'项目','nav.drone':'无人机组装','nav.contacts':'联系我们','nav.cta':'提交申请',
+      'drawer.cta':'提交申请 →',
+      'sm.homeAbout':'关于我们','sm.homeGallery':'图库','sm.aboutProjects':'精选项目','sm.aboutLicenses':'文件与许可证','sm.aboutFleet':'自有设备车队','sm.svcOffer':'我们提供什么','sm.svcFlow':'我们如何工作','sm.projPortfolio':'项目组合','sm.projContacts':'联系方式','sm.droneUse':'应用领域','sm.droneWhy':'为何选择我们','sm.contactDetails':'公司信息','sm.contactRequest':'申请表单',
+      'hero.eyebrow':'可再生能源工程 · 乌兹别克斯坦',
+      'hero.h1':'太阳能<br>发电系统与<br><span class="stroke">能源设备</span>',
+      'hero.p':'我们向全国供应能源设备和太阳能电池板。工程设计、供应、安装和24/7监控——保证每件产品的可靠质量。',
+      'hero.cta1':'提交申请','hero.cta2':'了解更多能力',
+      'tele.k1':'成立于','tele.k2':'行业经验','tele.v2':'<em>23+</em> 年','tele.k3':'覆盖范围','tele.v3':'全国范围','tele.k4':'监控',
+      'pillar1.h':'高品质','pillar1.p':'我们保证整个能源设备目录的可靠质量，并在全地区提供快速交付。',
+      'pillar2.h':'价格实惠','pillar2.p':'所有产品价格具有竞争力——比竞争对手更优惠，老客户可享受折扣，并经常推出促销活动。',
+      'pillar3.h':'品类齐全','pillar3.p':'我们的仓库储备了丰富的能源设备库存——所需硬件随时可供发货。',
+      'about.tag':'<em>施工现场</em> · 塔什干州',
+      'about.eyebrow':'关于公司',
+      'about.h2':'二十年铸就乌兹别克斯坦能源基石',
+      'about.p1':'ALEX ENGINEERING自2002年起在电信市场运营，拥有一支在电信及新能源应用领域经验丰富的高素质专业团队。',
+      'about.p2':'在电信和能源领域深耕23年多的时间里，我们积累了与乌兹别克斯坦共和国各地机构合作的丰富经验。',
+      'about.stat1':'成立时间','about.stat2':'行业经验（年）','about.stat3':'行业合作伙伴','about.more':'了解更多',
+      'gov.eyebrow':'政府合作',
+      'gov.h3':'我们与能源部保持密切合作',
+      'gov.lead':'与政府机构的直接协调，使我们能够快速、准确地完成审批和电网接入的每一个环节。',
+      'gov.note':'这使我们能够无延迟地完成电网审批与接入的所有环节。',
+      'gov.li1':'乌兹别克斯坦国家电网','gov.li2':'乌兹别克能源监察局','gov.li3':'乌兹别克水电局 · 国家土地地籍测绘委员会','gov.li4':'城市规划文件审查',
+      'offer.eyebrow':'我们提供的服务',
+      'offer.h2':'由专业人员供应安装的<br>工程设备',
+      'offer.p':'从发电到配电及电信基础设施——我们团队提供供应、安装和支持的完整设备产品线。',
+      'card1.h3':'太阳能电池板','card1.p':'适用于公共事业及场地级发电的光伏板、逆变器、跟踪系统和支架结构。',
+      'card2.h3':'变压器','card2.p':'用于变电站的配电和电力变压器，配备接地、保护和SCADA集成。',
+      'card4.h3':'天线支架','card4.p':'电信塔和天线支撑结构——我们二十年行业经验的基石。',
+      'more':'了解更多',
+      'process.eyebrow':'我们的交付方式 · 交钥匙工程',
+      'process.h2':'从选址研究到24/7监控',
+      'process.p':'由一支责任明确的团队，通过五个受控阶段推进每个项目——包括无人机辅助勘测与安装。',
+      'step1.h4':'选址与项目前期研究','step1.li1':'太阳能潜力分析','step1.li2':'地质、基础设施及电网评估','step1.li3':'地块审批',
+      'step2.h4':'工程计算与设计','step2.li1':'最优技术方案','step2.li2':'发电建模（PVsyst、PVSol、SolariusPV）','step2.li3':'设计与预算文件，主管部门审查',
+      'step3.h4':'设备供应与安装','step3.li1':'面板、逆变器、跟踪系统、支架结构','step3.li2':'电气安装、接地、SCADA','step3.li3':'每个阶段的质量控制',
+      'step4.h4':'调试与启动','step4.li1':'负荷测试','step4.li2':'合规性验证','step4.li3':'向客户移交电站',
+      'step5.h4':'监控与维护','step5.li1':'24/7在线监控系统','step5.li2':'技术审计与计划维护','step5.li3':'质保支持与更新',
+      'promo.eyebrow':'仅限本月',
+      'promo.disc':'促销 <em>−20%</em>',
+      'promo.h3':'在线下单，每件产品都享优惠。',
+      'promo.p':'仅限本月，在线下单即可享受全线产品20%折扣。每件产品均符合完整质量标准。',
+      'form.h4':'提交申请','form.sub':'我们将在一个工作日内回复',
+      'form.nameLabel':'姓名','form.namePh':'您的姓名',
+      'form.phoneLabel':'电话号码 *','form.phonePh':'+998 __ ___ __ __',
+      'form.agree':'我已阅读并接受<a href="#">用户协议</a>',
+      'form.submit':'提交申请','form.sent':'申请已发送 ✓',
+      'gallery.eyebrow':'我们的项目 · 工作日常','gallery.h2':'公司图库','gallery.p':'涵盖发电、配电和电信基础设施的现场工作。',
+      'reviews.eyebrow':'客户评价','reviews.h2':'我们珍视每一位客户的反馈',
+      'review1.p':'出色的工作和专业的态度。我们请ALEX ENGINEERING在我们的生产设施安装太阳能发电系统——团队完成了审计、选定了设备并按期完成了安装。我们大部分运营现在都依靠太阳能，大幅降低了电费成本。',
+      'review2.p':'一家拥有现代化解决方案的可靠公司。我们本来在考虑为家里安装电池板，朋友推荐了ALEX ENGINEERING。他们的专家解释了一切，计算了系统容量并办理了相关文件。系统运行顺畅，我们已经看到了节省的效果。',
+      'review3.p':'真正的能源解决方案专业人士。我们与ALEX ENGINEERING合作，为我们的农场完成了一个太阳能项目——采用高质量面板和新一代逆变器的高效系统，安装整洁，完全符合技术标准。性价比很高。',
+      'home.mapPin':'<b>ALEX ENGINEERING</b>塔什干州 · 阿汉加兰区 · 奥佐德利克',
+      'contacts.eyebrow':'联系我们',
+      'contacts.h2':'为您的项目<br>提供能源支持',
+      'contacts.p':'告诉我们您的场地和需求——我们的工程师将进行评估，并在一个工作日内回复。',
+      'contacts.cta':'提交申请',
+      'cinfo1.k':'24/7 热线','cinfo2.k':'我们的地址','cinfo2.v':'塔什干州阿汉加兰区<br>奥佐德利克社区',
+      'cinfo3.k':'公司信息','cinfo3.v':'ALEX ENGINEERING有限责任公司<br>税号 203541729',
+      'footer.cp':'© 2025 <b>ALEX ENGINEERING有限责任公司</b><br>税号 203541729 · 保留所有权利'
+    }
+  };
+
+  const langNames={en:'EN',ru:'RU',uz:'UZ',zh:'中文'};
+  const langSwitch=document.getElementById('langSwitch');
+  const langBtn=document.getElementById('langBtn');
+  const langMenu=document.getElementById('langMenu');
+  const langCur=document.getElementById('langCur');
+
+  function applyLang(lang){
+    if(!i18n[lang]) lang='en';
+    const dict=i18n[lang];
+    document.documentElement.lang=lang;
+    document.querySelectorAll('[data-i18n]').forEach(el=>{
+      const key=el.getAttribute('data-i18n');
+      if(dict[key]!==undefined) el.innerHTML=dict[key];
+    });
+    document.querySelectorAll('[data-i18n-placeholder]').forEach(el=>{
+      const key=el.getAttribute('data-i18n-placeholder');
+      if(dict[key]!==undefined) el.setAttribute('placeholder',dict[key]);
+    });
+    langCur.textContent=langNames[lang];
+    langMenu.querySelectorAll('.lang-opt').forEach(o=>o.classList.toggle('active',o.getAttribute('data-lang')===lang));
+    try{localStorage.setItem('alex_lang',lang);}catch(err){}
+  }
+
+  langBtn.addEventListener('click',()=>{
+    const open=langSwitch.classList.toggle('open');
+    langBtn.setAttribute('aria-expanded',open);
+  });
+  document.addEventListener('click',e=>{
+    if(!langSwitch.contains(e.target)){langSwitch.classList.remove('open');langBtn.setAttribute('aria-expanded','false');}
+  });
+  langMenu.querySelectorAll('.lang-opt').forEach(opt=>{
+    opt.addEventListener('click',()=>{
+      applyLang(opt.getAttribute('data-lang'));
+      langSwitch.classList.remove('open');
+      langBtn.setAttribute('aria-expanded','false');
+    });
+  });
+
+  let initialLang='en';
+  try{
+    const saved=localStorage.getItem('alex_lang');
+    if(saved&&i18n[saved]) initialLang=saved;
+  }catch(err){}
+  applyLang(initialLang);
+
+  // ============ theme toggle ============
+  (function(){
+    const themeBtn=document.getElementById('themeToggle');
+    if(!themeBtn) return;
+    themeBtn.addEventListener('click',()=>{
+      const current=document.documentElement.getAttribute('data-theme')==='light'?'light':'dark';
+      const next=current==='dark'?'light':'dark';
+      document.documentElement.setAttribute('data-theme',next);
+      try{localStorage.setItem('alex_theme',next);}catch(err){}
+    });
+  })();
+</script>
+</body>
+</html>

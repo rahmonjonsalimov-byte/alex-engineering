@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<script>
+(function(){
+  try{
+    var t=localStorage.getItem('alex_theme');
+    if(t!=='light'&&t!=='dark') t='dark';
+    document.documentElement.setAttribute('data-theme',t);
+  }catch(err){
+    document.documentElement.setAttribute('data-theme','dark');
+  }
+})();
+</script>
+<title>About Company — ALEX ENGINEERING</title>
+<meta name="description" content="ALEX ENGINEERING — 23+ years in telecommunications and energy across Uzbekistan. Turnkey solar EPC, base stations, antenna-mast structures and more." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root,:root[data-theme="dark"]{
+    --void:#08090C;--space:#0E1015;--panel:#14171E;--panel-2:#1A1E27;
+    --line:rgba(255,255,255,.10);--line-2:rgba(255,255,255,.06);
+    --fog:#9DA3AD;--fog-2:#727884;--snow:#F4F5F6;
+    --red:#E1251B;--amber:#F28C00;
+    --bar-1:rgba(8,9,12,.6);--bar-2:rgba(8,9,12,.82);--glass:rgba(20,23,30,.78);
+  }
+  :root[data-theme="light"]{
+    --void:#F4F5F6;--space:#ECEEF0;--panel:#FFFFFF;--panel-2:#F0F1F3;
+    --line:rgba(10,11,14,.12);--line-2:rgba(10,11,14,.07);
+    --fog:#565B63;--fog-2:#656B72;--snow:#0E1116;
+    --red:#E1251B;--amber:#AD5400;
+    --bar-1:rgba(244,245,246,.72);--bar-2:rgba(244,245,246,.86);--glass:rgba(255,255,255,.85);
+  }
+  :root{
+    --ink-on-photo:#F4F5F6;--fog-on-photo:#9DA3AD;--line-on-photo:rgba(255,255,255,.06);
+    --maxw:1320px;--ease:cubic-bezier(.22,.61,.36,1);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{background:var(--void);color:var(--snow);font-family:'Inter',sans-serif;font-weight:300;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden;transition:background-color .4s var(--ease),color .4s var(--ease)}
+  ::selection{background:var(--red);color:#fff}
+  a{color:inherit;text-decoration:none}
+  img{display:block;max-width:100%}
+  h1,h2,h3,.display{font-family:'Oswald',sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:.01em;line-height:.98}
+  .mono{font-family:'JetBrains Mono',monospace;font-weight:400}
+  .wrap{width:100%;max-width:var(--maxw);margin:0 auto;padding:0 32px}
+
+  .eyebrow{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:var(--amber);display:inline-flex;align-items:center;gap:12px}
+  .eyebrow::before{content:"";width:26px;height:1px;background:var(--amber);display:inline-block}
+
+  /* TOP BAR */
+  .topbar{position:relative;z-index:60;border-bottom:1px solid var(--line-2);background:var(--bar-1);backdrop-filter:blur(8px);transition:background-color .4s var(--ease)}
+  .topbar .wrap{display:flex;align-items:center;justify-content:flex-end;gap:34px;height:44px}
+  .topbar .ti{display:flex;align-items:center;gap:9px;font-family:'JetBrains Mono',monospace;font-size:11.5px;letter-spacing:.05em;color:var(--fog)}
+  .topbar .ti b{color:var(--snow);font-weight:500}
+  .topbar .dot{width:6px;height:6px;border-radius:50%;background:var(--red);box-shadow:0 0 10px var(--red)}
+  .topbar .lang{color:var(--snow);cursor:pointer;position:relative;user-select:none}
+  .lang-btn{background:none;border:none;color:var(--snow);font-family:'JetBrains Mono',monospace;font-size:11.5px;letter-spacing:.05em;cursor:pointer;padding:0;display:flex;align-items:center;gap:6px}
+  .lang-btn .car{transition:transform .25s var(--ease)}
+  .lang.open .lang-btn .car{transform:rotate(180deg)}
+  .lang-menu{position:absolute;top:100%;right:0;margin-top:14px;background:var(--panel);border:1px solid var(--line);border-radius:3px;min-width:168px;overflow:hidden;opacity:0;visibility:hidden;transform:translateY(-6px);transition:opacity .2s var(--ease),transform .2s var(--ease),visibility .2s;z-index:70;box-shadow:0 12px 30px rgba(0,0,0,.4)}
+  .lang.open .lang-menu{opacity:1;visibility:visible;transform:none}
+  .lang-opt{padding:12px 16px;font-family:'JetBrains Mono',monospace;font-size:11.5px;letter-spacing:.04em;color:var(--fog);cursor:pointer;transition:background .2s,color .2s;display:flex;align-items:center;justify-content:space-between;gap:10px}
+  .lang-opt:hover{background:rgba(255,255,255,.05);color:var(--snow)}
+  .lang-opt.active{color:var(--red)}
+  .lang-opt .code{color:var(--fog-2);font-size:10px}
+  .lang-opt.active .code{color:var(--red)}
+  .theme-toggle{width:26px;height:26px;flex:none;display:flex;align-items:center;justify-content:center;background:none;border:1px solid var(--line);border-radius:50%;color:var(--snow);cursor:pointer;padding:0;transition:border-color .25s,color .25s}
+  .theme-toggle:hover{border-color:var(--amber);color:var(--amber)}
+  .theme-toggle svg{width:14px;height:14px;display:none}
+  .theme-toggle .ic-moon{display:block}
+  :root[data-theme="light"] .theme-toggle .ic-moon{display:none}
+  :root[data-theme="light"] .theme-toggle .ic-sun{display:block}
+  @media(max-width:900px){.topbar .loc{display:none}}
+  @media(max-width:560px){.topbar .wrap{justify-content:space-between;gap:14px}.topbar .phone span{display:none}}
+
+  /* NAV */
+  .nav{position:sticky;top:0;z-index:50;transition:background .4s var(--ease),border-color .4s var(--ease);border-bottom:1px solid transparent}
+  .nav.scrolled{background:var(--bar-2);backdrop-filter:blur(14px);border-bottom-color:var(--line-2)}
+  .nav .wrap{display:flex;align-items:center;justify-content:space-between;height:82px}
+  .logo{display:flex;align-items:center;gap:14px}
+  .logo svg{width:44px;height:44px;flex:none}
+  .logo .wm{line-height:1}
+  .logo .wm .a1{font-family:'Oswald',sans-serif;font-weight:700;font-size:22px;letter-spacing:.14em;color:var(--snow)}
+  .logo .wm .a2{font-family:'Oswald',sans-serif;font-weight:400;font-size:10px;letter-spacing:.42em;color:var(--fog);margin-top:2px}
+  /* nav starts transparent over the page-hero photo, so it needs fixed on-photo ink until .scrolled gives it a real backdrop */
+  .nav:not(.scrolled) .logo .wm .a1{color:var(--ink-on-photo)}
+  .nav:not(.scrolled) .logo .wm .a2{color:var(--fog-on-photo)}
+  .nav.scrolled .logo svg .cut{fill:var(--void)}
+  .menu{display:flex;align-items:center;gap:6px}
+  .menu a{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--fog-on-photo);padding:10px 15px;border-radius:2px;position:relative;transition:color .25s}
+  .menu a:hover,.menu a.active{color:var(--ink-on-photo)}
+  .nav.scrolled .menu a{color:var(--fog)}
+  .nav.scrolled .menu a:hover,.nav.scrolled .menu a.active{color:var(--snow)}
+  .menu a::after{content:"";position:absolute;left:15px;right:15px;bottom:4px;height:1px;background:var(--red);transform:scaleX(0);transform-origin:left;transition:transform .3s var(--ease)}
+  .menu a:hover::after,.menu a.active::after{transform:scaleX(1)}
+  .mi{position:relative}
+  .mi .submenu{position:absolute;top:100%;left:0;margin-top:14px;background:var(--panel);border:1px solid var(--line);border-radius:3px;min-width:220px;padding:8px;opacity:0;visibility:hidden;transform:translateY(-6px);transition:opacity .2s var(--ease),transform .2s var(--ease),visibility .2s;z-index:70;box-shadow:0 12px 30px rgba(0,0,0,.4)}
+  .mi:hover .submenu{opacity:1;visibility:visible;transform:none}
+  .submenu a{display:block;padding:11px 14px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.04em;text-transform:none;color:var(--fog);border-radius:2px;transition:background .2s,color .2s}
+  .submenu a::after{display:none}
+  .submenu a:hover{background:rgba(255,255,255,.05);color:var(--snow)}
+  .btn{display:inline-flex;align-items:center;gap:10px;cursor:pointer;border:none;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.16em;text-transform:uppercase;padding:13px 24px;background:var(--snow);color:var(--void);border-radius:2px;transition:transform .25s var(--ease),background .25s,color .25s}
+  .btn:hover{transform:translateY(-2px);background:var(--amber);color:var(--void)}
+  .btn.ghost{background:transparent;color:var(--snow);border:1px solid var(--line)}
+  .btn.ghost:hover{background:var(--snow);color:var(--void);border-color:var(--snow)}
+  .btn.red{background:var(--red);color:#fff}
+  .btn.red:hover{background:#ff3b31;color:#fff}
+  .btn svg{width:14px;height:14px}
+  .burger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:8px}
+  .burger span{width:24px;height:2px;background:var(--ink-on-photo);transition:.3s}
+  .nav.scrolled .burger span{background:var(--snow)}
+  @media(max-width:1080px){.menu,.nav .btn{display:none}.burger{display:flex}}
+  .drawer{position:fixed;inset:0;z-index:80;background:var(--void);display:flex;flex-direction:column;padding:32px;transform:translateX(100%);transition:transform .45s var(--ease);gap:6px}
+  .drawer.open{transform:translateX(0)}
+  .drawer .top{display:flex;justify-content:space-between;align-items:center;margin-bottom:28px}
+  .drawer a{font-family:'Oswald',sans-serif;text-transform:uppercase;font-size:30px;font-weight:500;color:var(--fog);padding:12px 0;border-bottom:1px solid var(--line-2)}
+  .drawer a:hover{color:var(--snow)}
+  .xclose{background:none;border:none;color:var(--snow);font-size:34px;cursor:pointer;line-height:1}
+
+  /* PAGE HERO */
+  .phero{position:relative;min-height:56vh;display:flex;align-items:flex-end;overflow:hidden;margin-top:-82px;padding-top:82px}
+  .phero .bg{position:absolute;inset:0;z-index:-2}
+  .phero .bg img{width:100%;height:100%;object-fit:cover;filter:grayscale(.2)}
+  .phero .grad{position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(8,9,12,.7) 0%,rgba(8,9,12,.35) 40%,rgba(8,9,12,.96) 100%),linear-gradient(90deg,rgba(8,9,12,.85) 0%,rgba(8,9,12,.2) 70%)}
+  .phero .hud{position:absolute;inset:0;z-index:-1;pointer-events:none;background-image:linear-gradient(var(--line-on-photo) 1px,transparent 1px),linear-gradient(90deg,var(--line-on-photo) 1px,transparent 1px);background-size:64px 64px;mask-image:radial-gradient(circle at 25% 70%,#000 0%,transparent 70%);opacity:.5}
+  .phero-in{padding:60px 0 64px;position:relative;z-index:2}
+  .crumb{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.08em;color:var(--fog-on-photo);margin-bottom:26px}
+  .crumb a{color:var(--amber)}
+  .crumb a:hover{text-decoration:underline}
+  .phero h1{font-size:clamp(44px,7vw,96px);font-weight:600;color:var(--ink-on-photo)}
+
+  section{position:relative}
+  .sec{padding:110px 0}
+
+  /* INTRO / narrative */
+  .intro{border-top:1px solid var(--line-2)}
+  .intro-grid{display:grid;grid-template-columns:.85fr 1.15fr;gap:70px}
+  .intro-side{position:sticky;top:120px;align-self:start}
+  .intro-side .eyebrow{margin-bottom:20px}
+  .intro-side h2{font-size:clamp(28px,3.4vw,44px);line-height:1.02}
+  .intro-side .stat{margin-top:40px;border-top:1px solid var(--line-2);padding-top:24px;display:grid;gap:20px}
+  .intro-side .stat .row{display:flex;justify-content:space-between;align-items:baseline;gap:16px}
+  .intro-side .stat .row .n{font-family:'Oswald',sans-serif;font-size:34px;font-weight:600}
+  .intro-side .stat .row .n em{color:var(--red);font-style:normal}
+  .intro-side .stat .row .l{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--fog-2);text-align:right}
+  .prose p{color:var(--fog);font-size:16px;margin-bottom:22px}
+  .prose p:first-child{color:#C7CBD1;font-size:18px;line-height:1.65}
+  .prose strong{color:var(--snow);font-weight:500}
+  @media(max-width:900px){.intro-grid{grid-template-columns:1fr;gap:40px}.intro-side{position:static}}
+
+  /* STATS COUNTER */
+  .stats{border-top:1px solid var(--line-2)}
+  .stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line-2);border:1px solid var(--line-2);border-radius:3px;overflow:hidden}
+  .stat-tile{background:var(--void);padding:38px 30px}
+  .stat-num{font-family:'Oswald',sans-serif;font-weight:600;font-size:clamp(34px,4vw,50px);color:var(--snow);line-height:1;display:flex;align-items:baseline;gap:1px}
+  .stat-num .stat-count{font-variant-numeric:tabular-nums}
+  .stat-num .stat-suffix{color:var(--red)}
+  .stat-label{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--fog-2);margin-top:14px}
+  .stats-note{margin-top:26px;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.05em;color:var(--fog)}
+  @media(max-width:760px){.stats-grid{grid-template-columns:repeat(2,1fr)}.stat-tile{padding:30px 22px}}
+
+  /* TIMELINE */
+  .timeline{background:var(--space);border-top:1px solid var(--line-2)}
+  .tl-track{list-style:none;display:flex;padding-top:8px}
+  .tl-item{flex:1;min-width:0;position:relative;padding:34px 24px 0 0}
+  .tl-item::before{content:"";position:absolute;top:5px;left:0;right:0;height:1px;background:var(--line)}
+  .tl-item:last-child::before{display:none}
+  .tl-dot{position:absolute;top:0;left:0;width:11px;height:11px;border-radius:50%;background:var(--amber);box-shadow:0 0 0 4px var(--space)}
+  .tl-item.flagship .tl-dot{background:var(--red);box-shadow:0 0 0 4px var(--space),0 0 14px rgba(225,37,27,.55)}
+  .tl-year{font-family:'Oswald',sans-serif;font-weight:600;font-size:22px;color:var(--snow);letter-spacing:.01em}
+  .tl-item.flagship .tl-year{color:var(--red)}
+  .tl-desc{font-family:'Inter',sans-serif;font-size:12.5px;line-height:1.55;color:var(--fog);margin-top:10px}
+  @media(max-width:900px){
+    .tl-track{flex-direction:column;gap:34px;padding-top:0}
+    .tl-item{padding:0 0 0 30px}
+    .tl-item::before{top:14px;left:5px;right:auto;bottom:-34px;width:1px;height:auto}
+    .tl-dot{top:0;left:0}
+  }
+  @media(max-width:620px){.tl-year{font-size:19px}}
+
+  /* PROJECTS (numbered technical list) */
+  .projects{background:var(--space);border-top:1px solid var(--line-2)}
+  .sec-head{max-width:760px;margin-bottom:60px}
+  .sec-head h2{font-size:clamp(32px,4.6vw,60px);margin-top:18px}
+  .sec-head p{color:var(--fog);margin-top:16px}
+  .plist{display:grid;grid-template-columns:1fr 1fr;gap:0 60px}
+  .pitem{display:grid;grid-template-columns:auto 1fr;gap:22px;padding:26px 0;border-top:1px solid var(--line-2);align-items:start}
+  .pitem .pn{font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--amber);padding-top:3px;min-width:26px}
+  .pitem p{color:var(--fog);font-size:14.5px;line-height:1.55}
+  .pitem p b{color:var(--snow);font-weight:500;font-family:'Oswald',sans-serif;text-transform:uppercase;letter-spacing:.02em;font-size:15px;display:block;margin-bottom:6px}
+  @media(max-width:860px){.plist{grid-template-columns:1fr}}
+
+  /* ADVANTAGES */
+  .adv-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line-2);border:1px solid var(--line-2);border-radius:3px;overflow:hidden}
+  .adv{background:var(--void);padding:34px 28px;transition:background .35s}
+  .adv:hover{background:rgba(255,255,255,.02)}
+  .adv .ic{width:40px;height:40px;color:var(--red);margin-bottom:20px}
+  .adv h4{font-family:'Oswald',sans-serif;text-transform:uppercase;font-size:15px;font-weight:500;letter-spacing:.02em;line-height:1.2}
+  .adv .idx{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--fog-2);letter-spacing:.2em;display:block;margin-bottom:14px}
+  @media(max-width:980px){.adv-grid{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:520px){.adv-grid{grid-template-columns:1fr}}
+
+  /* DOCUMENTS & LICENSES */
+  .docs-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+  .doc-card{border:1px solid var(--line-2);border-radius:3px;padding:28px 24px;background:rgba(255,255,255,.015);transition:border-color .3s,transform .3s}
+  .doc-card:hover{border-color:var(--line);transform:translateY(-4px)}
+  .doc-card .ic{width:30px;height:30px;color:var(--amber);margin-bottom:20px}
+  .doc-card h4{font-family:'Oswald',sans-serif;font-size:16px;font-weight:500;text-transform:uppercase;letter-spacing:.01em;line-height:1.25;margin-bottom:10px}
+  .doc-card .type{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--fog-2)}
+  @media(max-width:900px){.docs-grid{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:520px){.docs-grid{grid-template-columns:1fr}}
+
+  /* FLEET / spec table */
+  .fleet{background:var(--space);border-top:1px solid var(--line-2)}
+  .fleet-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:64px;align-items:start}
+  .fleet-side h2{font-size:clamp(28px,3.6vw,46px);margin-top:18px}
+  .fleet-side p{color:var(--fog);margin-top:16px}
+  .spec{border:1px solid var(--line-2);border-radius:3px;overflow:hidden}
+  .spec .row{display:grid;grid-template-columns:1fr auto;gap:20px;padding:17px 22px;border-top:1px solid var(--line-2);align-items:center;transition:background .25s}
+  .spec .row:first-child{border-top:none}
+  .spec .row:hover{background:rgba(255,255,255,.02)}
+  .spec .row .eq{font-family:'JetBrains Mono',monospace;font-size:13.5px;color:var(--snow);letter-spacing:.01em}
+  .spec .row .qty{font-family:'Oswald',sans-serif;font-weight:500;font-size:16px;color:var(--amber);white-space:nowrap}
+  .spec .head{background:var(--void);font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--fog-2)}
+  .spec .head .qty{color:var(--fog-2);font-family:'JetBrains Mono',monospace;font-size:10px}
+  @media(max-width:860px){.fleet-grid{grid-template-columns:1fr;gap:38px}}
+
+  /* DOC card */
+  .doc{margin-top:40px;border:1px solid var(--line);border-radius:3px;display:flex;align-items:center;justify-content:space-between;gap:20px;padding:22px 26px;flex-wrap:wrap;background:rgba(255,255,255,.015)}
+  .doc .l{display:flex;align-items:center;gap:18px}
+  .doc .thumb{width:52px;height:52px;border-radius:2px;overflow:hidden;flex:none;border:1px solid var(--line)}
+  .doc .thumb img{width:100%;height:100%;object-fit:cover}
+  .doc .t{font-family:'Oswald',sans-serif;text-transform:uppercase;font-size:17px;font-weight:500;letter-spacing:.02em}
+  .doc .t small{display:block;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.14em;color:var(--fog-2);text-transform:none;margin-top:5px}
+  .doc .r{display:flex;gap:12px}
+
+  /* MAP */
+  .map-frame{position:relative;height:440px;border-top:1px solid var(--line-2);border-bottom:1px solid var(--line-2);filter:grayscale(1) invert(.92) hue-rotate(180deg) contrast(.9) brightness(.9);transition:filter .4s var(--ease)}
+  :root[data-theme="light"] .map-frame{filter:none}
+  .map-frame iframe{width:100%;height:100%;border:0}
+  .map-pin{position:absolute;left:32px;bottom:26px;z-index:3;background:var(--void);border:1px solid var(--line);border-radius:3px;padding:16px 20px;filter:none;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.06em;color:var(--fog)}
+  .map-pin b{color:var(--snow);display:block;font-size:12px;margin-bottom:4px}
+
+  /* CTA + CONTACTS */
+  .contacts{background:var(--void);border-top:1px solid var(--line-2)}
+  .contacts .wrap{padding:110px 32px 70px}
+  .cta-band{display:grid;grid-template-columns:1fr auto;gap:40px;align-items:end;padding-bottom:70px;border-bottom:1px solid var(--line-2)}
+  .cta-band h2{font-size:clamp(38px,5.5vw,76px)}
+  .cta-band p{color:var(--fog);margin-top:16px;max-width:420px}
+  .cinfo{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line-2);border:1px solid var(--line-2);margin-top:70px;border-radius:3px;overflow:hidden}
+  .cblock{background:var(--void);padding:34px 30px}
+  .cblock .k{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--fog-2);display:flex;align-items:center;gap:10px}
+  .cblock .k .dot{width:6px;height:6px;background:var(--red);border-radius:50%}
+  .cblock .v{font-family:'Oswald',sans-serif;font-size:22px;font-weight:500;margin-top:14px}
+  .cblock .v.sm{font-size:16px;line-height:1.4}
+  @media(max-width:820px){.cta-band{grid-template-columns:1fr}.cinfo{grid-template-columns:1fr}}
+  footer{border-top:1px solid var(--line-2)}
+  footer .wrap{display:flex;justify-content:space-between;align-items:center;padding:34px 32px;flex-wrap:wrap;gap:18px}
+  footer .cp{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--fog-2);letter-spacing:.05em;line-height:1.7}
+  footer .cp b{color:var(--fog)}
+  .backtop{width:44px;height:44px;border:1px solid var(--line);border-radius:2px;display:flex;align-items:center;justify-content:center;cursor:pointer;background:none;color:var(--snow);transition:background .3s,transform .3s}
+  .backtop:hover{background:var(--red);border-color:var(--red);transform:translateY(-3px)}
+
+  .reveal{opacity:0;transform:translateY(30px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+  .reveal.in{opacity:1;transform:none}
+  @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}html{scroll-behavior:auto}}
+  :focus-visible{outline:2px solid var(--amber);outline-offset:3px}
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <div class="wrap">
+    <div class="ti phone"><span class="dot"></span><span>24/7</span><b>+998 (97) 480-10-00</b></div>
+    <div class="ti loc"><span data-i18n="topbar.loc">OZODLIK, AHANGARAN DIST., TASHKENT REGION</span></div>
+    <div class="ti lang" id="langSwitch">
+      <button class="lang-btn" id="langBtn" aria-haspopup="listbox" aria-expanded="false"><span id="langCur">EN</span> <span class="car">▾</span></button>
+      <div class="lang-menu" id="langMenu" role="listbox">
+        <div class="lang-opt" data-lang="en" role="option"><span>English</span><span class="code">EN</span></div>
+        <div class="lang-opt" data-lang="ru" role="option"><span>Русский</span><span class="code">RU</span></div>
+        <div class="lang-opt" data-lang="uz" role="option"><span>O'zbek</span><span class="code">UZ</span></div>
+        <div class="lang-opt" data-lang="zh" role="option"><span>中文</span><span class="code">ZH</span></div>
+      </div>
+    </div>
+    <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle light / dark theme">
+      <svg class="ic-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2.4M12 19.1v2.4M4.2 4.2l1.7 1.7M18.1 18.1l1.7 1.7M2.5 12h2.4M19.1 12h2.4M4.2 19.8l1.7-1.7M18.1 5.9l1.7-1.7"/></svg>
+      <svg class="ic-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M20.2 14.7A8.4 8.4 0 1 1 9.3 3.8a6.9 6.9 0 0 0 10.9 10.9z"/></svg>
+    </button>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav class="nav" id="nav">
+  <div class="wrap">
+    <a href="alex.html" class="logo" aria-label="ALEX ENGINEERING home">
+      <svg viewBox="0 0 100 100" aria-hidden="true">
+        <defs><linearGradient id="ag" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FF3B31"/><stop offset="1" stop-color="#B21810"/></linearGradient></defs>
+        <path d="M50 6 L92 92 L66 92 L50 54 L34 92 L8 92 Z" fill="url(#ag)"/>
+        <path class="cut" d="M50 30 L64 62 L36 62 Z" fill="#08090C"/>
+        <path class="cut" d="M50 6 L58 22 L42 22 Z" fill="#08090C" opacity=".9"/>
+      </svg>
+      <span class="wm"><span class="a1">ALEX</span><br><span class="a2">ENGINEERING</span></span>
+    </a>
+    <div class="menu">
+      <div class="mi">
+        <a href="alex.html" data-i18n="nav.home">Home</a>
+        <div class="submenu">
+          <a href="alex.html#about" data-i18n="sm.homeAbout">About us</a>
+          <a href="alex.html#gallery" data-i18n="sm.homeGallery">Gallery</a>
+        </div>
+      </div>
+      <div class="mi">
+        <a href="about.html" class="active" data-i18n="nav.about">About</a>
+        <div class="submenu">
+          <a href="about.html#projects" data-i18n="sm.aboutProjects">Selected projects</a>
+          <a href="about.html#licenses" data-i18n="sm.aboutLicenses">Documents &amp; licenses</a>
+          <a href="about.html#fleet" data-i18n="sm.aboutFleet">Own equipment fleet</a>
+        </div>
+      </div>
+      <div class="mi">
+        <a href="services.html" data-i18n="nav.services">Services</a>
+        <div class="submenu">
+          <a href="services.html#offer" data-i18n="sm.svcOffer">What we offer</a>
+          <a href="services.html#flow" data-i18n="sm.svcFlow">How we work</a>
+        </div>
+      </div>
+      <div class="mi">
+        <a href="projects.html" data-i18n="nav.projects">Projects</a>
+        <div class="submenu">
+          <a href="projects.html#portfolio" data-i18n="sm.projPortfolio">Portfolio</a>
+          <a href="projects.html#contacts" data-i18n="sm.projContacts">Contacts</a>
+        </div>
+      </div>
+      <div class="mi">
+        <a href="drone.html" data-i18n="nav.drone">Drone Assembly</a>
+        <div class="submenu">
+          <a href="drone.html#use" data-i18n="sm.droneUse">Applications</a>
+          <a href="drone.html#why" data-i18n="sm.droneWhy">Why choose us</a>
+        </div>
+      </div>
+      <div class="mi">
+        <a href="contact.html" data-i18n="nav.contacts">Contacts</a>
+        <div class="submenu">
+          <a href="contact.html#details" data-i18n="sm.contactDetails">Company details</a>
+          <a href="contact.html#request" data-i18n="sm.contactRequest">Request form</a>
+        </div>
+      </div>
+    </div>
+    <a href="alex.html#request" class="btn red" data-i18n="nav.cta">Leave a request</a>
+    <button class="burger" id="burger" aria-label="Open menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<!-- DRAWER -->
+<div class="drawer" id="drawer">
+  <div class="top"><span class="logo"><span class="wm"><span class="a1">ALEX</span></span></span><button class="xclose" id="xclose" aria-label="Close menu">&times;</button></div>
+  <a href="alex.html" data-i18n="nav.home">Home</a>
+  <a href="about.html" data-i18n="nav.about">About</a>
+  <a href="services.html" data-i18n="nav.services">Services</a>
+  <a href="projects.html" data-i18n="nav.projects">Projects</a>
+  <a href="drone.html" data-i18n="nav.drone">Drone Assembly</a>
+  <a href="contact.html" data-i18n="nav.contacts">Contacts</a>
+  <a href="alex.html#request" style="color:var(--red)" data-i18n="drawer.cta">Leave a request →</a>
+</div>
+
+<!-- PAGE HERO -->
+<header class="phero" id="top">
+  <div class="bg"><img src="https://images.unsplash.com/photo-1497440001374-f26997328c1b?auto=format&fit=crop&w=2400&q=80" alt="Engineers on a solar site"></div>
+  <div class="grad"></div>
+  <div class="hud"></div>
+  <div class="wrap">
+    <div class="phero-in">
+      <div class="crumb"><a href="alex.html" data-i18n="nav.home">Home</a> / <span data-i18n="crumb.about">About company</span></div>
+      <span class="eyebrow" data-i18n="about.pageEyebrow">COMPANY PROFILE · EST. 2002</span>
+      <h1 style="margin-top:18px" data-i18n="about.pageH1">About<br>Company</h1>
+    </div>
+  </div>
+</header>
+
+<!-- INTRO -->
+<section class="intro sec" id="who">
+  <div class="wrap">
+    <div class="intro-grid">
+      <aside class="intro-side reveal">
+        <span class="eyebrow" data-i18n="about.who">WHO WE ARE</span>
+        <h2 data-i18n="about.whoH2">Telecom roots.<br>Solar future.</h2>
+        <div class="stat">
+          <div class="row"><span class="n">2002</span><span class="l" data-i18n="about.stat1L">Operating<br>since</span></div>
+          <div class="row"><span class="n"><em>23</em>+</span><span class="l" data-i18n="about.stat2L">Years in<br>the field</span></div>
+          <div class="row"><span class="n">EPC</span><span class="l" data-i18n="about.stat3L">Turnkey<br>solar cycle</span></div>
+        </div>
+      </aside>
+
+      <div class="prose reveal">
+        <p data-i18n="about.prose1">Company <strong>"ALEX ENGINEERING"</strong> has been successfully operating in the telecommunications market since 2002 and is staffed with highly qualified specialists in the fields of telecommunications and the application of alternative energy sources. Over 23 years in the telecommunications and energy sectors, our company has accumulated extensive experience working with various organizations across the Republic of Uzbekistan.</p>
+        <p data-i18n="about.prose2">We perform pre-project studies, design, construction, installation and commissioning works, as well as turnkey construction of base stations for mobile operators — with participation in a broad portfolio of national telecom and energy projects.</p>
+        <p data-i18n="about.prose3">At present, our company is actively engaged in the solar energy sector, providing turnkey solar power plant <strong>(EPC: Engineering, Procurement, Construction)</strong> services. Our specialists have experience implementing solar PV projects under the climatic conditions of Central Asia. Our main goal: to create reliable, efficient and economically viable solar power generation systems.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS COUNTER -->
+<section class="stats sec" id="stats">
+  <div class="wrap">
+    <div class="stats-grid">
+      <div class="stat-tile reveal">
+        <div class="stat-num"><span class="stat-count" data-target="2002">0</span></div>
+        <div class="stat-label" data-i18n="stats.l1">Operating since</div>
+      </div>
+      <div class="stat-tile reveal">
+        <div class="stat-num"><span class="stat-count" data-target="23">0</span><span class="stat-suffix">+</span></div>
+        <div class="stat-label" data-i18n="stats.l2">Years of experience</div>
+      </div>
+      <div class="stat-tile reveal">
+        <div class="stat-num"><span class="stat-count" data-target="38">0</span><span class="stat-suffix">&nbsp;MW</span></div>
+        <div class="stat-label" data-i18n="stats.l3">Solar capacity installed</div>
+      </div>
+      <div class="stat-tile reveal">
+        <div class="stat-num"><span class="stat-count" data-target="8">0</span></div>
+        <div class="stat-label" data-i18n="stats.l4">PV projects delivered</div>
+      </div>
+    </div>
+    <div class="stats-note" data-i18n="stats.note">Flagship: 30 MW PV with tracking · Samarkand</div>
+  </div>
+</section>
+
+<!-- TIMELINE -->
+<section class="timeline sec" id="timeline">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow" data-i18n="timeline.eyebrow">OUR JOURNEY · SINCE 2002</span>
+      <h2 data-i18n="timeline.h2">From telecom to solar</h2>
+      <p data-i18n="timeline.p">Two decades of telecommunications engineering, now channeled into turnkey solar EPC.</p>
+    </div>
+    <ol class="tl-track" aria-label="ALEX ENGINEERING company timeline, 2002 to 2025">
+      <li class="tl-item reveal" style="transition-delay:0ms">
+        <div class="tl-dot" aria-hidden="true"></div>
+        <div class="tl-year" data-i18n="timeline.y1">2002</div>
+        <p class="tl-desc" data-i18n="timeline.d1">Company founded — start in the telecommunications market.</p>
+      </li>
+      <li class="tl-item reveal" style="transition-delay:70ms">
+        <div class="tl-dot" aria-hidden="true"></div>
+        <div class="tl-year" data-i18n="timeline.y2">2000s</div>
+        <p class="tl-desc" data-i18n="timeline.d2">Contract works for Huawei (GSM, CDMA, WCDMA, WiMAX, SDH, DWDM); commissioning for Unitel, Uzdunrobita, Coscom, Perfectum, Uzmobile.</p>
+      </li>
+      <li class="tl-item reveal" style="transition-delay:140ms">
+        <div class="tl-dot" aria-hidden="true"></div>
+        <div class="tl-year" data-i18n="timeline.y3">2000s–2010s</div>
+        <p class="tl-desc" data-i18n="timeline.d3">Uzbektelecom network development; SDH/OSN commissioning; antenna-mast structures nationwide.</p>
+      </li>
+      <li class="tl-item reveal" style="transition-delay:0ms">
+        <div class="tl-dot" aria-hidden="true"></div>
+        <div class="tl-year" data-i18n="timeline.y4">2010s</div>
+        <p class="tl-desc" data-i18n="timeline.d4">Diesel generators for mobile operators; security &amp; fire alarm systems.</p>
+      </li>
+      <li class="tl-item reveal" style="transition-delay:70ms">
+        <div class="tl-dot" aria-hidden="true"></div>
+        <div class="tl-year" data-i18n="timeline.y5">Recent years</div>
+        <p class="tl-desc" data-i18n="timeline.d5">Shift to solar energy — turnkey solar EPC (Engineering, Procurement, Construction).</p>
+      </li>
+      <li class="tl-item flagship reveal" style="transition-delay:140ms">
+        <div class="tl-dot" aria-hidden="true"></div>
+        <div class="tl-year" data-i18n="timeline.y6">Flagship</div>
+        <p class="tl-desc" data-i18n="timeline.d6">30 MW PV plant with solar tracking, Samarkand — subcontractor of "China Energie" L.T.D.</p>
+      </li>
+      <li class="tl-item reveal" style="transition-delay:0ms">
+        <div class="tl-dot" aria-hidden="true"></div>
+        <div class="tl-year" data-i18n="timeline.y7">2025</div>
+        <p class="tl-desc" data-i18n="timeline.d7">8+ PV projects delivered across Uzbekistan; ~38 MW installed.</p>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section class="projects sec" id="projects">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow" data-i18n="about.projEyebrow">SELECTED PROJECTS</span>
+      <h2 data-i18n="about.projH2">Two decades of delivery</h2>
+      <p data-i18n="about.projP">Projects implemented across telecommunications, power and renewable energy throughout Uzbekistan.</p>
+    </div>
+    <div class="plist">
+      <div class="pitem reveal"><div class="pn">01</div><p data-i18n="about.pi1"><b>Contract work for Huawei</b>Equipment including GSM (BTS, BSC, MSC), CDMA (BTS, BSC, MSC), WCDMA, WiMAX, SDH, DWDM, Datacom, C&amp;C08 and NGN.</p></div>
+      <div class="pitem reveal"><div class="pn">02</div><p data-i18n="about.pi2"><b>Commissioning &amp; supervision</b>Works for mobile operators Unitel, Uzdunrobita, Coscom, PerfectumMobile and Uzmobile (GSM and CDMA standards).</p></div>
+      <div class="pitem reveal"><div class="pn">03</div><p data-i18n="about.pi3"><b>Uzbektelecom network development</b>Modernization of JSC "Uzbektelecom" networks in Tashkent and other regions — electronic ATE by Alcatel, Siemens, Huawei and remote concentrators.</p></div>
+      <div class="pitem reveal"><div class="pn">04</div><p data-i18n="about.pi4"><b>SDH &amp; OSN commissioning</b>Commissioning of SDH (STM-1, STM-4, STM-16) and OSN equipment.</p></div>
+      <div class="pitem reveal"><div class="pn">05</div><p data-i18n="about.pi5"><b>Diesel generator installation</b>Installation of diesel generators for mobile communication operators.</p></div>
+      <div class="pitem reveal"><div class="pn">06</div><p data-i18n="about.pi6"><b>Solar power plants (PV stations)</b>Design and construction of PV stations for mobile operators, organizations and the private sector across Uzbekistan.</p></div>
+      <div class="pitem reveal"><div class="pn">07</div><p data-i18n="about.pi7"><b>Antenna-mast structures</b>Construction of antenna-mast structures for mobile companies throughout Uzbekistan.</p></div>
+      <div class="pitem reveal"><div class="pn">08</div><p data-i18n="about.pi8"><b>Security &amp; fire alarm systems</b>Design and installation of security and fire alarm systems.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ADVANTAGES -->
+<section class="sec">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow" data-i18n="about.advEyebrow">OUR ADVANTAGES</span>
+      <h2 data-i18n="about.advH2">Why clients choose us</h2>
+    </div>
+    <div class="adv-grid">
+      <div class="adv reveal"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M3 20v-4l9-11 4 4-9 11H3z"/><path d="M14 6l3 3" stroke="#F28C00"/></svg><span class="idx">A / 01</span><h4 data-i18n="about.adv1">Full EPC implementation cycle</h4></div>
+      <div class="adv reveal"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M4 21V10h16v11"/><path d="M9 21v-5h6v5"/><path d="M12 3l8 4H4z" stroke="#F28C00"/></svg><span class="idx">A / 02</span><h4 data-i18n="about.adv2">In-depth knowledge of Uzbek government requirements</h4></div>
+      <div class="adv reveal"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 2l7 3v6c0 5-3.5 8.5-7 11-3.5-2.5-7-6-7-11V5z"/><path d="M9 12l2 2 4-4" stroke="#F28C00"/></svg><span class="idx">A / 03</span><h4 data-i18n="about.adv3">Use of certified equipment (Tier-1)</h4></div>
+      <div class="adv reveal"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M4 20V9l8-5 8 5v11"/><path d="M9 20v-6h6v6"/><circle cx="12" cy="7.5" r="1.4" fill="#F28C00" stroke="none"/></svg><span class="idx">A / 04</span><h4 data-i18n="about.adv4">Experience with international investors and banks</h4></div>
+      <div class="adv reveal"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="12" r="8"/><path d="M12 8v4l3 2" stroke="#F28C00"/></svg><span class="idx">A / 05</span><h4 data-i18n="about.adv5">Minimization of design and approval time</h4></div>
+      <div class="adv reveal"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.5-6 8-6s8 2 8 6" stroke="#F28C00"/></svg><span class="idx">A / 06</span><h4 data-i18n="about.adv6">Individual approach tailored to site conditions</h4></div>
+      <div class="adv reveal"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M4 15l4 4 12-14" stroke="#F28C00"/><path d="M4 9l3-4h10l3 4"/></svg><span class="idx">A / 07</span><h4 data-i18n="about.adv7">Efficiency guarantee — confirmation of actual generation</h4></div>
+      <div class="adv reveal" style="display:flex;flex-direction:column;justify-content:center"><span class="idx" style="color:var(--amber)">EPC · UZ</span><h4 style="color:var(--fog);font-size:14px;line-height:1.4" data-i18n="about.advNote">Reliable, efficient and economically viable solar generation.</h4></div>
+    </div>
+  </div>
+</section>
+
+<!-- DOCUMENTS & LICENSES -->
+<section class="sec" id="licenses">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow" data-i18n="about.licEyebrow">TRANSPARENCY</span>
+      <h2 data-i18n="about.licH2">Documents &amp; licenses</h2>
+      <p data-i18n="about.licP">Available on request for review — get in touch and we'll share the relevant document.</p>
+    </div>
+    <div class="docs-grid">
+      <div class="doc-card reveal">
+        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M6 2h9l5 5v15H6z"/><path d="M15 2v5h5"/><path d="M9 13h6M9 17h6"/></svg>
+        <h4 data-i18n="about.lic1">Document 1</h4>
+        <span class="type" data-i18n="about.licType">License / Certificate</span>
+      </div>
+      <div class="doc-card reveal">
+        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M6 2h9l5 5v15H6z"/><path d="M15 2v5h5"/><path d="M9 13h6M9 17h6"/></svg>
+        <h4 data-i18n="about.lic2">Document 2</h4>
+        <span class="type" data-i18n="about.licType">License / Certificate</span>
+      </div>
+      <div class="doc-card reveal">
+        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M6 2h9l5 5v15H6z"/><path d="M15 2v5h5"/><path d="M9 13h6M9 17h6"/></svg>
+        <h4 data-i18n="about.lic3">Document 3</h4>
+        <span class="type" data-i18n="about.licType">License / Certificate</span>
+      </div>
+      <div class="doc-card reveal">
+        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M6 2h9l5 5v15H6z"/><path d="M15 2v5h5"/><path d="M9 13h6M9 17h6"/></svg>
+        <h4 data-i18n="about.lic4">Document 4</h4>
+        <span class="type" data-i18n="about.licType">License / Certificate</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FLEET -->
+<section class="fleet sec" id="fleet">
+  <div class="wrap">
+    <div class="fleet-grid">
+      <div class="fleet-side reveal">
+        <span class="eyebrow" data-i18n="about.fleetEyebrow">TRANSPORT &amp; CONSTRUCTION</span>
+        <h2 data-i18n="about.fleetH2">Our own equipment fleet</h2>
+        <p data-i18n="about.fleetP">Beyond energy, we provide services to the transport, construction and other sectors — supported by a fleet of certified heavy machinery.</p>
+
+        <div class="doc reveal">
+          <div class="l">
+            <div class="thumb"><img src="about/visit.jpg" alt="Our visit to Japan"></div>
+            <div class="t" data-i18n="about.docTitle">Our visit to Japan<small>PRESENTATION · PDF</small></div>
+          </div>
+          <div class="r">
+            <a href="about/visit.pdf" target="_blank" rel="noopener" class="btn ghost" data-i18n="about.docView">View</a>
+            <a href="about/visit.pdf" download class="btn" data-i18n="about.docDownload">Download</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="spec reveal">
+        <div class="row head"><span class="eq">Equipment</span><span class="qty">Qty</span></div>
+        <div class="row"><span class="eq">Truck crane XCMG QY50KA — 50 t</span><span class="qty">1 unit</span></div>
+        <div class="row"><span class="eq">Truck crane XCMG QY75K5 — 75 t</span><span class="qty">1 unit</span></div>
+        <div class="row"><span class="eq">XCMG XD83E Double-Drum Road Roller — 8 t</span><span class="qty">4 units</span></div>
+        <div class="row"><span class="eq">SDLG RS8180 Soil Roller — 18 t</span><span class="qty">4 units</span></div>
+        <div class="row"><span class="eq">XCMG 180 Grader</span><span class="qty">2 units</span></div>
+        <div class="row"><span class="eq">Shantui SE245LC Crawler Excavator — 1.2 m³</span><span class="qty">2 units</span></div>
+        <div class="row"><span class="eq">Cat 330 GC Excavator — 2.12 m³</span><span class="qty">2 units</span></div>
+        <div class="row"><span class="eq">Hovo Dump Trucks</span><span class="qty">10 units</span></div>
+        <div class="row"><span class="eq">Loaders</span><span class="qty">2 units</span></div>
+        <div class="row"><span class="eq">Asphalt Roller</span><span class="qty">3 units</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MAP -->
+<section>
+  <div class="map-frame">
+    <iframe title="ALEX ENGINEERING location" loading="lazy" src="https://www.openstreetmap.org/export/embed.html?bbox=69.10%2C41.24%2C69.40%2C41.36&layer=mapnik&marker=41.31%2C69.25"></iframe>
+    <div class="map-pin" data-i18n="about.mapPin"><b>ALEX ENGINEERING</b>Tashkent Region · Ahangaran District · Ozodlik</div>
+  </div>
+</section>
+
+<!-- CONTACTS -->
+<section class="contacts" id="contacts">
+  <div class="wrap">
+    <div class="cta-band reveal">
+      <div>
+        <span class="eyebrow" data-i18n="contacts.eyebrow">GET IN TOUCH</span>
+        <h2 style="margin-top:20px" data-i18n="contacts.h2">Let's power<br>your project</h2>
+        <p data-i18n="contacts.p">Tell us about your site and requirements — our engineers will scope it and reply within one business day.</p>
+      </div>
+      <a href="alex.html#request" class="btn red" data-i18n="contacts.cta">Leave a request</a>
+    </div>
+    <div class="cinfo reveal">
+      <div class="cblock"><div class="k"><span class="dot"></span><span data-i18n="cinfo1.k">24 / 7 line</span></div><div class="v">+998 (97) 480-10-00</div></div>
+      <div class="cblock"><div class="k"><span class="dot"></span><span data-i18n="cinfo2.k">Our location</span></div><div class="v sm" data-i18n="cinfo2.v">Tashkent Region, Ahangaran District,<br>Ozodlik Neighborhood</div></div>
+      <div class="cblock"><div class="k"><span class="dot"></span><span data-i18n="cinfo3.k">Company</span></div><div class="v sm" data-i18n="cinfo3.v">OOO «ALEX ENGINEERING»<br>TIN 203541729</div></div>
+    </div>
+  </div>
+  <footer>
+    <div class="wrap">
+      <div class="cp" data-i18n="footer.cp">Copyright © 2025 <b>OOO «ALEX ENGINEERING»</b><br>TIN 203541729 · All rights reserved</div>
+      <button class="backtop" id="backtop" aria-label="Back to top"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 19V5M6 11l6-6 6 6"/></svg></button>
+    </div>
+  </footer>
+</section>
+
+<script>
+  const nav=document.getElementById('nav');
+  const onScroll=()=>nav.classList.toggle('scrolled',window.scrollY>40);
+  onScroll();window.addEventListener('scroll',onScroll,{passive:true});
+  const drawer=document.getElementById('drawer');
+  document.getElementById('burger').onclick=()=>drawer.classList.add('open');
+  document.getElementById('xclose').onclick=()=>drawer.classList.remove('open');
+  drawer.querySelectorAll('a').forEach(a=>a.onclick=()=>drawer.classList.remove('open'));
+  document.getElementById('backtop').onclick=()=>window.scrollTo({top:0,behavior:'smooth'});
+  const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:.12,rootMargin:'0px 0px -8% 0px'});
+  document.querySelectorAll('.reveal').forEach((el,i)=>{el.style.transitionDelay=(i%3)*70+'ms';io.observe(el);});
+
+  // ============ i18n / language switcher ============
+  const i18n={
+    en:{
+      'topbar.loc':'OZODLIK, AHANGARAN DIST., TASHKENT REGION',
+      'nav.home':'Home','nav.about':'About','nav.services':'Services','nav.projects':'Projects','nav.drone':'Drone Assembly','nav.contacts':'Contacts','nav.cta':'Leave a request',
+      'drawer.cta':'Leave a request →',
+      'sm.homeAbout':'About us','sm.homeGallery':'Gallery','sm.aboutProjects':'Selected projects','sm.aboutLicenses':'Documents &amp; licenses','sm.aboutFleet':'Own equipment fleet','sm.svcOffer':'What we offer','sm.svcFlow':'How we work','sm.projPortfolio':'Portfolio','sm.projContacts':'Contacts','sm.droneUse':'Applications','sm.droneWhy':'Why choose us','sm.contactDetails':'Company details','sm.contactRequest':'Request form',
+      'crumb.about':'About company',
+      'about.pageEyebrow':'COMPANY PROFILE · EST. 2002','about.pageH1':'About<br>Company',
+      'about.who':'WHO WE ARE','about.whoH2':'Telecom roots.<br>Solar future.',
+      'about.stat1L':'Operating<br>since','about.stat2L':'Years in<br>the field','about.stat3L':'Turnkey<br>solar cycle',
+      'about.prose1':'Company <strong>"ALEX ENGINEERING"</strong> has been successfully operating in the telecommunications market since 2002 and is staffed with highly qualified specialists in the fields of telecommunications and the application of alternative energy sources. Over 23 years in the telecommunications and energy sectors, our company has accumulated extensive experience working with various organizations across the Republic of Uzbekistan.',
+      'about.prose2':'We perform pre-project studies, design, construction, installation and commissioning works, as well as turnkey construction of base stations for mobile operators — with participation in a broad portfolio of national telecom and energy projects.',
+      'about.prose3':'At present, our company is actively engaged in the solar energy sector, providing turnkey solar power plant <strong>(EPC: Engineering, Procurement, Construction)</strong> services. Our specialists have experience implementing solar PV projects under the climatic conditions of Central Asia. Our main goal: to create reliable, efficient and economically viable solar power generation systems.',
+      'about.projEyebrow':'SELECTED PROJECTS','about.projH2':'Two decades of delivery','about.projP':'Projects implemented across telecommunications, power and renewable energy throughout Uzbekistan.',
+      'about.pi1':'<b>Contract work for Huawei</b>Equipment including GSM (BTS, BSC, MSC), CDMA (BTS, BSC, MSC), WCDMA, WiMAX, SDH, DWDM, Datacom, C&C08 and NGN.',
+      'about.pi2':'<b>Commissioning &amp; supervision</b>Works for mobile operators Unitel, Uzdunrobita, Coscom, PerfectumMobile and Uzmobile (GSM and CDMA standards).',
+      'about.pi3':'<b>Uzbektelecom network development</b>Modernization of JSC "Uzbektelecom" networks in Tashkent and other regions — electronic ATE by Alcatel, Siemens, Huawei and remote concentrators.',
+      'about.pi4':'<b>SDH &amp; OSN commissioning</b>Commissioning of SDH (STM-1, STM-4, STM-16) and OSN equipment.',
+      'about.pi5':'<b>Diesel generator installation</b>Installation of diesel generators for mobile communication operators.',
+      'about.pi6':'<b>Solar power plants (PV stations)</b>Design and construction of PV stations for mobile operators, organizations and the private sector across Uzbekistan.',
+      'about.pi7':'<b>Antenna-mast structures</b>Construction of antenna-mast structures for mobile companies throughout Uzbekistan.',
+      'about.pi8':'<b>Security &amp; fire alarm systems</b>Design and installation of security and fire alarm systems.',
+      'about.advEyebrow':'OUR ADVANTAGES','about.advH2':'Why clients choose us',
+      'about.adv1':'Full EPC implementation cycle',
+      'about.adv2':'In-depth knowledge of Uzbek government requirements',
+      'about.adv3':'Use of certified equipment (Tier-1)',
+      'about.adv4':'Experience with international investors and banks',
+      'about.adv5':'Minimization of design and approval time',
+      'about.adv6':'Individual approach tailored to site conditions',
+      'about.adv7':'Efficiency guarantee — confirmation of actual generation',
+      'about.advNote':'Reliable, efficient and economically viable solar generation.',
+      'about.fleetEyebrow':'TRANSPORT &amp; CONSTRUCTION','about.fleetH2':'Our own equipment fleet',
+      'about.fleetP':'Beyond energy, we provide services to the transport, construction and other sectors — supported by a fleet of certified heavy machinery.',
+      'about.docTitle':'Our visit to Japan<small>PRESENTATION · PDF</small>','about.docView':'View','about.docDownload':'Download',
+      'about.mapPin':'<b>ALEX ENGINEERING</b>Tashkent Region · Ahangaran District · Ozodlik',
+      'about.licEyebrow':'TRANSPARENCY','about.licH2':'Documents &amp; licenses','about.licP':"Available on request for review — get in touch and we'll share the relevant document.",
+      'about.lic1':'Document 1','about.lic2':'Document 2','about.lic3':'Document 3','about.lic4':'Document 4','about.licType':'License / Certificate',
+      'contacts.eyebrow':'GET IN TOUCH','contacts.h2':"Let's power<br>your project",
+      'contacts.p':'Tell us about your site and requirements — our engineers will scope it and reply within one business day.',
+      'contacts.cta':'Leave a request',
+      'cinfo1.k':'24 / 7 line','cinfo2.k':'Our location','cinfo2.v':'Tashkent Region, Ahangaran District,<br>Ozodlik Neighborhood',
+      'cinfo3.k':'Company','cinfo3.v':'OOO «ALEX ENGINEERING»<br>TIN 203541729',
+      'footer.cp':'Copyright © 2025 <b>OOO «ALEX ENGINEERING»</b><br>TIN 203541729 · All rights reserved'
+    },
+    ru:{
+      'topbar.loc':'ОЗОДЛИК, АХАНГАРАНСКИЙ РАЙОН, ТАШКЕНТСКАЯ ОБЛАСТЬ',
+      'nav.home':'Главная','nav.about':'О компании','nav.services':'Услуги','nav.projects':'Проекты','nav.drone':'Сборка дронов','nav.contacts':'Контакты','nav.cta':'Оставить заявку',
+      'drawer.cta':'Оставить заявку →',
+      'sm.homeAbout':'О компании','sm.homeGallery':'Галерея','sm.aboutProjects':'Избранные проекты','sm.aboutLicenses':'Документы и лицензии','sm.aboutFleet':'Собственный парк техники','sm.svcOffer':'Что мы предлагаем','sm.svcFlow':'Как мы работаем','sm.projPortfolio':'Портфолио','sm.projContacts':'Контакты','sm.droneUse':'Применение','sm.droneWhy':'Почему мы','sm.contactDetails':'Реквизиты','sm.contactRequest':'Форма заявки',
+      'crumb.about':'О компании',
+      'about.pageEyebrow':'ПРОФИЛЬ КОМПАНИИ · ОСН. 2002','about.pageH1':'О<br>компании',
+      'about.who':'КТО МЫ','about.whoH2':'Корни в телекоме.<br>Будущее в солнце.',
+      'about.stat1L':'Работаем<br>с','about.stat2L':'Лет в<br>отрасли','about.stat3L':'Полный цикл<br>солнечных проектов',
+      'about.prose1':'Компания <strong>«ALEX ENGINEERING»</strong> успешно работает на рынке телекоммуникаций с 2002 года и располагает высококвалифицированными специалистами в области телекоммуникаций и применения альтернативных источников энергии. За более чем 23 года работы в сфере телекоммуникаций и энергетики компания накопила обширный опыт сотрудничества с различными организациями по всей Республике Узбекистан.',
+      'about.prose2':'Мы выполняем предпроектные изыскания, проектирование, строительство, монтажные и пусконаладочные работы, а также строительство базовых станций «под ключ» для операторов мобильной связи — с участием в широком портфеле национальных телеком- и энергопроектов.',
+      'about.prose3':'В настоящее время компания активно развивает направление солнечной энергетики, предоставляя услуги строительства солнечных электростанций «под ключ» <strong>(EPC: проектирование, поставка, строительство)</strong>. Наши специалисты имеют опыт реализации проектов солнечной генерации в климатических условиях Центральной Азии. Наша главная цель — создавать надёжные, эффективные и экономически выгодные системы солнечной генерации.',
+      'about.projEyebrow':'ИЗБРАННЫЕ ПРОЕКТЫ','about.projH2':'Два десятилетия реализации проектов','about.projP':'Проекты, реализованные в сфере телекоммуникаций, энергетики и возобновляемой энергии по всему Узбекистану.',
+      'about.pi1':'<b>Подрядные работы для Huawei</b>Оборудование GSM (BTS, BSC, MSC), CDMA (BTS, BSC, MSC), WCDMA, WiMAX, SDH, DWDM, Datacom, C&C08 и NGN.',
+      'about.pi2':'<b>Пусконаладка и супервайзинг</b>Работы для операторов мобильной связи Unitel, Uzdunrobita, Coscom, PerfectumMobile и Uzmobile (стандарты GSM и CDMA).',
+      'about.pi3':'<b>Развитие сети Узбектелеком</b>Модернизация сетей АО «Узбектелеком» в Ташкенте и других регионах — электронные АТС Alcatel, Siemens, Huawei и удалённые концентраторы.',
+      'about.pi4':'<b>Пусконаладка SDH и OSN</b>Пусконаладочные работы оборудования SDH (STM-1, STM-4, STM-16) и OSN.',
+      'about.pi5':'<b>Установка дизель-генераторов</b>Установка дизель-генераторов для операторов мобильной связи.',
+      'about.pi6':'<b>Солнечные электростанции (ФЭС)</b>Проектирование и строительство ФЭС для операторов мобильной связи, организаций и частного сектора по всему Узбекистану.',
+      'about.pi7':'<b>Антенно-мачтовые сооружения</b>Строительство антенно-мачтовых сооружений для операторов мобильной связи по всему Узбекистану.',
+      'about.pi8':'<b>Системы охранно-пожарной сигнализации</b>Проектирование и монтаж систем охранной и пожарной сигнализации.',
+      'about.advEyebrow':'НАШИ ПРЕИМУЩЕСТВА','about.advH2':'Почему клиенты выбирают нас',
+      'about.adv1':'Полный цикл реализации EPC',
+      'about.adv2':'Глубокое знание требований государственных органов Узбекистана',
+      'about.adv3':'Использование сертифицированного оборудования (Tier-1)',
+      'about.adv4':'Опыт работы с международными инвесторами и банками',
+      'about.adv5':'Минимизация сроков проектирования и согласования',
+      'about.adv6':'Индивидуальный подход с учётом условий объекта',
+      'about.adv7':'Гарантия эффективности — подтверждение фактической генерации',
+      'about.advNote':'Надёжная, эффективная и экономически выгодная солнечная генерация.',
+      'about.fleetEyebrow':'ТРАНСПОРТ И СТРОИТЕЛЬСТВО','about.fleetH2':'Собственный парк техники',
+      'about.fleetP':'Помимо энергетики, мы оказываем услуги в сфере транспорта, строительства и других направлениях — при поддержке парка сертифицированной тяжёлой техники.',
+      'about.docTitle':'Наш визит в Японию<small>ПРЕЗЕНТАЦИЯ · PDF</small>','about.docView':'Смотреть','about.docDownload':'Скачать',
+      'about.mapPin':'<b>ALEX ENGINEERING</b>Ташкентская область · Ахангаранский район · Озодлик',
+      'about.licEyebrow':'ПРОЗРАЧНОСТЬ','about.licH2':'Документы и лицензии','about.licP':'Доступны по запросу для ознакомления — свяжитесь с нами, и мы предоставим нужный документ.',
+      'about.lic1':'Документ 1','about.lic2':'Документ 2','about.lic3':'Документ 3','about.lic4':'Документ 4','about.licType':'Лицензия / сертификат',
+      'contacts.eyebrow':'СВЯЖИТЕСЬ С НАМИ','contacts.h2':'Обеспечим<br>энергией ваш проект',
+      'contacts.p':'Расскажите о вашем объекте и требованиях — наши инженеры оценят проект и ответят в течение одного рабочего дня.',
+      'contacts.cta':'Оставить заявку',
+      'cinfo1.k':'Линия 24/7','cinfo2.k':'Наш адрес','cinfo2.v':'Ташкентская область, Ахангаранский район,<br>массив Озодлик',
+      'cinfo3.k':'Компания','cinfo3.v':'ООО «ALEX ENGINEERING»<br>ИНН 203541729',
+      'footer.cp':'© 2025 <b>ООО «ALEX ENGINEERING»</b><br>ИНН 203541729 · Все права защищены'
+    },
+    uz:{
+      'topbar.loc':"OZODLIK MFY, OHANGARON TUMANI, TOSHKENT VILOYATI",
+      'nav.home':'Bosh sahifa','nav.about':'Kompaniya haqida','nav.services':'Xizmatlar','nav.projects':'Loyihalar','nav.drone':"Dron yig'ish",'nav.contacts':'Aloqa','nav.cta':'Ariza qoldirish',
+      'drawer.cta':'Ariza qoldirish →',
+      'sm.homeAbout':'Kompaniya haqida','sm.homeGallery':'Galereya','sm.aboutProjects':'Tanlangan loyihalar','sm.aboutLicenses':'Hujjatlar va litsenziyalar','sm.aboutFleet':"O'z texnika parki",'sm.svcOffer':'Nima taklif qilamiz','sm.svcFlow':'Qanday ishlaymiz','sm.projPortfolio':'Portfolio','sm.projContacts':'Aloqa','sm.droneUse':"Qo'llanilishi",'sm.droneWhy':'Nega bizni tanlashadi','sm.contactDetails':'Rekvizitlar','sm.contactRequest':'Ariza shakli',
+      'crumb.about':'Kompaniya haqida',
+      'about.pageEyebrow':'KOMPANIYA PROFILI · TASHKIL 2002','about.pageH1':'Kompaniya<br>haqida',
+      'about.who':'BIZ KIMMIZ','about.whoH2':"Telekom ildizlari.<br>Quyosh kelajagi.",
+      'about.stat1L':'Faoliyat<br>boshlangan','about.stat2L':'Sohadagi<br>tajriba, yil','about.stat3L':"To'liq quyosh<br>tsikli",
+      'about.prose1':'"ALEX ENGINEERING" kompaniyasi 2002-yildan buyon telekommunikatsiya bozorida muvaffaqiyatli faoliyat yuritmoqda va telekommunikatsiya hamda muqobil energiya manbalarini qo\'llash sohasida yuqori malakali mutaxassislarga ega. Telekommunikatsiya va energetika sohasidagi 23 yildan ortiq tajriba davomida kompaniya O\'zbekiston Respublikasi bo\'ylab turli tashkilotlar bilan ishlashda katta tajriba to\'pladi.',
+      'about.prose2':"Biz loyihaoldi tadqiqotlar, loyihalash, qurilish, montaj va sozlash ishlarini, shuningdek mobil operatorlar uchun bazaviy stansiyalarni 'kalit teshigigacha' qurishni amalga oshiramiz — milliy telekom va energetika loyihalarining keng portfelida ishtirok etib.",
+      'about.prose3':"Hozirgi vaqtda kompaniya quyosh energetikasi yo'nalishini faol rivojlantirmoqda, quyosh elektr stansiyalarini <strong>(EPC: loyihalash, ta'minot, qurilish)</strong> 'kalit teshigigacha' qurish xizmatlarini ko'rsatmoqda. Mutaxassislarimiz Markaziy Osiyo iqlim sharoitida quyosh generatsiyasi loyihalarini amalga oshirish tajribasiga ega. Asosiy maqsadimiz — ishonchli, samarali va iqtisodiy jihatdan foydali quyosh generatsiya tizimlarini yaratish.",
+      'about.projEyebrow':'TANLANGAN LOYIHALAR','about.projH2':'Yigirma yillik ish tajribasi','about.projP':"Butun O'zbekiston bo'ylab telekommunikatsiya, energetika va qayta tiklanuvchi energiya sohasida amalga oshirilgan loyihalar.",
+      'about.pi1':"<b>Huawei uchun pudrat ishlari</b>GSM (BTS, BSC, MSC), CDMA (BTS, BSC, MSC), WCDMA, WiMAX, SDH, DWDM, Datacom, C&C08 va NGN uskunalari.",
+      'about.pi2':"<b>Sozlash va nazorat</b>Unitel, Uzdunrobita, Coscom, PerfectumMobile va Uzmobile mobil operatorlari uchun ishlar (GSM va CDMA standartlari).",
+      'about.pi3':"<b>Uzbektelekom tarmog'ini rivojlantirish</b>Toshkent va boshqa hududlarda «Uzbektelekom» AJ tarmoqlarini modernizatsiya qilish — Alcatel, Siemens, Huawei elektron ATSlari va masofaviy kontsentratorlar.",
+      'about.pi4':"<b>SDH va OSN sozlash</b>SDH (STM-1, STM-4, STM-16) va OSN uskunalarini sozlash ishlari.",
+      'about.pi5':"<b>Dizel generatorlarini o'rnatish</b>Mobil aloqa operatorlari uchun dizel generatorlarini o'rnatish.",
+      'about.pi6':"<b>Quyosh elektr stansiyalari (FES)</b>O'zbekiston bo'ylab mobil operatorlar, tashkilotlar va xususiy sektor uchun FESlarni loyihalash va qurish.",
+      'about.pi7':"<b>Antenna-minora inshootlari</b>O'zbekiston bo'ylab mobil kompaniyalar uchun antenna-minora inshootlarini qurish.",
+      'about.pi8':"<b>Xavfsizlik va yong'in signalizatsiyasi tizimlari</b>Xavfsizlik va yong'in signalizatsiyasi tizimlarini loyihalash va montaj qilish.",
+      'about.advEyebrow':'BIZNING AFZALLIKLARIMIZ','about.advH2':'Nega mijozlar bizni tanlashadi',
+      'about.adv1':"To'liq EPC amalga oshirish tsikli",
+      'about.adv2':"O'zbekiston davlat talablarini chuqur bilish",
+      'about.adv3':'Sertifikatlangan uskunalardan foydalanish (Tier-1)',
+      'about.adv4':'Xalqaro investorlar va banklar bilan ishlash tajribasi',
+      'about.adv5':'Loyihalash va kelishish muddatlarini qisqartirish',
+      'about.adv6':"Obyekt sharoitlariga moslashtirilgan individual yondashuv",
+      'about.adv7':"Samaradorlik kafolati — haqiqiy generatsiyani tasdiqlash",
+      'about.advNote':"Ishonchli, samarali va iqtisodiy jihatdan foydali quyosh generatsiyasi.",
+      'about.fleetEyebrow':'TRANSPORT VA QURILISH','about.fleetH2':"O'z texnika parkimiz",
+      'about.fleetP':"Energetikadan tashqari, biz transport, qurilish va boshqa sohalarga xizmat ko'rsatamiz — sertifikatlangan og'ir texnika parki bilan qo'llab-quvvatlangan holda.",
+      'about.docTitle':"Yaponiyaga tashrifimiz<small>TAQDIMOT · PDF</small>",'about.docView':"Ko'rish",'about.docDownload':'Yuklab olish',
+      'about.mapPin':"<b>ALEX ENGINEERING</b>Toshkent viloyati · Ohangaron tumani · Ozodlik",
+      'about.licEyebrow':'SHAFFOFLIK','about.licH2':'Hujjatlar va litsenziyalar','about.licP':"So'rov bo'yicha tanishish uchun mavjud — biz bilan bog'laning va kerakli hujjatni taqdim etamiz.",
+      'about.lic1':'Hujjat 1','about.lic2':'Hujjat 2','about.lic3':'Hujjat 3','about.lic4':'Hujjat 4','about.licType':'Litsenziya / sertifikat',
+      'contacts.eyebrow':"BOG'LANING",'contacts.h2':"Loyihangizni<br>energiya bilan ta'minlaymiz",
+      'contacts.p':"Obyektingiz va talablaringiz haqida gapirib bering — muhandislarimiz baholab, bir ish kuni ichida javob berishadi.",
+      'contacts.cta':'Ariza qoldirish',
+      'cinfo1.k':'24/7 aloqa liniyasi','cinfo2.k':'Manzilimiz','cinfo2.v':"Toshkent viloyati, Ohangaron tumani,<br>Ozodlik MFY",
+      'cinfo3.k':'Kompaniya','cinfo3.v':"«ALEX ENGINEERING» MChJ<br>STIR 203541729",
+      'footer.cp':"© 2025 <b>«ALEX ENGINEERING» MChJ</b><br>STIR 203541729 · Barcha huquqlar himoyalangan"
+    },
+    zh:{
+      'topbar.loc':'乌兹别克斯坦塔什干州阿汉加兰区奥佐德利克',
+      'nav.home':'首页','nav.about':'关于我们','nav.services':'服务','nav.projects':'项目','nav.drone':'无人机组装','nav.contacts':'联系我们','nav.cta':'提交申请',
+      'drawer.cta':'提交申请 →',
+      'sm.homeAbout':'关于我们','sm.homeGallery':'图库','sm.aboutProjects':'精选项目','sm.aboutLicenses':'文件与许可证','sm.aboutFleet':'自有设备车队','sm.svcOffer':'我们提供什么','sm.svcFlow':'我们如何工作','sm.projPortfolio':'项目组合','sm.projContacts':'联系方式','sm.droneUse':'应用领域','sm.droneWhy':'为何选择我们','sm.contactDetails':'公司信息','sm.contactRequest':'申请表单',
+      'crumb.about':'关于公司',
+      'about.pageEyebrow':'公司简介 · 成立于2002年','about.pageH1':'关于<br>公司',
+      'about.who':'我们是谁','about.whoH2':'电信之根。<br>太阳能之未来。',
+      'about.stat1L':'成立<br>时间','about.stat2L':'行业经验<br>（年）','about.stat3L':'太阳能<br>全周期服务',
+      'about.prose1':'ALEX ENGINEERING公司自2002年起成功运营于电信市场，拥有一支在电信及新能源应用领域高素质的专业团队。在电信和能源领域深耕23年多的时间里，公司积累了与乌兹别克斯坦共和国各类机构合作的丰富经验。',
+      'about.prose2':'我们承担项目前期研究、设计、建设、安装和调试工作，以及为移动运营商提供交钥匙基站建设服务——参与广泛的国家电信及能源项目组合。',
+      'about.prose3':'目前，公司正积极拓展太阳能领域，提供交钥匙太阳能电站<strong>（EPC：工程设计、采购、建设）</strong>服务。我们的专家在中亚气候条件下拥有实施光伏项目的经验。我们的主要目标是打造可靠、高效且具有经济效益的太阳能发电系统。',
+      'about.projEyebrow':'精选项目','about.projH2':'二十年的交付历程','about.projP':'在乌兹别克斯坦全境实施的电信、电力和可再生能源项目。',
+      'about.pi1':'<b>华为承包工程</b>包括GSM（BTS、BSC、MSC）、CDMA（BTS、BSC、MSC）、WCDMA、WiMAX、SDH、DWDM、Datacom、C&C08及NGN设备。',
+      'about.pi2':'<b>调试与监督</b>为Unitel、Uzdunrobita、Coscom、PerfectumMobile及Uzmobile等移动运营商（GSM和CDMA制式）提供服务。',
+      'about.pi3':'<b>Uzbektelecom网络建设</b>对塔什干及其他地区的Uzbektelecom股份公司网络进行现代化改造——包括阿尔卡特、西门子、华为电子交换机及远程集中器。',
+      'about.pi4':'<b>SDH与OSN调试</b>SDH（STM-1、STM-4、STM-16）及OSN设备的调试工作。',
+      'about.pi5':'<b>柴油发电机安装</b>为移动通信运营商安装柴油发电机。',
+      'about.pi6':'<b>太阳能电站（光伏站）</b>为乌兹别克斯坦全境的移动运营商、机构及私营部门设计和建设光伏电站。',
+      'about.pi7':'<b>天线塔架结构</b>为乌兹别克斯坦全境的移动公司建设天线塔架结构。',
+      'about.pi8':'<b>安防与消防报警系统</b>安防与消防报警系统的设计与安装。',
+      'about.advEyebrow':'我们的优势','about.advH2':'客户选择我们的理由',
+      'about.adv1':'完整的EPC实施周期',
+      'about.adv2':'深入了解乌兹别克斯坦政府要求',
+      'about.adv3':'使用认证设备（一级供应商）',
+      'about.adv4':'与国际投资者和银行合作的经验',
+      'about.adv5':'最大限度缩短设计与审批时间',
+      'about.adv6':'根据现场条件量身定制的个性化方案',
+      'about.adv7':'效率保证——确认实际发电量',
+      'about.advNote':'可靠、高效且具有经济效益的太阳能发电。',
+      'about.fleetEyebrow':'运输与建筑','about.fleetH2':'我们自有的设备车队',
+      'about.fleetP':'除能源领域外，我们还为运输、建筑等行业提供服务——由认证的重型机械车队提供支持。',
+      'about.docTitle':'我们的日本之行<small>演示文稿 · PDF</small>','about.docView':'查看','about.docDownload':'下载',
+      'about.mapPin':'<b>ALEX ENGINEERING</b>塔什干州 · 阿汉加兰区 · 奥佐德利克',
+      'about.licEyebrow':'透明公开','about.licH2':'文件与许可证','about.licP':'可应要求查阅——请联系我们，我们将提供相关文件。',
+      'about.lic1':'文件 1','about.lic2':'文件 2','about.lic3':'文件 3','about.lic4':'文件 4','about.licType':'许可证 / 证书',
+      'contacts.eyebrow':'联系我们','contacts.h2':'为您的项目<br>提供能源支持',
+      'contacts.p':'告诉我们您的场地和需求——我们的工程师将进行评估，并在一个工作日内回复。',
+      'contacts.cta':'提交申请',
+      'cinfo1.k':'24/7 热线','cinfo2.k':'我们的地址','cinfo2.v':'塔什干州阿汉加兰区<br>奥佐德利克社区',
+      'cinfo3.k':'公司信息','cinfo3.v':'ALEX ENGINEERING有限责任公司<br>税号 203541729',
+      'footer.cp':'© 2025 <b>ALEX ENGINEERING有限责任公司</b><br>税号 203541729 · 保留所有权利'
+    }
+  };
+
+  const langNames={en:'EN',ru:'RU',uz:'UZ',zh:'中文'};
+  const langSwitch=document.getElementById('langSwitch');
+  const langBtn=document.getElementById('langBtn');
+  const langMenu=document.getElementById('langMenu');
+  const langCur=document.getElementById('langCur');
+
+  function applyLang(lang){
+    if(!i18n[lang]) lang='en';
+    const dict=i18n[lang];
+    document.documentElement.lang=lang;
+    document.querySelectorAll('[data-i18n]').forEach(el=>{
+      const key=el.getAttribute('data-i18n');
+      if(dict[key]!==undefined) el.innerHTML=dict[key];
+    });
+    langCur.textContent=langNames[lang];
+    langMenu.querySelectorAll('.lang-opt').forEach(o=>o.classList.toggle('active',o.getAttribute('data-lang')===lang));
+    try{localStorage.setItem('alex_lang',lang);}catch(err){}
+  }
+
+  langBtn.addEventListener('click',()=>{
+    const open=langSwitch.classList.toggle('open');
+    langBtn.setAttribute('aria-expanded',open);
+  });
+  document.addEventListener('click',e=>{
+    if(!langSwitch.contains(e.target)){langSwitch.classList.remove('open');langBtn.setAttribute('aria-expanded','false');}
+  });
+  langMenu.querySelectorAll('.lang-opt').forEach(opt=>{
+    opt.addEventListener('click',()=>{
+      applyLang(opt.getAttribute('data-lang'));
+      langSwitch.classList.remove('open');
+      langBtn.setAttribute('aria-expanded','false');
+    });
+  });
+
+  let initialLang='en';
+  try{
+    const saved=localStorage.getItem('alex_lang');
+    if(saved&&i18n[saved]) initialLang=saved;
+  }catch(err){}
+  applyLang(initialLang);
+
+  // ============ animated stat counters ============
+  (function(){
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const counters = document.querySelectorAll('.stat-count');
+    if (!counters.length) return;
+    function animateCounter(el){
+      const target = parseInt(el.getAttribute('data-target'), 10) || 0;
+      if (reduceMotion) { el.textContent = target; return; }
+      const duration = 1400;
+      const start = performance.now();
+      function tick(now){
+        const p = Math.min((now - start) / duration, 1);
+        const eased = 1 - Math.pow(1 - p, 3);
+        el.textContent = Math.round(target * eased);
+        if (p < 1) requestAnimationFrame(tick);
+        else el.textContent = target;
+      }
+      requestAnimationFrame(tick);
+    }
+    const counterIO = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          animateCounter(entry.target);
+          counterIO.unobserve(entry.target);
+        }
+      });
+    }, { threshold: .4 });
+    counters.forEach(el => counterIO.observe(el));
+  })();
+
+  // ============ theme toggle ============
+  (function(){
+    const themeBtn=document.getElementById('themeToggle');
+    if(!themeBtn) return;
+    themeBtn.addEventListener('click',()=>{
+      const current=document.documentElement.getAttribute('data-theme')==='light'?'light':'dark';
+      const next=current==='dark'?'light':'dark';
+      document.documentElement.setAttribute('data-theme',next);
+      try{localStorage.setItem('alex_theme',next);}catch(err){}
+    });
+  })();
+</script>
+</body>
+</html>

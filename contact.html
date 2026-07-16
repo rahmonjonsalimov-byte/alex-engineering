@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<script>
+(function(){
+  try{
+    var t=localStorage.getItem('alex_theme');
+    if(t!=='light'&&t!=='dark') t='dark';
+    document.documentElement.setAttribute('data-theme',t);
+  }catch(err){
+    document.documentElement.setAttribute('data-theme','dark');
+  }
+})();
+</script>
+<title>Contacts — ALEX ENGINEERING</title>
+<meta name="description" content="Contact ALEX ENGINEERING — Tashkent Region, Ahangaran District, Ozodlik. Phone, banking details and company registration information." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root,:root[data-theme="dark"]{
+    --void:#08090C;--space:#0E1015;--panel:#14171E;--panel-2:#1A1E27;
+    --line:rgba(255,255,255,.10);--line-2:rgba(255,255,255,.06);
+    --fog:#9DA3AD;--fog-2:#727884;--snow:#F4F5F6;
+    --red:#E1251B;--amber:#F28C00;
+    --bar-1:rgba(8,9,12,.6);--bar-2:rgba(8,9,12,.82);--glass:rgba(20,23,30,.78);
+  }
+  :root[data-theme="light"]{
+    --void:#F4F5F6;--space:#ECEEF0;--panel:#FFFFFF;--panel-2:#F0F1F3;
+    --line:rgba(10,11,14,.12);--line-2:rgba(10,11,14,.07);
+    --fog:#565B63;--fog-2:#656B72;--snow:#0E1116;
+    --red:#E1251B;--amber:#AD5400;
+    --bar-1:rgba(244,245,246,.72);--bar-2:rgba(244,245,246,.86);--glass:rgba(255,255,255,.85);
+  }
+  :root{
+    --ink-on-photo:#F4F5F6;--fog-on-photo:#9DA3AD;--line-on-photo:rgba(255,255,255,.06);
+    --maxw:1320px;--ease:cubic-bezier(.22,.61,.36,1);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{background:var(--void);color:var(--snow);font-family:'Inter',sans-serif;font-weight:300;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden;transition:background-color .4s var(--ease),color .4s var(--ease)}
+  ::selection{background:var(--red);color:#fff}
+  a{color:inherit;text-decoration:none}
+  img{display:block;max-width:100%}
+  h1,h2,h3,.display{font-family:'Oswald',sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:.01em;line-height:.98}
+  .wrap{width:100%;max-width:var(--maxw);margin:0 auto;padding:0 32px}
+  .eyebrow{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:var(--amber);display:inline-flex;align-items:center;gap:12px}
+  .eyebrow::before{content:"";width:26px;height:1px;background:var(--amber);display:inline-block}
+
+  /* TOP BAR */
+  .topbar{position:relative;z-index:60;border-bottom:1px solid var(--line-2);background:var(--bar-1);backdrop-filter:blur(8px);transition:background-color .4s var(--ease)}
+  .topbar .wrap{display:flex;align-items:center;justify-content:flex-end;gap:34px;height:44px}
+  .topbar .ti{display:flex;align-items:center;gap:9px;font-family:'JetBrains Mono',monospace;font-size:11.5px;letter-spacing:.05em;color:var(--fog)}
+  .topbar .ti b{color:var(--snow);font-weight:500}
+  .topbar .dot{width:6px;height:6px;border-radius:50%;background:var(--red);box-shadow:0 0 10px var(--red)}
+  .topbar .lang{color:var(--snow);cursor:pointer;position:relative;user-select:none}
+  .lang-btn{background:none;border:none;color:var(--snow);font-family:'JetBrains Mono',monospace;font-size:11.5px;letter-spacing:.05em;cursor:pointer;padding:0;display:flex;align-items:center;gap:6px}
+  .lang-btn .car{transition:transform .25s var(--ease)}
+  .lang.open .lang-btn .car{transform:rotate(180deg)}
+  .lang-menu{position:absolute;top:100%;right:0;margin-top:14px;background:var(--panel);border:1px solid var(--line);border-radius:3px;min-width:168px;overflow:hidden;opacity:0;visibility:hidden;transform:translateY(-6px);transition:opacity .2s var(--ease),transform .2s var(--ease),visibility .2s;z-index:70;box-shadow:0 12px 30px rgba(0,0,0,.4)}
+  .lang.open .lang-menu{opacity:1;visibility:visible;transform:none}
+  .lang-opt{padding:12px 16px;font-family:'JetBrains Mono',monospace;font-size:11.5px;letter-spacing:.04em;color:var(--fog);cursor:pointer;transition:background .2s,color .2s;display:flex;align-items:center;justify-content:space-between;gap:10px}
+  .lang-opt:hover{background:rgba(255,255,255,.05);color:var(--snow)}
+  .lang-opt.active{color:var(--red)}
+  .lang-opt .code{color:var(--fog-2);font-size:10px}
+  .lang-opt.active .code{color:var(--red)}
+  .theme-toggle{width:26px;height:26px;flex:none;display:flex;align-items:center;justify-content:center;background:none;border:1px solid var(--line);border-radius:50%;color:var(--snow);cursor:pointer;padding:0;transition:border-color .25s,color .25s}
+  .theme-toggle:hover{border-color:var(--amber);color:var(--amber)}
+  .theme-toggle svg{width:14px;height:14px;display:none}
+  .theme-toggle .ic-moon{display:block}
+  :root[data-theme="light"] .theme-toggle .ic-moon{display:none}
+  :root[data-theme="light"] .theme-toggle .ic-sun{display:block}
+  @media(max-width:900px){.topbar .loc{display:none}}
+  @media(max-width:560px){.topbar .wrap{justify-content:space-between;gap:14px}.topbar .phone span{display:none}}
+
+  /* NAV */
+  .nav{position:sticky;top:0;z-index:50;transition:background .4s var(--ease),border-color .4s var(--ease);border-bottom:1px solid transparent}
+  .nav.scrolled{background:var(--bar-2);backdrop-filter:blur(14px);border-bottom-color:var(--line-2)}
+  .nav .wrap{display:flex;align-items:center;justify-content:space-between;height:82px}
+  .logo{display:flex;align-items:center;gap:14px}
+  .logo svg{width:44px;height:44px;flex:none}
+  .logo .wm{line-height:1}
+  .logo .wm .a1{font-family:'Oswald',sans-serif;font-weight:700;font-size:22px;letter-spacing:.14em;color:var(--snow)}
+  .logo .wm .a2{font-family:'Oswald',sans-serif;font-weight:400;font-size:10px;letter-spacing:.42em;color:var(--fog);margin-top:2px}
+  .nav:not(.scrolled) .logo .wm .a1{color:var(--ink-on-photo)}
+  .nav:not(.scrolled) .logo .wm .a2{color:var(--fog-on-photo)}
+  .nav.scrolled .logo svg .cut{fill:var(--void)}
+  .menu{display:flex;align-items:center;gap:6px}
+  .menu a{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--fog-on-photo);padding:10px 15px;border-radius:2px;position:relative;transition:color .25s}
+  .menu a:hover,.menu a.active{color:var(--ink-on-photo)}
+  .nav.scrolled .menu a{color:var(--fog)}
+  .nav.scrolled .menu a:hover,.nav.scrolled .menu a.active{color:var(--snow)}
+  .menu a::after{content:"";position:absolute;left:15px;right:15px;bottom:4px;height:1px;background:var(--red);transform:scaleX(0);transform-origin:left;transition:transform .3s var(--ease)}
+  .menu a:hover::after,.menu a.active::after{transform:scaleX(1)}
+  .mi{position:relative}
+  .mi .submenu{position:absolute;top:100%;left:0;margin-top:14px;background:var(--panel);border:1px solid var(--line);border-radius:3px;min-width:220px;padding:8px;opacity:0;visibility:hidden;transform:translateY(-6px);transition:opacity .2s var(--ease),transform .2s var(--ease),visibility .2s;z-index:70;box-shadow:0 12px 30px rgba(0,0,0,.4)}
+  .mi:hover .submenu{opacity:1;visibility:visible;transform:none}
+  .submenu a{display:block;padding:11px 14px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.04em;text-transform:none;color:var(--fog);border-radius:2px;transition:background .2s,color .2s}
+  .submenu a::after{display:none}
+  .submenu a:hover{background:rgba(255,255,255,.05);color:var(--snow)}
+  .btn{display:inline-flex;align-items:center;gap:10px;cursor:pointer;border:none;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.16em;text-transform:uppercase;padding:13px 24px;background:var(--snow);color:var(--void);border-radius:2px;transition:transform .25s var(--ease),background .25s,color .25s}
+  .btn:hover{transform:translateY(-2px);background:var(--amber);color:var(--void)}
+  .btn.ghost{background:transparent;color:var(--snow);border:1px solid var(--line)}
+  .btn.ghost:hover{background:var(--snow);color:var(--void);border-color:var(--snow)}
+  .btn.red{background:var(--red);color:#fff}
+  .btn.red:hover{background:#ff3b31;color:#fff}
+  .btn svg{width:14px;height:14px}
+  .burger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:8px}
+  .burger span{width:24px;height:2px;background:var(--ink-on-photo);transition:.3s}
+  .nav.scrolled .burger span{background:var(--snow)}
+  @media(max-width:1080px){.menu,.nav .btn{display:none}.burger{display:flex}}
+  .drawer{position:fixed;inset:0;z-index:80;background:var(--void);display:flex;flex-direction:column;padding:32px;transform:translateX(100%);transition:transform .45s var(--ease);gap:6px}
+  .drawer.open{transform:translateX(0)}
+  .drawer .top{display:flex;justify-content:space-between;align-items:center;margin-bottom:28px}
+  .drawer a{font-family:'Oswald',sans-serif;text-transform:uppercase;font-size:30px;font-weight:500;color:var(--fog);padding:12px 0;border-bottom:1px solid var(--line-2)}
+  .drawer a:hover{color:var(--snow)}
+  .xclose{background:none;border:none;color:var(--snow);font-size:34px;cursor:pointer;line-height:1}
+
+  /* PAGE HERO */
+  .phero{position:relative;min-height:48vh;display:flex;align-items:flex-end;overflow:hidden;margin-top:-82px;padding-top:82px}
+  .phero .bg{position:absolute;inset:0;z-index:-2}
+  .phero .bg img{width:100%;height:100%;object-fit:cover;filter:grayscale(.25)}
+  .phero .grad{position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(8,9,12,.7) 0%,rgba(8,9,12,.4) 40%,rgba(8,9,12,.97) 100%),linear-gradient(90deg,rgba(8,9,12,.85) 0%,rgba(8,9,12,.2) 70%)}
+  .phero .hud{position:absolute;inset:0;z-index:-1;pointer-events:none;background-image:linear-gradient(var(--line-on-photo) 1px,transparent 1px),linear-gradient(90deg,var(--line-on-photo) 1px,transparent 1px);background-size:64px 64px;mask-image:radial-gradient(circle at 25% 70%,#000 0%,transparent 70%);opacity:.5}
+  .phero-in{padding:60px 0 60px;position:relative;z-index:2}
+  .crumb{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.08em;color:var(--fog-on-photo);margin-bottom:26px}
+  .crumb a{color:var(--amber)}
+  .crumb a:hover{text-decoration:underline}
+  .phero h1{font-size:clamp(44px,7vw,96px);font-weight:600;color:var(--ink-on-photo)}
+
+  section{position:relative}
+  .sec{padding:100px 0}
+
+  /* CONTACT LAYOUT */
+  .cgrid{display:grid;grid-template-columns:.95fr 1.05fr;gap:56px;align-items:start}
+  .cleft .eyebrow{margin-bottom:22px}
+  .cleft h2{font-size:clamp(26px,3.2vw,40px);margin-bottom:8px}
+  .phone-row{margin:24px 0 30px;border:1px solid var(--line);border-radius:3px;padding:22px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px;background:linear-gradient(145deg,var(--panel),var(--space))}
+  .phone-row .k{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--fog-2);display:flex;align-items:center;gap:9px}
+  .phone-row .k .dot{width:6px;height:6px;border-radius:50%;background:var(--red);box-shadow:0 0 10px var(--red)}
+  .phone-row .v{font-family:'Oswald',sans-serif;font-size:26px;font-weight:600;color:var(--snow)}
+  .phone-row a.v:hover{color:var(--amber)}
+
+  /* spec sheet */
+  .spec{border:1px solid var(--line-2);border-radius:3px;overflow:hidden}
+  .spec .row{display:grid;grid-template-columns:190px 1fr;gap:20px;padding:16px 22px;border-top:1px solid var(--line-2);align-items:baseline}
+  .spec .row:first-child{border-top:none}
+  .spec .row:hover{background:rgba(255,255,255,.02)}
+  .spec .k{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--fog-2);line-height:1.5}
+  .spec .v{font-family:'JetBrains Mono',monospace;font-size:13.5px;color:var(--snow);letter-spacing:.01em;line-height:1.55}
+  @media(max-width:520px){.spec .row{grid-template-columns:1fr;gap:5px}}
+
+  /* map */
+  .cmap{position:sticky;top:110px;border:1px solid var(--line);border-radius:3px;overflow:hidden}
+  .cmap .frame{height:520px;filter:grayscale(1) invert(.92) hue-rotate(180deg) contrast(.9) brightness(.9);transition:filter .4s var(--ease)}
+  :root[data-theme="light"] .cmap .frame{filter:none}
+  .cmap iframe{width:100%;height:100%;border:0}
+  .cmap .bar{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:16px 20px;border-top:1px solid var(--line);background:var(--void)}
+  .cmap .bar .t{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.06em;color:var(--fog)}
+  .cmap .bar .t b{color:var(--snow);display:block;font-size:12px;margin-bottom:3px}
+  @media(max-width:900px){.cgrid{grid-template-columns:1fr;gap:44px}.cmap{position:static}.cmap .frame{height:420px}}
+
+  /* request band */
+  .reqband{background:var(--space);border-top:1px solid var(--line-2)}
+  .req-grid{display:grid;grid-template-columns:1fr .9fr;gap:56px;align-items:center}
+  .req-copy h2{font-size:clamp(30px,4.4vw,60px);margin:16px 0 18px}
+  .req-copy p{color:var(--fog);max-width:440px}
+  .form{border:1px solid var(--line);border-radius:4px;padding:34px 30px;background:var(--void)}
+  .form h4{font-size:20px;font-weight:500;margin-bottom:6px}
+  .form .sub{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;color:var(--fog-2);text-transform:uppercase;margin-bottom:22px}
+  .field{margin-bottom:14px}
+  .field label{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--fog-2);display:block;margin-bottom:7px}
+  .field input{width:100%;background:var(--space);border:1px solid var(--line);border-radius:2px;padding:13px 15px;color:var(--snow);font-family:'Inter',sans-serif;font-size:15px;transition:border-color .25s}
+  .field input:focus{outline:none;border-color:var(--red)}
+  .form .btn{width:100%;justify-content:center;margin-top:6px}
+  @media(max-width:860px){.req-grid{grid-template-columns:1fr;gap:34px}}
+
+  footer{border-top:1px solid var(--line-2);background:var(--void)}
+  footer .wrap{display:flex;justify-content:space-between;align-items:center;padding:34px 32px;flex-wrap:wrap;gap:18px}
+  footer .cp{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--fog-2);letter-spacing:.05em;line-height:1.7}
+  footer .cp b{color:var(--fog)}
+  .backtop{width:44px;height:44px;border:1px solid var(--line);border-radius:2px;display:flex;align-items:center;justify-content:center;cursor:pointer;background:none;color:var(--snow);transition:background .3s,transform .3s}
+  .backtop:hover{background:var(--red);border-color:var(--red);transform:translateY(-3px)}
+
+  .reveal{opacity:0;transform:translateY(30px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+  .reveal.in{opacity:1;transform:none}
+  @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}html{scroll-behavior:auto}}
+  :focus-visible{outline:2px solid var(--amber);outline-offset:3px}
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <div class="wrap">
+    <div class="ti phone"><span class="dot"></span><span>24/7</span><b>+998 (97) 480-10-00</b></div>
+    <div class="ti loc"><span data-i18n="topbar.loc">OZODLIK, AHANGARAN DIST., TASHKENT REGION</span></div>
+    <div class="ti lang" id="langSwitch">
+      <button class="lang-btn" id="langBtn" aria-haspopup="listbox" aria-expanded="false"><span id="langCur">EN</span> <span class="car">▾</span></button>
+      <div class="lang-menu" id="langMenu" role="listbox">
+        <div class="lang-opt" data-lang="en" role="option"><span>English</span><span class="code">EN</span></div>
+        <div class="lang-opt" data-lang="ru" role="option"><span>Русский</span><span class="code">RU</span></div>
+        <div class="lang-opt" data-lang="uz" role="option"><span>O'zbek</span><span class="code">UZ</span></div>
+        <div class="lang-opt" data-lang="zh" role="option"><span>中文</span><span class="code">ZH</span></div>
+      </div>
+    </div>
+    <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle light / dark theme">
+      <svg class="ic-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2.4M12 19.1v2.4M4.2 4.2l1.7 1.7M18.1 18.1l1.7 1.7M2.5 12h2.4M19.1 12h2.4M4.2 19.8l1.7-1.7M18.1 5.9l1.7-1.7"/></svg>
+      <svg class="ic-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M20.2 14.7A8.4 8.4 0 1 1 9.3 3.8a6.9 6.9 0 0 0 10.9 10.9z"/></svg>
+    </button>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav class="nav" id="nav">
+  <div class="wrap">
+    <a href="alex.html" class="logo" aria-label="ALEX ENGINEERING home">
+      <svg viewBox="0 0 100 100" aria-hidden="true">
+        <defs><linearGradient id="ag" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FF3B31"/><stop offset="1" stop-color="#B21810"/></linearGradient></defs>
+        <path d="M50 6 L92 92 L66 92 L50 54 L34 92 L8 92 Z" fill="url(#ag)"/>
+        <path class="cut" d="M50 30 L64 62 L36 62 Z" fill="#08090C"/>
+        <path class="cut" d="M50 6 L58 22 L42 22 Z" fill="#08090C" opacity=".9"/>
+      </svg>
+      <span class="wm"><span class="a1">ALEX</span><br><span class="a2">ENGINEERING</span></span>
+    </a>
+    <div class="menu">
+      <div class="mi">
+        <a href="alex.html" data-i18n="nav.home">Home</a>
+        <div class="submenu">
+          <a href="alex.html#about" data-i18n="sm.homeAbout">About us</a>
+          <a href="alex.html#gallery" data-i18n="sm.homeGallery">Gallery</a>
+        </div>
+      </div>
+      <div class="mi">
+        <a href="about.html" data-i18n="nav.about">About</a>
+        <div class="submenu">
+          <a href="about.html#projects" data-i18n="sm.aboutProjects">Selected projects</a>
+          <a href="about.html#licenses" data-i18n="sm.aboutLicenses">Documents &amp; licenses</a>
+          <a href="about.html#fleet" data-i18n="sm.aboutFleet">Own equipment fleet</a>
+        </div>
+      </div>
+      <div class="mi">
+        <a href="services.html" data-i18n="nav.services">Services</a>
+        <div class="submenu">
+          <a href="services.html#offer" data-i18n="sm.svcOffer">What we offer</a>
+          <a href="services.html#flow" data-i18n="sm.svcFlow">How we work</a>
+        </div>
+      </div>
+      <div class="mi">
+        <a href="projects.html" data-i18n="nav.projects">Projects</a>
+        <div class="submenu">
+          <a href="projects.html#portfolio" data-i18n="sm.projPortfolio">Portfolio</a>
+          <a href="projects.html#contacts" data-i18n="sm.projContacts">Contacts</a>
+        </div>
+      </div>
+      <div class="mi">
+        <a href="drone.html" data-i18n="nav.drone">Drone Assembly</a>
+        <div class="submenu">
+          <a href="drone.html#use" data-i18n="sm.droneUse">Applications</a>
+          <a href="drone.html#why" data-i18n="sm.droneWhy">Why choose us</a>
+        </div>
+      </div>
+      <div class="mi">
+        <a href="contact.html" class="active" data-i18n="nav.contacts">Contacts</a>
+        <div class="submenu">
+          <a href="contact.html#details" data-i18n="sm.contactDetails">Company details</a>
+          <a href="contact.html#request" data-i18n="sm.contactRequest">Request form</a>
+        </div>
+      </div>
+    </div>
+    <a href="#request" class="btn red" data-i18n="nav.cta">Leave a request</a>
+    <button class="burger" id="burger" aria-label="Open menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<!-- DRAWER -->
+<div class="drawer" id="drawer">
+  <div class="top"><span class="logo"><span class="wm"><span class="a1">ALEX</span></span></span><button class="xclose" id="xclose" aria-label="Close menu">&times;</button></div>
+  <a href="alex.html" data-i18n="nav.home">Home</a>
+  <a href="about.html" data-i18n="nav.about">About</a>
+  <a href="services.html" data-i18n="nav.services">Services</a>
+  <a href="projects.html" data-i18n="nav.projects">Projects</a>
+  <a href="drone.html" data-i18n="nav.drone">Drone Assembly</a>
+  <a href="contact.html" data-i18n="nav.contacts">Contacts</a>
+  <a href="#request" style="color:var(--red)" data-i18n="drawer.cta">Leave a request →</a>
+</div>
+
+<!-- PAGE HERO -->
+<header class="phero" id="top">
+  <div class="bg"><img src="https://images.unsplash.com/photo-1509391366360-2e959784a276?auto=format&fit=crop&w=2400&q=80" alt="Solar field"></div>
+  <div class="grad"></div>
+  <div class="hud"></div>
+  <div class="wrap">
+    <div class="phero-in">
+      <div class="crumb"><a href="alex.html" data-i18n="nav.home">Home</a> / <span data-i18n="nav.contacts">Contacts</span></div>
+      <span class="eyebrow" data-i18n="contact.pageEyebrow">GET IN TOUCH · 24/7</span>
+      <h1 style="margin-top:18px" data-i18n="nav.contacts">Contacts</h1>
+    </div>
+  </div>
+</header>
+
+<!-- CONTACT DETAILS + MAP -->
+<section class="sec" id="details">
+  <div class="wrap">
+    <div class="cgrid">
+      <div class="cleft reveal">
+        <span class="eyebrow" data-i18n="contact.detailsEyebrow">COMPANY DETAILS</span>
+        <h2>OOO «ALEX ENGINEERING»</h2>
+
+        <div class="phone-row">
+          <div class="k"><span class="dot"></span><span data-i18n="cinfo1.k">24 / 7 line</span></div>
+          <a class="v" href="tel:+998974801000">+998 (97) 480-10-00</a>
+        </div>
+
+        <div class="spec">
+          <div class="row"><div class="k" data-i18n="contact.rowAddress">Address</div><div class="v" data-i18n="cinfo2.v">Tashkent Region, Ahangaran District,<br>Ozodlik neighborhood</div></div>
+          <div class="row"><div class="k" data-i18n="contact.rowPhone">Phone number</div><div class="v">+998 (97) 480-10-00</div></div>
+          <div class="row"><div class="k" data-i18n="contact.rowAccount">Settlement account</div><div class="v">2020 8000 9041 0785 5001</div></div>
+          <div class="row"><div class="k" data-i18n="contact.rowBank">Bank</div><div class="v" data-i18n="contact.bankVal">Tashkent City, "Orient Finans"<br>Joint-Stock Commercial Bank</div></div>
+          <div class="row"><div class="k" data-i18n="contact.rowMfo">MFO (bank code)</div><div class="v">01071</div></div>
+          <div class="row"><div class="k" data-i18n="contact.rowTin">TIN (tax ID)</div><div class="v">203541729</div></div>
+          <div class="row"><div class="k" data-i18n="contact.rowOked">OKED (activity code)</div><div class="v">43320</div></div>
+          <div class="row"><div class="k" data-i18n="contact.rowVat">VAT code</div><div class="v">327 080 094 475</div></div>
+        </div>
+      </div>
+
+      <div class="cmap reveal">
+        <div class="frame">
+          <iframe title="ALEX ENGINEERING location — Ozodlik, Ahangaran" loading="lazy"
+            src="https://www.openstreetmap.org/export/embed.html?bbox=69.10%2C41.24%2C69.40%2C41.36&layer=mapnik&marker=41.31%2C69.25"></iframe>
+        </div>
+        <div class="bar">
+          <div class="t" data-i18n="contact.mapBar"><b>Ozodlik neighborhood</b>Ahangaran District · Tashkent Region</div>
+          <a class="btn ghost" href="https://www.openstreetmap.org/?mlat=41.31&mlon=69.25#map=14/41.31/69.25" target="_blank" rel="noopener" data-i18n="contact.openMap">Open map</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REQUEST BAND -->
+<section class="reqband sec" id="request">
+  <div class="wrap">
+    <div class="req-grid">
+      <div class="req-copy reveal">
+        <span class="eyebrow" data-i18n="contact.reqEyebrow">START A PROJECT</span>
+        <h2 data-i18n="contact.reqH2">Tell us what<br>you need</h2>
+        <p data-i18n="contact.reqP">Share your site and requirements and our engineers will scope it and get back to you within one business day.</p>
+      </div>
+      <form class="form reveal" id="reqForm">
+        <h4 data-i18n="form.h4">Leave a request</h4>
+        <div class="sub" data-i18n="form.sub">We reply within one business day</div>
+        <div class="field"><label for="nm" data-i18n="form.nameLabel">Name</label><input id="nm" type="text" placeholder="Your name" data-i18n-placeholder="form.namePh"></div>
+        <div class="field"><label for="ph" data-i18n="form.phoneLabel">Phone number *</label><input id="ph" type="tel" placeholder="+998 __ ___ __ __" required data-i18n-placeholder="form.phonePh"></div>
+        <button type="submit" class="btn red" data-i18n="form.submit">Leave a request</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="cp" data-i18n="footer.cp">Copyright © 2025 <b>OOO «ALEX ENGINEERING»</b><br>TIN 203541729 · All rights reserved</div>
+    <button class="backtop" id="backtop" aria-label="Back to top"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 19V5M6 11l6-6 6 6"/></svg></button>
+  </div>
+</footer>
+
+<script>
+  const nav=document.getElementById('nav');
+  const onScroll=()=>nav.classList.toggle('scrolled',window.scrollY>40);
+  onScroll();window.addEventListener('scroll',onScroll,{passive:true});
+  const drawer=document.getElementById('drawer');
+  document.getElementById('burger').onclick=()=>drawer.classList.add('open');
+  document.getElementById('xclose').onclick=()=>drawer.classList.remove('open');
+  drawer.querySelectorAll('a').forEach(a=>a.onclick=()=>drawer.classList.remove('open'));
+  document.getElementById('backtop').onclick=()=>window.scrollTo({top:0,behavior:'smooth'});
+  const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:.12,rootMargin:'0px 0px -8% 0px'});
+  document.querySelectorAll('.reveal').forEach((el,i)=>{el.style.transitionDelay=(i%3)*70+'ms';io.observe(el);});
+  document.getElementById('reqForm').addEventListener('submit',e=>{
+    e.preventDefault();const b=e.target.querySelector('button');
+    const lang=document.documentElement.lang||'en';
+    const t=i18n[lang]||i18n.en;
+    b.textContent=t['form.sent']||'Request sent ✓';b.style.background='#1f7a2e';
+    setTimeout(()=>{b.textContent=t['form.submit']||'Leave a request';b.style.background='';e.target.reset();},2600);
+  });
+
+  // ============ i18n / language switcher ============
+  const i18n={
+    en:{
+      'topbar.loc':'OZODLIK, AHANGARAN DIST., TASHKENT REGION',
+      'nav.home':'Home','nav.about':'About','nav.services':'Services','nav.projects':'Projects','nav.drone':'Drone Assembly','nav.contacts':'Contacts','nav.cta':'Leave a request',
+      'drawer.cta':'Leave a request →',
+      'sm.homeAbout':'About us','sm.homeGallery':'Gallery','sm.aboutProjects':'Selected projects','sm.aboutLicenses':'Documents &amp; licenses','sm.aboutFleet':'Own equipment fleet','sm.svcOffer':'What we offer','sm.svcFlow':'How we work','sm.projPortfolio':'Portfolio','sm.projContacts':'Contacts','sm.droneUse':'Applications','sm.droneWhy':'Why choose us','sm.contactDetails':'Company details','sm.contactRequest':'Request form',
+      'contact.pageEyebrow':'GET IN TOUCH · 24/7',
+      'contact.detailsEyebrow':'COMPANY DETAILS',
+      'cinfo1.k':'24 / 7 line','cinfo2.v':'Tashkent Region, Ahangaran District,<br>Ozodlik neighborhood',
+      'contact.rowAddress':'Address','contact.rowPhone':'Phone number','contact.rowAccount':'Settlement account',
+      'contact.rowBank':'Bank','contact.bankVal':'Tashkent City, "Orient Finans"<br>Joint-Stock Commercial Bank',
+      'contact.rowMfo':'MFO (bank code)','contact.rowTin':'TIN (tax ID)','contact.rowOked':'OKED (activity code)','contact.rowVat':'VAT code',
+      'contact.mapBar':'<b>Ozodlik neighborhood</b>Ahangaran District · Tashkent Region','contact.openMap':'Open map',
+      'contact.reqEyebrow':'START A PROJECT','contact.reqH2':'Tell us what<br>you need',
+      'contact.reqP':'Share your site and requirements and our engineers will scope it and get back to you within one business day.',
+      'form.h4':'Leave a request','form.sub':'We reply within one business day',
+      'form.nameLabel':'Name','form.namePh':'Your name',
+      'form.phoneLabel':'Phone number *','form.phonePh':'+998 __ ___ __ __',
+      'form.submit':'Leave a request','form.sent':'Request sent ✓',
+      'footer.cp':'Copyright © 2025 <b>OOO «ALEX ENGINEERING»</b><br>TIN 203541729 · All rights reserved'
+    },
+    ru:{
+      'topbar.loc':'ОЗОДЛИК, АХАНГАРАНСКИЙ РАЙОН, ТАШКЕНТСКАЯ ОБЛАСТЬ',
+      'nav.home':'Главная','nav.about':'О компании','nav.services':'Услуги','nav.projects':'Проекты','nav.drone':'Сборка дронов','nav.contacts':'Контакты','nav.cta':'Оставить заявку',
+      'drawer.cta':'Оставить заявку →',
+      'sm.homeAbout':'О компании','sm.homeGallery':'Галерея','sm.aboutProjects':'Избранные проекты','sm.aboutLicenses':'Документы и лицензии','sm.aboutFleet':'Собственный парк техники','sm.svcOffer':'Что мы предлагаем','sm.svcFlow':'Как мы работаем','sm.projPortfolio':'Портфолио','sm.projContacts':'Контакты','sm.droneUse':'Применение','sm.droneWhy':'Почему мы','sm.contactDetails':'Реквизиты','sm.contactRequest':'Форма заявки',
+      'contact.pageEyebrow':'СВЯЖИТЕСЬ С НАМИ · 24/7',
+      'contact.detailsEyebrow':'РЕКВИЗИТЫ КОМПАНИИ',
+      'cinfo1.k':'Линия 24/7','cinfo2.v':'Ташкентская область, Ахангаранский район,<br>массив Озодлик',
+      'contact.rowAddress':'Адрес','contact.rowPhone':'Номер телефона','contact.rowAccount':'Расчётный счёт',
+      'contact.rowBank':'Банк','contact.bankVal':'г. Ташкент, АКБ «Ориент Финанс»',
+      'contact.rowMfo':'МФО (код банка)','contact.rowTin':'ИНН','contact.rowOked':'ОКЭД (код деятельности)','contact.rowVat':'Код НДС',
+      'contact.mapBar':'<b>Массив Озодлик</b>Ахангаранский район · Ташкентская область','contact.openMap':'Открыть карту',
+      'contact.reqEyebrow':'НАЧАТЬ ПРОЕКТ','contact.reqH2':'Расскажите,<br>что вам нужно',
+      'contact.reqP':'Поделитесь информацией об объекте и требованиях — наши инженеры оценят проект и ответят в течение одного рабочего дня.',
+      'form.h4':'Оставить заявку','form.sub':'Ответим в течение одного рабочего дня',
+      'form.nameLabel':'Имя','form.namePh':'Ваше имя',
+      'form.phoneLabel':'Номер телефона *','form.phonePh':'+998 __ ___ __ __',
+      'form.submit':'Оставить заявку','form.sent':'Заявка отправлена ✓',
+      'footer.cp':'© 2025 <b>ООО «ALEX ENGINEERING»</b><br>ИНН 203541729 · Все права защищены'
+    },
+    uz:{
+      'topbar.loc':"OZODLIK MFY, OHANGARON TUMANI, TOSHKENT VILOYATI",
+      'nav.home':'Bosh sahifa','nav.about':'Kompaniya haqida','nav.services':'Xizmatlar','nav.projects':'Loyihalar','nav.drone':"Dron yig'ish",'nav.contacts':'Aloqa','nav.cta':'Ariza qoldirish',
+      'drawer.cta':'Ariza qoldirish →',
+      'sm.homeAbout':'Kompaniya haqida','sm.homeGallery':'Galereya','sm.aboutProjects':'Tanlangan loyihalar','sm.aboutLicenses':'Hujjatlar va litsenziyalar','sm.aboutFleet':"O'z texnika parki",'sm.svcOffer':'Nima taklif qilamiz','sm.svcFlow':'Qanday ishlaymiz','sm.projPortfolio':'Portfolio','sm.projContacts':'Aloqa','sm.droneUse':"Qo'llanilishi",'sm.droneWhy':'Nega bizni tanlashadi','sm.contactDetails':'Rekvizitlar','sm.contactRequest':'Ariza shakli',
+      'contact.pageEyebrow':"BOG'LANING · 24/7",
+      'contact.detailsEyebrow':'KOMPANIYA REKVIZITLARI',
+      'cinfo1.k':'24/7 aloqa liniyasi','cinfo2.v':"Toshkent viloyati, Ohangaron tumani,<br>Ozodlik MFY",
+      'contact.rowAddress':'Manzil','contact.rowPhone':'Telefon raqami','contact.rowAccount':"Hisob-kitob raqami",
+      'contact.rowBank':'Bank','contact.bankVal':'Toshkent sh., "Orient Finans" AATB',
+      'contact.rowMfo':'MFO (bank kodi)','contact.rowTin':'STIR','contact.rowOked':"OKED (faoliyat kodi)",'contact.rowVat':'QQS kodi',
+      'contact.mapBar':"<b>Ozodlik MFY</b>Ohangaron tumani · Toshkent viloyati",'contact.openMap':"Xaritani ochish",
+      'contact.reqEyebrow':'LOYIHANI BOSHLASH','contact.reqH2':"Nima kerakligini<br>ayting",
+      'contact.reqP':"Obyektingiz va talablaringiz haqida ma'lumot bering — muhandislarimiz baholab, bir ish kuni ichida javob berishadi.",
+      'form.h4':'Ariza qoldirish','form.sub':'Bir ish kuni ichida javob beramiz',
+      'form.nameLabel':'Ism','form.namePh':'Ismingiz',
+      'form.phoneLabel':'Telefon raqami *','form.phonePh':'+998 __ ___ __ __',
+      'form.submit':'Ariza qoldirish','form.sent':'Ariza yuborildi ✓',
+      'footer.cp':"© 2025 <b>«ALEX ENGINEERING» MChJ</b><br>STIR 203541729 · Barcha huquqlar himoyalangan"
+    },
+    zh:{
+      'topbar.loc':'乌兹别克斯坦塔什干州阿汉加兰区奥佐德利克',
+      'nav.home':'首页','nav.about':'关于我们','nav.services':'服务','nav.projects':'项目','nav.drone':'无人机组装','nav.contacts':'联系我们','nav.cta':'提交申请',
+      'drawer.cta':'提交申请 →',
+      'sm.homeAbout':'关于我们','sm.homeGallery':'图库','sm.aboutProjects':'精选项目','sm.aboutLicenses':'文件与许可证','sm.aboutFleet':'自有设备车队','sm.svcOffer':'我们提供什么','sm.svcFlow':'我们如何工作','sm.projPortfolio':'项目组合','sm.projContacts':'联系方式','sm.droneUse':'应用领域','sm.droneWhy':'为何选择我们','sm.contactDetails':'公司信息','sm.contactRequest':'申请表单',
+      'contact.pageEyebrow':'联系我们 · 24/7',
+      'contact.detailsEyebrow':'公司信息',
+      'cinfo1.k':'24/7 热线','cinfo2.v':'塔什干州阿汉加兰区<br>奥佐德利克社区',
+      'contact.rowAddress':'地址','contact.rowPhone':'电话号码','contact.rowAccount':'结算账户',
+      'contact.rowBank':'银行','contact.bankVal':'塔什干市 "Orient Finans" 股份商业银行',
+      'contact.rowMfo':'银行代码（MFO）','contact.rowTin':'税号（TIN）','contact.rowOked':'经营活动代码（OKED）','contact.rowVat':'增值税代码',
+      'contact.mapBar':'<b>奥佐德利克社区</b>阿汉加兰区 · 塔什干州','contact.openMap':'打开地图',
+      'contact.reqEyebrow':'开启项目','contact.reqH2':'告诉我们<br>您的需求',
+      'contact.reqP':'分享您的场地和需求，我们的工程师将进行评估，并在一个工作日内回复。',
+      'form.h4':'提交申请','form.sub':'我们将在一个工作日内回复',
+      'form.nameLabel':'姓名','form.namePh':'您的姓名',
+      'form.phoneLabel':'电话号码 *','form.phonePh':'+998 __ ___ __ __',
+      'form.submit':'提交申请','form.sent':'申请已发送 ✓',
+      'footer.cp':'© 2025 <b>ALEX ENGINEERING有限责任公司</b><br>税号 203541729 · 保留所有权利'
+    }
+  };
+
+  const langNames={en:'EN',ru:'RU',uz:'UZ',zh:'中文'};
+  const langSwitch=document.getElementById('langSwitch');
+  const langBtn=document.getElementById('langBtn');
+  const langMenu=document.getElementById('langMenu');
+  const langCur=document.getElementById('langCur');
+
+  function applyLang(lang){
+    if(!i18n[lang]) lang='en';
+    const dict=i18n[lang];
+    document.documentElement.lang=lang;
+    document.querySelectorAll('[data-i18n]').forEach(el=>{
+      const key=el.getAttribute('data-i18n');
+      if(dict[key]!==undefined) el.innerHTML=dict[key];
+    });
+    document.querySelectorAll('[data-i18n-placeholder]').forEach(el=>{
+      const key=el.getAttribute('data-i18n-placeholder');
+      if(dict[key]!==undefined) el.setAttribute('placeholder',dict[key]);
+    });
+    langCur.textContent=langNames[lang];
+    langMenu.querySelectorAll('.lang-opt').forEach(o=>o.classList.toggle('active',o.getAttribute('data-lang')===lang));
+    try{localStorage.setItem('alex_lang',lang);}catch(err){}
+  }
+
+  langBtn.addEventListener('click',()=>{
+    const open=langSwitch.classList.toggle('open');
+    langBtn.setAttribute('aria-expanded',open);
+  });
+  document.addEventListener('click',e=>{
+    if(!langSwitch.contains(e.target)){langSwitch.classList.remove('open');langBtn.setAttribute('aria-expanded','false');}
+  });
+  langMenu.querySelectorAll('.lang-opt').forEach(opt=>{
+    opt.addEventListener('click',()=>{
+      applyLang(opt.getAttribute('data-lang'));
+      langSwitch.classList.remove('open');
+      langBtn.setAttribute('aria-expanded','false');
+    });
+  });
+
+  let initialLang='en';
+  try{
+    const saved=localStorage.getItem('alex_lang');
+    if(saved&&i18n[saved]) initialLang=saved;
+  }catch(err){}
+  applyLang(initialLang);
+
+  // ============ theme toggle ============
+  (function(){
+    const themeBtn=document.getElementById('themeToggle');
+    if(!themeBtn) return;
+    themeBtn.addEventListener('click',()=>{
+      const current=document.documentElement.getAttribute('data-theme')==='light'?'light':'dark';
+      const next=current==='dark'?'light':'dark';
+      document.documentElement.setAttribute('data-theme',next);
+      try{localStorage.setItem('alex_theme',next);}catch(err){}
+    });
+  })();
+</script>
+</body>
+</html>
